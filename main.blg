@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+A level-1 auxiliary file: introduction.aux
+A level-1 auxiliary file: methodology.aux
+A level-1 auxiliary file: conclusion.aux
+A level-1 auxiliary file: appendices.aux
+The style file: unsrt.bst
+Database file #1: references.bib
+Warning--empty author in entsoe2014
+Warning--empty year in slackBus
+Warning--empty journal in goalsCH1
+Warning--empty title in goalsNO
+You've used 33 entries,
+            1791 wiz_defined-function locations,
+            635 strings with 8772 characters,
+and the built_in function-call counts, 6311 in all, are:
+= -- 536
+> -- 316
+< -- 2
++ -- 121
+- -- 88
+* -- 389
+:= -- 1098
+add.period$ -- 98
+call.type$ -- 33
+change.case$ -- 36
+chr.to.int$ -- 0
+cite$ -- 37
+duplicate$ -- 280
+empty$ -- 596
+format.name$ -- 88
+if$ -- 1382
+int.to.chr$ -- 0
+int.to.str$ -- 33
+missing$ -- 23
+newline$ -- 166
+num.names$ -- 32
+pop$ -- 86
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 102
+stack$ -- 0
+substring$ -- 289
+swap$ -- 39
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 4
+while$ -- 47
+width$ -- 35
+write$ -- 352
+(There were 4 warnings)
