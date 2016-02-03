@@ -1,3 +1,3 @@
 This is the initial README for my bachelor project.
 
-It should not contain much at all, however, I always wanted one.
+Notes for the bachelor project can be found as comments within the individual .tex files.
