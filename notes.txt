@@ -1,0 +1,19 @@
+Things to remember, stuff to do:
+
+New christmas tree for the rocket engine:
+
+To buy:
+2 x analog manometer, 0-35 bar
+1 x digital manometer, 0-35 bar (1 kHz read)
+1 x funnel in stainless steel or PE
+2 x manual ball valve
+
+
+To do:
+- Acquire EES
+- change vars to emulate sub-sonic to supersonic region
+- look through data provided by Gorm
+- read paper 1
+- read paper 2
+- finish reading chapter 16 on hybrid rockets 
+- write introduction:
