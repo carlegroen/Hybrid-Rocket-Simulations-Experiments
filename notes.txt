@@ -7,13 +7,14 @@ To buy:
 1 x digital manometer, 0-35 bar (1 kHz read)
 1 x funnel in stainless steel or PE
 2 x manual ball valve
-
+2 x GoPro
+1 x 4 channel Feedthrough
 
 To do:
-- Acquire EES
+x Acquire EES
 - change vars to emulate sub-sonic to supersonic region
 - look through data provided by Gorm
 - read paper 1
 - read paper 2
-- finish reading chapter 16 on hybrid rockets 
-- write introduction:
+x finish reading chapter 16 on hybrid rockets
+x write introduction:
