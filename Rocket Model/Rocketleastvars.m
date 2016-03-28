@@ -126,8 +126,8 @@ H_ref_3 = n_dot_H2O_3 * M_H2O * H_water + n_dot_O2_3 * M_O2 * H_oxygen + n_dot_C
 H_s2    = H_ref_2 + DELTAh_decomposition*n_dot_H2O2_1*M_H2O2 %[kJ]
 H_s3    = H_ref_3 + DELTAh_decomposition*n_dot_H2O2_1*M_H2O2 + DELTAh_combustion*m_dot_PLA_3 %[kJ]
 
-Q_n_dot_3 = H_s3
-T_3     = 2/3 * (Q_n_dot_3)/(kB*NA)
+Q_n_dot_3 = H_s3 
+T_3     = 2/3 * (Q_n_dot_3)/(kB*n_dot_3*NA)
 
 P_exit = 92
 T_3    = 1920
