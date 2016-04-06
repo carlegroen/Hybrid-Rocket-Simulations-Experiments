@@ -13,8 +13,8 @@ To buy:
 To do:
 x Acquire EES
 - change vars to emulate sub-sonic to supersonic region
-- look through data provided by Gorm
-- read paper 1
-- read paper 2
+x look through data provided by Gorm
+x read paper 1
+x read paper 2
 x finish reading chapter 16 on hybrid rockets
 x write introduction:
