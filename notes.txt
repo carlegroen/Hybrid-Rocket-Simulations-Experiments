@@ -18,3 +18,4 @@ x read paper 1
 x read paper 2
 x finish reading chapter 16 on hybrid rockets
 x write introduction:
+x
