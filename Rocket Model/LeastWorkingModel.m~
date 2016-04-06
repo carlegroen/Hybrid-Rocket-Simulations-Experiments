@@ -176,12 +176,11 @@ T_2 = T_amb + 2/3 * ((H_dot_real(1)+H_dot_real(2))+1100*V_chamber)/(kB*(n_dot_to
 
 for t=2*dt:dt:time_state1/dt
          m_dot_out = 1;
-         n_out     = (n_dot_1+n_dot_2+n_dot_3)*dt*0.75;
+         n_out     =  (n_dot_1+n_dot_2+n_dot_3)*dt*0.85;
          n_in      = (n_dot_1+n_dot_2+n_dot_3)*dt;
          n_delta   = n_in - n_out;
          k         = k + 1;
-         T(k)      = T(k-1) + 2/3 * 1/(kB*n_delta*NA) * 
-         %T(k)      = T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*n_delta*NA);
+         T(k)      = T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*n_delta*NA);
          dP        = n_delta * T(k-1) * R/V_chamber;
          P_tot(k)  = P_tot(k-1) + dP;
          %T(k)      = T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*(n_dot_1+n_dot_2+n_dot_3)*dt*NA);
@@ -200,7 +199,7 @@ tspan = (0:dt:time_state1/dt);
 %Lines at specified ranges
 kbarlinex = [0 5];
 kbarliney = [1000 1000];
-kelvbarliney = [101.3 1000];
+kelvbarliney = [0 100];
 kelvbarlinex = [273.15 2000];
 
 %Approximate velocity-cap
@@ -244,7 +243,7 @@ figure(1)
         hold on
         plot(T(1:10),P_tot(1:10))
         hold on
-        axis([T_amb 3500 P_amb 1500])
+        axis([0 3500 0 1500)
         xlabel('Temperature [K]')
         ylabel('Pressure [kPa]')
         legend('Temperature in stagnated chamber')
