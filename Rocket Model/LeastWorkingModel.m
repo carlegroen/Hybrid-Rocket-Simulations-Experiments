@@ -141,21 +141,22 @@ P_tot(1) = P_amb;
 dP = n_dot_1*dt * T_amb * R/V_chamber;
 P_tot(2) = P_amb + dP;
 T(1)     = T_amb;
-
+ T(1) = 275.15
+ T(2) = 278.15
 %assign setting at t=2dt, after first decomposition
 dP =(n_dot_2+n_dot_1)*dt * T_amb * R/V_chamber;
-P_tot(3) = P_tot(1) + dP;
-T(2) = T_amb + 2/3 * (H_dot_real(1)*dt+dP*V_chamber)/(kB*n_flow_1*dt*NA);
+%P_tot(3) = P_tot(1) + dP;
+%T(2) = T_amb + 2/3 * (H_dot_real(1)*dt+dP*V_chamber)/(kB*n_flow_1*dt*NA);
 
 density   = (mass_H2O2+mass_H2O)/V_chamber;
-v_outflow(2) = sqrt(2*(P_tot(2)-P_amb)/density);
-v_outflow(3) = sqrt(2*(P_tot(3)-P_amb)/density);
-P = P_amb;
-gamma =1.197;
+%v_outflow(2) = sqrt(2*(P_tot(2)-P_amb)/density);
+%v_outflow(3) = sqrt(2*(P_tot(3)-P_amb)/density);
+%P = P_amb;
+%gamma =1.197;
 
 dpP = n_dot_tot(1) * T_amb * R/V_chamber;
 T_2 = T_amb + 2/3 * ((H_dot_real(1)+H_dot_real(2))+1100*V_chamber)/(kB*(n_dot_tot(1)+n_dot_tot(2))*NA);
-
+T_2 = 301.1
 %%%%%%%Calculating Temperature for state 1%%%%%%%%%%%
 
 chan2   = ddeinit('EES','DDE');
@@ -164,8 +165,8 @@ EESload = ddeexec(chan2,'[Open P_CALC2.EES]');
     T1      = 293.15;
     save Pressureout.txt P1 T1 H_Real_3 -ascii
     EESload = ddeexec(chan2,'[Solve]');
-    H1      = csvread('EESPressureout.csv')
-    H_ref1  = n_dot_H2O_1*M_H2O*H1(1) + n_dot_O2_1*M_O2*H1(2) + n_dot_CO2_1*M_CO2*H1(3)
+    H1      = csvread('EESPressureout.csv');
+    H_ref1  = n_dot_H2O_1*M_H2O*H1(1) + n_dot_O2_1*M_O2*H1(2) + n_dot_CO2_1*M_CO2*H1(3);
 ddeterm(chan2);
 
 chan2   = ddeinit('EES','DDE');
@@ -174,34 +175,62 @@ EESload = ddeexec(chan2,'[Open P_CALC2.EES]');
     T1      = 293.15;
     save Pressureout.txt P1 T1 H_Real_3 -ascii
     EESload = ddeexec(chan2,'[Solve]');
-    H1      = csvread('EESPressureout.csv')
-    H_ref2  = n_dot_H2O_2*M_H2O*H1(1) + n_dot_O2_2*M_O2*H1(2) + n_dot_CO2_2*M_CO2*H1(3) + DELTAh_decomposition*n_dot_H2O2_1*M_H2O2
+    H1      = csvread('EESPressureout.csv');
+    H_ref2  = n_dot_H2O_2*M_H2O*H1(1)*dt + n_dot_O2_2*M_O2*H1(2)*dt + n_dot_CO2_2*M_CO2*H1(3)*dt + DELTAh_decomposition*n_dot_H2O2_1*M_H2O2*dt;
 ddeterm(chan2);
-
-
-for t=2*dt:dt:time_state1/dt
-         m_dot_out = 1;
-         n_out     = (n_dot_1+n_dot_2+n_dot_3)*dt*0.75;
-         n_in      = (n_dot_1+n_dot_2+n_dot_3)*dt;
-         n_delta   = n_in - n_out;
+    H(2) = H_ref2;
+    
+   size(P_tot)
+   size(T)
+    
+%Initializes data transfer to EES     
+chan3   = ddeinit('EES','DDE');
+%Opens EES work-file
+EESload = ddeexec(chan3,'[Open enthalpytotemp.EES]');  
+for t=2*dt:dt:dt*35
          k         = k + 1;
+         n_out     = [sum(n_dot_H2O) sum(n_dot_O2) sum(n_dot_CO2)]*dt*0.85;
+         n_in      = [sum(n_dot_H2O) sum(n_dot_O2) sum(n_dot_CO2)]*dt;
+         n_delta   = n_in - n_out;
          
-         
-         
-         %T(k)      = T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*n_delta*NA);
-         dP        = n_delta * T(k) * R/V_chamber;
-         P_tot(k)  = P_tot(k-1) + dP;
-         %T(k)      = T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*(n_dot_1+n_dot_2+n_dot_3)*dt*NA);
-         P_outflow(k) = P_tot(k-1) + n_in * T(k-1) * R/V_chamber;
-         v_outflow(k) = sqrt(2*(P_outflow(k)-P_amb)/density);
+         P_tot(k)  = P_tot(k-1) + sum(n_delta)/V_chamber * R * T(k-1);
+         H(k) = H(k-1) + DELTAh_decomposition * n_dot_H2O2_1 * dt * M_H2O2 + DELTAh_combustion * m_dot_PLA_3*dt;
+    
+         %Loads temporary working pressure and enthalpy
+         P_temp = P_tot(k);      
+         H_temp = H(k);
+    %saves .txt file with data, loads in EES and solves equations.
+    save enthalpytotemp.txt P_temp H_temp -ascii;
+    EESload = ddeexec(chan3,'[Solve]');
+        %Saves EES results in T(k) var
+        T(k)    = csvread('tempin.csv');
 end
+
+    %closes data transfer
+    ddeterm(chan3);
+% for t=2*dt:dt:time_state1/dt
+%          m_dot_out = 1;
+%          n_out     = (n_dot_1+n_dot_2+n_dot_3)*dt*0.75;
+%          n_in      = (n_dot_1+n_dot_2+n_dot_3)*dt;
+%          n_delta   = n_in - n_out;
+%          k         = k + 1;
+%          
+%          
+%          
+%          %T(k)      = T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*n_delta*NA);
+%          dP        = n_delta * T(k) * R/V_chamber;
+%          P_tot(k)  = P_tot(k-1) + dP;
+%          %T(k)      = T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*(n_dot_1+n_dot_2+n_dot_3)*dt*NA);
+%          P_outflow(k) = P_tot(k-1) + n_in * T(k-1) * R/V_chamber;
+%          v_outflow(k) = sqrt(2*(P_outflow(k)-P_amb)/density);
+% end
 
 v_out = sqrt(2*(P_tot-P_amb)/density);
 
 
 % ---------------------- Plotting Process ---------------------------------
 %Timesteps for process.
-tspan = (0:dt:time_state1/dt);
+tspan = (0:dt:35*dt);
 
 %Lines at specified ranges
 kbarlinex = [0 5];
@@ -212,12 +241,12 @@ kelvbarlinex = [273.15 2000];
 %Approximate velocity-cap
 T_test    = 1920;
 
-m_dot_H2O_3 = n_dot_H2O_3 * M_H2O
+m_dot_H2O_3 = n_dot_H2O_3 * M_H2O;
 m_dot_O2_3  = n_dot_O2_3 * M_O2
 m_dot_CO2_3 = n_dot_O2_3 * M_CO2
 M_dot_3     = (m_dot_H2O_3 + m_dot_O2_3 + m_dot_CO2_3)/n_dot_3
 
-max_v     = sqrt(T_test*R/(M_dot_3)*2*gamma/(gamma-1)*(1-(P_amb./P_tot).^((gamma-1)/gamma)));
+%max_v     = sqrt(T_test*R/(M_dot_3)*2*gamma/(gamma-1)*(1-(P_amb./P_tot).^((gamma-1)/gamma)));
 
 figure(1)
     title('Pressure per time simulation of injection')
@@ -227,22 +256,22 @@ figure(1)
         hold on
         plot(kbarlinex,kbarliney,'-')
         hold on
-        plot(tspan,P_outflow,'-o')
-        axis([0 .2 0 5000])
+        %plot(tspan,P_outflow,'-o')
+        axis([0 .5 0 5000])
         xlabel('time [s]')
         ylabel('Pressure [kPa]')
         legend('Pressure in chamber','Working pressure','Pressure without mass outflow')
     
-    subplot(2,2,2)
-        plot(tspan,v_out)
-        hold on
-        plot(tspan,max_v)
-        hold on
-        plot(tspan,v_outflow)
-        axis([0 1 0 4000])
-        xlabel('time [s]')
-        ylabel('Velocity [m/s]')
-        legend('Velocity based on stagnation pressure','Maximum attainable velocity','Velocity with chamber outflow')
+%     subplot(2,2,2)
+%         plot(tspan,v_out)
+%         hold on
+%         plot(tspan,max_v)
+%         hold on
+%         plot(tspan,v_outflow)
+%         axis([0 1 0 4000])
+%         xlabel('time [s]')
+%         ylabel('Velocity [m/s]')
+%         legend('Velocity based on stagnation pressure','Maximum attainable velocity','Velocity with chamber outflow')
         
 % figure(2)
      subplot(2,2,3)       
@@ -250,7 +279,7 @@ figure(1)
         hold on
         plot(T(1:10),P_tot(1:10))
         hold on
-        axis([T_amb 3500 P_amb 1500])
+        axis([T_amb 35000 P_amb 15000])
         xlabel('Temperature [K]')
         ylabel('Pressure [kPa]')
         legend('Temperature in stagnated chamber')
