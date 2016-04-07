@@ -178,6 +178,7 @@ EESload = ddeexec(chan2,'[Open P_CALC2.EES]');
     H1      = csvread('EESPressureout.csv');
     H_ref2  = n_dot_H2O_2*M_H2O*H1(1)*dt + n_dot_O2_2*M_O2*H1(2)*dt + n_dot_CO2_2*M_CO2*H1(3)*dt + DELTAh_decomposition*n_dot_H2O2_1*M_H2O2*dt;
 ddeterm(chan2);
+    H(1) = H_ref2;
     H(2) = H_ref2;
     
    size(P_tot)
@@ -235,7 +236,7 @@ tspan = (0:dt:35*dt);
 %Lines at specified ranges
 kbarlinex = [0 5];
 kbarliney = [1000 1000];
-kelvbarliney = [101.3 1000];
+kelvbarliney = [1000 1100];
 kelvbarlinex = [273.15 2000];
 
 %Approximate velocity-cap
@@ -277,9 +278,9 @@ figure(1)
      subplot(2,2,3)       
         plot(kelvbarlinex,kelvbarliney,'-')
         hold on
-        plot(T(1:10),P_tot(1:10))
+        plot(T(1:36),P_tot(1:36))
         hold on
-        axis([T_amb 35000 P_amb 15000])
+        axis([T_amb 3500 P_amb 1500])
         xlabel('Temperature [K]')
         ylabel('Pressure [kPa]')
         legend('Temperature in stagnated chamber')
