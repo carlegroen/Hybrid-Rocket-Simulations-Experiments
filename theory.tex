@@ -31,7 +31,7 @@
 
 	To initiate combustion in the hybrid engine, an oxidizer is injected into the combustion chamber. The rocket in question has a pressurized tank containing an $80 \%$ \chem{H_2O_2} rich mixture with the remainder being \chem{H_2O}. The oxidizer is assumed to be injected at a constant rate of:
 		\begin{align}
-			\dot{m} = \SI{0.273}{kg/s}.
+			\dot{m}_\text{injection} = \SI{0.273}{kg/s}.
 		\end{align}
 	in accordance to data collected at the recent launch \fxnote{Hvordan angiver jeg kilde/skal jeg ændre dette til at være tidsafhængig?}.
 
@@ -42,8 +42,13 @@
 
 \subsection{Throat}
 
-	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage, called the throat, followed by a diverging section: The nozzle. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound chokes the flow rate.
-
+	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage, called the throat, followed by a diverging section: The nozzle. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the flow rate. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_\text{throat}$ must be proportional to the density of the material, the velocity and the throat's area:
+  \begin{align}
+      \dot{m}_\text{throat} &= \rho \cdot v_\text{throat} \cdot A_\text{throat}
+  \intertext{The velocity $v_\text{throat}$ is thus roughly proportional to the mass flow as the area and density are roughly constant. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. For an ideal compressible gas, this becomes:}
+      \dot{m}_\text{throat} &= \frac{A_\text{throat} P_\text{chamber}}{\sqrt{T_\text{throat}}} \sqrt{\frac{\gamma}{\text{R}}} \left(\frac{\gamma+1}{2}\right)^{-\frac{\gamma+1}{2(\gamma-1})}
+  \end{align}
+  Where $P_\text{chamber}$ is the pressure in the combustion chamber, $T_\text{throat}$ is the temperature in the throat, $\gamma$ is the specific heat ratio and R is the gas constant.
 \subsection{Nozzle}
 
 	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which acts as a reservoir of low-pressure gas between atmospheric pressure %($\SI{101.3}{kPa}$)
