@@ -1,3 +1,4 @@
+% !TEX root = main.tex
 \chapter{Theory}
 
   Understanding the theory behind the rocket's flow requires a basic knowledge on rockets. Therefore, the first theoretical segment concerns basic rocketry, followed by a more advanced segment of nozzle theory.
@@ -18,8 +19,8 @@
 \section{Theoretics of the Hybrid Rocket Engine}
 
   The hybrid rocket engine consists of three parts: The combustion chamber, the converging into a throat, and diverging section after called the nozzle. A rocket's effectivity is highly dependent on the shape, size and ratios between these three segments. Accordingly, it is imperative to study these parts of the rocket's design.
-  
-  The rocket in question is seen in figure \ref{fig:rocketpic}. All calculations and considerations made in the report is in regard to this particular rocket. The following subsections elaborates each individual segment of the rocket, with the purpose of prividing the necessary background knowledge to understand the simulations and results. The explanation is given step by step, starting with injection and ending with exhaustion. 
+
+  The rocket in question is seen in figure \ref{fig:rocketpic}. All calculations and considerations made in the report is in regard to this particular rocket. The following subsections elaborates each individual segment of the rocket, with the purpose of prividing the necessary background knowledge to understand the simulations and results. The explanation is given step by step, starting with injection and ending with exhaustion.
 
   \begin{figure}
   \includegraphics[width=\textwidth]{elon2}
@@ -27,23 +28,23 @@
   \label{fig:rocketpic}
   \end{figure}
 \subsection{Injection}
-	
+
 	To initiate combustion in the hybrid engine, an oxidizer is injected into the combustion chamber. The rocket in question has a pressurized tank containing an $80 \%$ \chem{H_2O_2} rich mixture with the remainder being \chem{H_2O}. The oxidizer is assumed to be injected at a constant rate of:
 		\begin{align}
 			\dot{m} = \SI{0.273}{kg/s}.
 		\end{align}
 	in accordance to data collected at the recent launch \fxnote{Hvordan angiver jeg kilde/skal jeg ændre dette til at være tidsafhængig?}.
-	
-	
+
+
 \subsection{Combustion Chamber}
 
-	The combustion chamber consists of an approximate 3 liter cavity which is filled with the grain. The actual volume in a hybrid rocket depends strongly on the initial condition of the grain and the fuel's combustion rate. Holes have to be carved in the grain to allow oxygen to reach the grain's surface, and transport exhaust towards the throat. The combustion rate is largely determined by the exposed surface area of the grain, and the flux of the oxidizer. The surface gradually expands as the outer regions are burned away, thus changing the rocket's effective thrust over time \cite[chapter 12, p.~174]{ignition}. 
+	The combustion chamber consists of an approximate 3 liter cavity which is filled with the grain. The actual volume in a hybrid rocket depends strongly on the initial condition of the grain and the fuel's combustion rate. Holes have to be carved in the grain to allow oxygen to reach the grain's surface, and transport exhaust towards the throat. The combustion rate is largely determined by the exposed surface area of the grain, and the flux of the oxidizer. The surface gradually expands as the outer regions are burned away, thus  changing the rocket's effective thrust over time \cite[chapter 12, p.~174]{ignition}.
 
 \subsection{Throat}
 
 	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage, called the throat, followed by a diverging section: The nozzle. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound chokes the flow rate.
-	
+
 \subsection{Nozzle}
 
-	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which acts as a reservoir of low-pressure gas between atmospheric pressure %($\SI{101.3}{kPa}$) 
+	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which acts as a reservoir of low-pressure gas between atmospheric pressure %($\SI{101.3}{kPa}$)
 	and no pressure (in space), depending on the rocket's whereabouts.
