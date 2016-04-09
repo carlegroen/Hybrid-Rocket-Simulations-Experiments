@@ -59,14 +59,23 @@ The ideal gas law is crucial in our description of the rocket. Describing the ro
 
 \subsection{Throat}
 
+	\begin{figure}
+		\includegraphics[width=\textwidth]{elondumb}
+		\caption{Cross section of the throat area.}
+		\label{fig:crossthroat}
+	\end{figure}
+
 	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage called the throat, followed by a diverging section: The nozzle. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the this value. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_t$ must be proportional to the density of the material, the velocity and the throat's area:
 		\begin{align}
 			\dot{m}_t &= \rho \cdot v_t \cdot A_t
-		\intertext{The velocity $v_t$ is thus roughly proportional to the mass flow as the area and density are roughly constant. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. For an ideal compressible gas, this becomes:}
+		\intertext{The velocity $v_t$ is thus roughly proportional to the mass flow as the area and density are approximately constant in this case. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. For an ideal compressible gas, this becomes:}
 			\dot{m}_t &= \frac{A_t P_c}{\sqrt{T_t}} \sqrt{\frac{\gamma}{\text{R}}} \left(\frac{\gamma+1}{2}\right)^{-\frac{\gamma+1}{2(\gamma-1})}
 		\end{align}
-	Where $P_c$ is the pressure in the combustion chamber, $T_t$ is the temperature in the throat, $\gamma$ is the specific heat ratio and R is the gas constant.
+	Where $P_c$ is the pressure in the combustion chamber, $T_t$ is the temperature in the throat, $\gamma$ is the specific heat ratio and R is the gas constant. \cite{nasacompflow}
+	
+	
 \subsection{Nozzle}
 	
 	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which acts as a reservoir of low-pressure gas between atmospheric pressure %($\SI{101.3}{kPa}$)
-	and no pressure (in space), depending on the rocket's whereabouts.
+	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over- and underexpanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and has provided thrust to the rocket.
+	
