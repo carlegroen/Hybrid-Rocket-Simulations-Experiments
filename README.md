@@ -1,4 +1,4 @@
-<h1>A Hybrid Rocket Engine Simulation: A Bachelor's Thesis<\h1>
+#A Hybrid Rocket Engine Simulation: A Bachelor's Thesis
 
 This is the initial README for my bachelor project.
 
