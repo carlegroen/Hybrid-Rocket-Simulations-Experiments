@@ -218,7 +218,7 @@ for t=2*dt:dt:time_state1/dt
          
          
          
-         T(k)      = T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*n_delta*NA);
+         T(k)      = (2500-273)/time%T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*n_delta*NA);
          dP        = n_delta * T(k) * R/V_chamber;
          P_tot(k)  = P_tot(k-1) + dP;
          %T(k)      = T(k-1) + 2/3 * ((sum(H_dot_real))*dt+dP*V_chamber)/(kB*(n_dot_1+n_dot_2+n_dot_3)*dt*NA);
@@ -248,7 +248,11 @@ m_dot_O2_3  = n_dot_O2_3 * M_O2
 m_dot_CO2_3 = n_dot_O2_3 * M_CO2
 M_dot_3     = (m_dot_H2O_3 + m_dot_O2_3 + m_dot_CO2_3)/n_dot_3
 
-%max_v     = sqrt(T_test*R/(M_dot_3)*2*gamma/(gamma-1)*(1-(P_amb./P_tot).^((gamma-1)/gamma)));
+
+gamma = 1.2
+T_end = 2225+273;
+T_sim = linspace(T_amb,T_end,200);
+v_max = sqrt(gamma*R*T_sim/M_dot_3)
 
 figure(1)
     title('Pressure per time simulation of injection')
@@ -264,16 +268,16 @@ figure(1)
         ylabel('Pressure [kPa]')
         legend('Pressure in chamber','Working pressure','Pressure without mass outflow')
     
-%     subplot(2,2,2)
-%         plot(tspan,v_out)
-%         hold on
-%         plot(tspan,max_v)
-%         hold on
-%         plot(tspan,v_outflow)
-%         axis([0 1 0 4000])
-%         xlabel('time [s]')
-%         ylabel('Velocity [m/s]')
-%         legend('Velocity based on stagnation pressure','Maximum attainable velocity','Velocity with chamber outflow')
+    subplot(2,2,2)
+        plot(tspan,v_out)
+        hold on
+        plot(tspan(1:200),v_max)
+        hold on
+        %plot(tspan,v_outflow)
+        axis([0 1 0 4000])
+        xlabel('time [s]')
+        ylabel('Velocity [m/s]')
+        legend('Velocity based on stagnation pressure','Maximum attainable velocity','Velocity with chamber outflow')
         
 % figure(2)
      subplot(2,2,3)       

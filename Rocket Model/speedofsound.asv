@@ -16,20 +16,16 @@ gas_density = 0.1
 
 n_dot_in = 1.71609682164548;
 
-m_dot =  gas_density * v *  0.002*0.002;
+m_dot =  gas_density * 0.001 * 0.002*0.002;
 
-
-figure(2)
-plot(T,m_dot)
 
 n_dot_out = m_dot/5;
 n_dot_in  = 1.1*n_dot_out;
 n = n_dot_in-n_dot_out;
 
 At = 0.002*0.002
-P = m_dot .* sqrt(T) .* 1/(At * sqrt(gamma/R) .* ((gamma+1)/2).^(-(gamma+1)/(2.*(gamma-1))))
+P = 1./sqrt(T) * R .* T
+%m_dot .* sqrt(T) .* 1/(At * sqrt(gamma/R) .* ((gamma+1)/2).^(-(gamma+1)/(2.*(gamma-1))))
 
 figure(3)
 plot(T,P)
-
-plot((T/T(end)),T)
