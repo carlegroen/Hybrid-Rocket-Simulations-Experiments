@@ -272,7 +272,7 @@ EESload  = ddeexec(tempchan,'[Open enthalpytotemp4.EES]');
     
     P_temp = P(k);
     H_tempref = m_H2O_s2 * H_water + m_O2_s2 * H_oxygen + m_CO2_s2 * H_CO2;
-    H_temp = H_tempref + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2 + DELTAh_combustion * m_CO2_s2/3*M_PLA
+    H_temp = H_tempref + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2 + DELTAh_combustion * n_dot_CO2_3/3*M_PLA
 
 save enthalpytotemp.txt P_temp H_temp m_H2O_s2 m_O2_s2 m_CO2_s2 m_air_s2 -ascii;
 EESload = ddeexec(tempchan,'[Solve]');
