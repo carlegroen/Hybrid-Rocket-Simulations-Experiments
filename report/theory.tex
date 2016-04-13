@@ -6,14 +6,13 @@
 \section{Basic Rocket Science}
 
 	A rocket engine consists of a few fundamental elements. A rocket engine is a type of jet engine that, in contrast to duct jets, carry their own rocket propellant. Jet engines as seen in aeroplanes are usually situated with a duct, confining the air flow. Rocket engines on the other hand carry a supply of oxygen and rocket propellant, which allows them to function even in vacuum.
-	
-	
+
 	Rocket engines work by obtaining thrust in accordance with Newton's third law. The internal combustion chamber accelerates fluids through a propelling nozzle to high speeds. The fluid is most often a gas created from mixing fuel and oxidizing components in a the combustion chamber. The exhaust is accelerated to supersonic speeds by expansion in the nozzle, which forces the engine in the opposite direction.
-	
+
 	Most rockets used today are liquid rockets which store their propellant and oxidizing component in separate tanks. The liquid fuel is then forced into the combustion chamber for consumption. Solid-fuel rockets contain propellant prepared with a fixed fuel and oxidizing component. The fuel is called 'grain', and the storage compartment for the grain is the combustion chamber. A hybrid rocket is the mixture between the two. Most often, hybrid rockets contain a solid fuel, or 'grain' and liquid or gaseous oxygen, thus earning the name hybrid engine. Variations of this engine type do exist, but this configuration is the most often used \cite[chapter 16, p.~605]{rockProp}. Solid oxidizers are uncommon as they are problematic and have worse performance than liquid oxidizers.
-	
+
 	Liquid and hybrid engines both use injectors to disperse oxygen and propellant into the combustion chamber. For a hybrid engines, this means spreading oxygen to the grains surface to allow combustion.
-	
+
 	Hybrid rockets are inherently safer than its two counterparts, and accidents are less volatile as accidental fuel mixing is a non-issue. The oxidizer and fuel are almost always contained in separate chambers, which also reduces the mechanical complexity of the rocket in comparison to liquid rockets.
 
 \section{Theoretics of the Hybrid Rocket Engine}
@@ -25,7 +24,7 @@
 \end{figure}
 
 	The hybrid rocket engine consists of three parts: The combustion chamber, the converging into a throat, and diverging section after called the nozzle. A rocket's effectivity is highly dependent on the shape, size and ratios between these three segments. Accordingly, it is imperative to study these parts of the rocket's design.
-	
+
 	The rocket in question is seen in figure \ref{fig:rocketpic}. All calculations and considerations made in the report is in regard to this particular rocket. The following subsections elaborates each individual segment of the rocket, with the purpose of prividing the necessary background knowledge to understand the simulations and results. The explanation is given step by step, starting with injection and ending with exhaustion.
 
 
@@ -36,7 +35,7 @@
 			\dot{m}_\text{injection} = \SI{0.273}{kg/s}.
 		\end{align}
 	in accordance to data collected at the recent launch \fxnote{Hvordan angiver jeg kilde/skal jeg ændre dette til at være tidsafhængig?}.
-	
+
 	The oxidizer is injected into the first chamber where decomposition happens. The hydrogen-peroxide (\chem{H_2O_2}) decomposes into dioxygen (\chem{O_2}) as it reacts with the potassium permanganate, which is encased in a flame retardant foam. The unbalanced chemical reaction is as follows:
 	\begin{align}
 		\chem{KMnO_4 + H_2O_2} &\rightarrow \chem{K_2O_2 + MnO_2 + H_2O + O_2}
@@ -50,11 +49,11 @@ The ideal gas law is crucial in our description of the rocket. Describing the ro
 \subsection{Combustion Chamber}
 
 	The combustion chamber consists of an approximate 3 liter cavity which is filled with the grain. The actual volume in a hybrid rocket depends strongly on the initial condition of the grain and the fuel's combustion rate. Holes have to be carved in the grain to allow oxygen to reach the grain's surface, and transport exhaust towards the throat. The combustion rate is largely determined by the exposed surface area of the grain, and the flux of the oxidizer. The surface gradually expands as the outer regions are burned away, thus changing the rocket's effective thrust over time \cite[chapter 12, p.~174]{ignition}. The propellants increase in burning area during the first second is assumed to be negligible, compared to the rapid increases in pressure and temperature.
-	
+
 	The combustion reaction can be described by the chemical formula:
 		\begin{align}
 			\chem{C_3 H_4 O_2 + 3 O_2} &\rightarrow \chem{3 CO_2 + 2H_2O}
-		\end{align} 
+		\end{align}
 	Energy released in this reaction heats up the chamber's fluid towards a design temperature of $\SI{2498}{K}$. Assuming a closed chamber, the rise in temperature and amount of substance yields an exponential increase in pressure over time. This is not a desired property, as that would eventually lead to engine destruction. The Accumulated decomposed and combusted material leaves through the rocket's throat, which allows the rocket to reach pressure equilibrium. The throat's area is essential to the rocket's pressure and thus stability, hence the advance to the throat.
 
 \subsection{Throat}
@@ -71,12 +70,11 @@ The ideal gas law is crucial in our description of the rocket. Describing the ro
 		\intertext{The velocity $v_t$ is thus roughly proportional to the mass flow as the area and density are approximately constant in this case. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. For an ideal compressible gas, this becomes:}
 			\dot{m}_t &= \frac{A_t P_c}{\sqrt{T_t}} \sqrt{\frac{\gamma}{\text{R}}} \left(\frac{\gamma+1}{2}\right)^{-\frac{\gamma+1}{2(\gamma-1})}
 		\end{align}
-	Where $P_c$ is the pressure in the combustion chamber, $T_t$ is the temperature in the throat, $\gamma$ is the specific heat ratio and R is the gas constant. \cite{nasacompflow} 
-	
-	
-	
+	Where $P_c$ is the pressure in the combustion chamber, $T_t$ is the temperature in the throat, $\gamma$ is the specific heat ratio and R is the gas constant. \cite{nasacompflow}
+
+
+
 \subsection{Nozzle}
-	
+
 	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which acts as a reservoir of low-pressure gas between atmospheric pressure %($\SI{101.3}{kPa}$)
 	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over- and underexpanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket.
-	
