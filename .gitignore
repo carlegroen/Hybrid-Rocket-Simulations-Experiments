@@ -7,4 +7,5 @@
 *.bbl
 *.blg
 *.toc
+*.csv
 venv/
