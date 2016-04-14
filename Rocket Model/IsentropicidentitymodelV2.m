@@ -198,16 +198,17 @@ EESload  = ddeexec(tempchan,'[Open enthalpytotemp3.EES]');
     m_air_s2 = delta_m(2)*n_air_frac;
 
     P_temp = P(2);
-    H_tempref = m_H2O_s2 * H_water + m_O2_s2 * H_oxygen + m_CO2_s2 * H_CO2;
-    H_temp = H_tempref + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2;
+    H_tempref = m_H2O_s2 * H_water + m_O2_s2 * H_oxygen + m_CO2_s2 * H_CO2
+    H_temp = H_tempref + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2
 
 save enthalpytotemp.txt P_temp H_temp m_H2O_s2 m_O2_s2 m_CO2_s2 m_air_s2 -ascii;
 EESload = ddeexec(tempchan,'[Solve]');
 
     T_tot(2) = csvread('tempin.csv');
     
-tempchan = ddeinit('EES','DDE');
-    H_tot(2) = H_temp;
+ddeterm(tempchan);
+    H_tot(2) = H_ref_3;
+    m_CO2_s2 = n_3(3)*M_CO2
     P_tot(2) = n_tot(2)*R*T_tot(2)/V_chamber;
 
 
@@ -220,76 +221,161 @@ tempchan = ddeinit('EES','DDE');
 %--------------------------------------------------------------------------
 
 T_new=[];
-tempchan = ddeinit('EES','DDE');
-%Opens EES work-file
-EESload  = ddeexec(tempchan,'[Open enthalpytotemp2.EES]');
 
-for k = 3:5
-   'Left side'
+%Fresh attempt!
+
+
+H_tot(2) = H_3
+for k=3:15
+tempchan3 = ddeinit('EES','DDE');
+%Opens EES work-file
+EESload  = ddeexec(tempchan3,'[Open enthalpytotemp2.EES]');
     P_temp = P_tot(k-1);
-    H_temp = H_tot(k-1) + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2 + DELTAh_combustion * m_dot_PLA_3/dx;
+    H_temp = H_tot(k-1);
     n_tempH2O = n_3(1);
     n_tempO2  = n_3(2);
     n_tempCO2 = n_3(3);
-    n_tempAir = m_air_s2/(M_air*k^(1.5));
+    n_tempAir = n_tempAir*0.9
 
 save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempAir -ascii;
-EESload = ddeexec(tempchan,'[Solve]');
+EESload = ddeexec(tempchan3,'[Solve]');
 
     T(k) = csvread('tempin.csv');
     
-tempchan = ddeinit('EES','DDE');
+ddeterm(tempchan3);
+% %---------------------------KILL EES TRANSFER------------------------------
+n_tot(k) = n_tempAir + sum(n_3);
+P(k) = n_tot(k)*R*T(k)/V_chamber;
+H(k) = H_temp;
 
-P(k) = (n_tempAir+sum(n_3))*R*T(k)/V_chamber;
-%%%%%%%From the other direction%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-'Right side'
 T_e(k)   = (P_amb./P(k))^(1-1/gamma) * T(k);
 rho_e(k) = P_amb./(R*T_e(k));
 v_e(k)   = sqrt(2*(P(k)-P_amb)./rho_e(k));
 m_out(k) = A_exit*v_e(k)*rho_e(k)/dx;
 
-%%%%%%%%%Now both sides
+delta_m(k) = m_tot3-m_out(k);
 
-n_air_frac = n_start/n_tot(2);
-n_mat_frac = sum(n_2)/n_tot(2);
+%residual air to materials:
+n_air_frac = n_tempAir/n_tot(k);
+n_mat_frac = sum(n_3)/n_tot(k);
 
-m_frac2 = [(n_2(1)* M_H2O)/m_tot2; (n_2(2)* M_O2)/m_tot2; (n_2(3)* M_CO2)/m_tot2];
+m_frac3 = [(n_3(1)* M_H2O)/m_tot3; (n_3(2)* M_O2)/m_tot3; (n_3(3)* M_CO2)/m_tot3];
+
+tempchan4 = ddeinit('EES','DDE');
+EESload  = ddeexec(tempchan4,'[Open enthalpytotemp3.EES]');
 
 
-%Opens EES work-file
-tempchan = ddeinit('EES','DDE');
-EESload  = ddeexec(tempchan,'[Open enthalpytotemp4.EES]');
+    m_H2O_s2 = delta_m(k)*m_frac3(1);
+    m_O2_s2  = delta_m(k)*m_frac3(2);
+    m_CO2_s2 = delta_m(k)*m_frac3(3);
+    m_air_s2 = delta_m(k)*n_air_frac;
 
-    delta_m(k) = (m_in-m_out(k));
-    
-    n_air_frac = n_tempAir/((n_tempAir+sum(n_3))*k^2);
-    n_mat_frac = 1-n_air_frac;
-    m_H2O_s2 = delta_m(k)*m_frac3(1)*n_mat_frac;
-    m_O2_s2  = delta_m(k)*m_frac3(2)*n_mat_frac;
-    m_CO2_s2 = delta_m(k)*m_frac3(3)*n_mat_frac;
-    
-    n_tot(k) = m_H2O_s2/M_H2O + m_O2_s2/M_O2 + m_CO2_s2/M_CO2;
-    
     P_temp = P(k);
     H_tempref = m_H2O_s2 * H_water + m_O2_s2 * H_oxygen + m_CO2_s2 * H_CO2;
-    H_temp = H_tempref + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2 + DELTAh_combustion * m_CO2_s2/3*M_PLA
+    H_temp = H_tempref + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2 + DELTAh_combustion * (m_CO2_s2/M_CO2)/3*M_PLA;
 
 save enthalpytotemp.txt P_temp H_temp m_H2O_s2 m_O2_s2 m_CO2_s2 m_air_s2 -ascii;
-EESload = ddeexec(tempchan,'[Solve]');
+EESload = ddeexec(tempchan4,'[Solve]');
 
     T_tot(k) = csvread('tempin.csv');
-tempchan = ddeinit('EES','DDE');
-    P_tot(k) = n_tot(k)*R*T(k)/V_chamber;
-    H_tot(k) = H_temp;
-    n_3(1) = m_H2O_s2/M_H2O;
-    n_3(2) = m_O2_s2/M_O2;
-    n_3(3) = m_CO2_s2/M_CO2;
     
+ddeterm(tempchan4);
+    H_tot(k) = H_temp;
+    P_tot(k) = n_tot(k)*R*T_tot(k)/V_chamber;
+    
+    n_3(1) = m_H2O_s2/M_H2O;
+    n_3(2)  = m_O2_s2/M_O2;
+    n_3(3) = m_CO2_s2/M_CO2;
+    n_tempAir = m_air_s2/M_air;
 end
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% tempchan = ddeinit('EES','DDE');
+% Opens EES work-file
+% EESload  = ddeexec(tempchan,'[Open enthalpytotemp5.EES]');
+% 
+% for k = 3:3
+%     P_temp = P_tot(k-1);
+%     H_temp = H_tot(k-1) + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2 + DELTAh_combustion * (m_CO2_s2/M_CO2)/3*M_PLA;
+%     n_tempH2O = n_3(1);
+%     n_tempO2  = n_3(2);
+%     n_tempCO2 = n_3(3);
+%     n_tempAir = m_air_s2/(M_air*k^(1.5));
+%     m_PLA     = (m_CO2_s2/M_CO2)/3*M_PLA;
+% save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempAir m_PLA -ascii;
+% EESload = ddeexec(tempchan,'[Solve]');
+% 
+%     T(k) = csvread('tempin.csv');
+%   
+% tempchan = ddeinit('EES','DDE');
+% 
+% n_tot(k) = n_start+sum(n_3)+m_CO2_s2/M_CO2;
+% P(k) = n_tot(k)*R*T(k)/V_chamber;
+% %%%%%%From the other direction%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% T_e(k)   = (P_amb./P(k))^(1-1/gamma) * T(k);
+% rho_e(k) = P_amb./(R*T_e(k));
+% v_e(k)   = sqrt(2*(P(k)-P_amb)./rho_e(k));
+% m_out(k) = A_exit*v_e(k)*rho_e(k)/dx;
+% 
+% %%%%%%%%Now both sides
+% 
+% Opens EES work-file
+% tempchan2 = ddeinit('EES','DDE');
+% EESload  = ddeexec(tempchan2,'[Open enthalpytotemp4.EES]');
+% 
+%     delta_m(k) = (m_in-m_out(k));
+%     
+%     n_air_frac = n_tempAir/(n_tot(k)*k^2);
+%     n_mat_frac = 1-n_air_frac;
+%     m_H2O_s2 = delta_m(k)*m_frac3(1)*n_mat_frac;
+%     m_O2_s2  = delta_m(k)*m_frac3(2)*n_mat_frac;
+%     m_CO2_s2 = delta_m(k)*m_frac3(3)*n_mat_frac;
+%     m_air_s2 = delta_m(k)*n_air_frac;
+%     
+%     
+%     n_tot(k) = n_start + m_H2O_s2/M_H2O + m_O2_s2/M_O2 + m_CO2_s2/M_CO2 + m_air_s2/M_air;
+%     
+%     P_temp = P(k);
+%     
+%     H_temp2(2) = m_H2O_s2 * H_water + m_O2_s2 * H_oxygen + m_CO2_s2 * H_CO2;
+%     H_temp2(k) = H_temp2(k-1) + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2 + DELTAh_combustion * (m_CO2_s2/M_CO2)/3*M_PLA;
+% 
+% save enthalpytotemp.txt P_temp H_temp2 m_H2O_s2 m_O2_s2 m_CO2_s2 m_air_s2 -ascii;
+% EESload = ddeexec(tempchan,'[Solve]');
+% 
+%     T_tot(k) = csvread('tempin.csv');
+%     
+% tempchan2 = ddeinit('EES','DDE');
+% 
+%     P_tot(k) = n_tot(k)*R*T(k)/V_chamber;
+%     H_tot(k) = H_temp2(k);
+%     n_3(1) = m_H2O_s2/M_H2O;
+%     n_3(2) = m_O2_s2/M_O2;
+%     n_3(3) = m_CO2_s2/M_CO2;
+%     m_CO2_s2 = m_CO2_s2/M_CO2;
+%     m_air_s2 = m_air_s2;
+%     
+% end
+% ddeterm(tempchan2);
+% ddeterm(tempchan);
+
 %--------------------- Figure Plotting ------------------------------------
 
+m_dot_H2O_3 = n_dot_H2O_3 * M_H2O;
+m_dot_O2_3  = n_dot_O2_3 * M_O2
+m_dot_CO2_3 = n_dot_O2_3 * M_CO2
+M_dot_3     = (m_dot_H2O_3 + m_dot_O2_3 + m_dot_CO2_3)/sum(n_3)
+
+
+gamma = 1.2
+T_end = 2225+273;
+T_sim = linspace(T_amb,T_end,length(P_tot));
+v_ = sqrt(gamma*R*T_sim/M_dot_3);
+P_sim = sum(n_3)*R.*T_sim./V_chamber 
 
 tspan = linspace(1*dt,length(P_tot)*dt,length(P_tot));
 
@@ -297,14 +383,14 @@ tspan = linspace(1*dt,length(P_tot)*dt,length(P_tot));
 figure(1)
     title('Pressure per time simulation of injection')
         
-    %subplot(2,2,1);
+    subplot(2,1,1);
     	yyaxis left
         plot(tspan,P_tot/100,'-o')
         hold on
-        plot(tspan,P/100,'-o')
+        plot(tspan,P_sim/100,'-ok')
         hold on
         yyaxis left
-        axis([0 max(tspan) 0 max(P)/100])
+        axis([0 max(tspan) 0 max(P_tot)/100])
         ylabel('Pressure [bar]')
         
         yyaxis right
@@ -314,6 +400,10 @@ figure(1)
         
         xlabel('time [s]')
         legend('Pressure in chamber','Pressure without mass outflow')
+    subplot(2,1,2);
+    	yyaxis left
+        plot(T_tot,P_tot/100,'-o')
+        hold on
 %     subplot(2,2,2)
 %         plot((0:49)*dt/time_state1,v_out)
 %         hold on
