@@ -235,7 +235,7 @@ EESload  = ddeexec(tempchan3,'[Open enthalpytotemp2.EES]');
     n_tempH2O = n_3(1);
     n_tempO2  = n_3(2);
     n_tempCO2 = n_3(3);
-    n_tempAir = n_tempAir*0.9
+    n_tempAir = n_tempAir*0.8
 
 save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempAir -ascii;
 EESload = ddeexec(tempchan3,'[Solve]');
