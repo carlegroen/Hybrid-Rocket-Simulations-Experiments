@@ -3,22 +3,22 @@
 
 It's not rocket science.
 
-Rocketry and its science is of great interest these last few years. Elon Musk and SpaceX's entry to the scene has propelled the science forward, with a goal of reaching the planet Mars within the coming years. The following paper contains an account of basic rocket design, with specific emphasis on discovering the the startup-sputtering of hybrid rocket engines, through thermal simulations. Thereto, calculations of thrust and simplification of the data collection technology is proceseed throughout the report.
+The following report contains simulations and observations of the hybrid rocket M.E.O.W.T.H II (\textbf{M}echanical \textbf{E}ngineering \textbf{O}bservational \textbf{T}utoring \textbf{H}ybrid rocket). created by \emph{Team Rocket} at Navitas, Aarhus University. The first rocket was built in 2014 by a previous group of students, but has since been passed along to other pupils, with the intent of teaching the basics of rocket science. 
 
-My job has specifically been creating a multi-functional data collection device, by the use of a Raspberry Pi. Manometers and LAST-cells all connect to a single Raspberry Pi, which feeds the data to a computer. The Raspberry Pi is also used to set up the ignition system, which requires several layers of clearance before it can be ignited. The system starts data collection as soon as the rocket is armed, and accounts for all phases during the launch, eg. mentions when the rocket is started.
 
-Data simulations are carried out in Engineering Equation Solver, henceforth known as EES. Gorm Andresen has provided previous experimental data, which has been used to calculate new boundary conditions. These new boundary conditions allows the calculation of sub-to supersonic flow, which may or may not reveal a sputtering effect.
+During the previous M.E.O.W.T.H.'s tests, a large pressure spike during the startup phase has been observed. This can be seen in the old video here: \url{bit.ly/1SYp1Ug} in the timespan of seconds 5-7. From the video, it appears that just as the rocket exhaust reaches supersonic speeds, \emph{something} explodes, extinguishing the flame. We know it happens before the rocket goes supersonic due to the lack of shock diamonds prior to the event.\cite[chapter 18, p.~643]{rockProp} 
 
-\section{Basic Rocket Science}
 
-A rocket consists of a few, very essential components. The basics of a rocket engine works by Newton's third law, where action and reaction push the rocket forward by expelling exhaust in the opposite direction.
+This bachelor thesis attempts to simulate the rocket's startup condition in order to explain and understand the event. My advisor, Gorm Bruun Andresen, proposed a hypothesis that the pressure spike occurs at the point where mass-flow is choked in the throat. As the flow is sub-sonic, the amount of matter exiting through the nozzle is gradually increasing. When the flow goes sonic or beyond, it is suddenly capped. This abrupt change in physical properties may be able to explain this event, and the following contains the theories and thoughts that went into simulating the rocket engine's startup.
 
-\section{Nozzle Theory}
 
-The nozzle consists of three parts: The combustion chamber, the converging into a throat, and diverging section after the throat. A rocket's effectivity is highly dependant on the shape, size and ratios between these three segments, and it is therefore essential to study these parts of the rocket design.
-Hqwe
-\begin{figure}
-\includegraphics[width=\textwidth]{happy-boy}
-\caption{det er nok at skrive filnavnet, for main.tex kigger efter figurer i /figures/}
-\label{fig:yyy}
-\end{figure}
+In order to create a safer rocket with more measurements options, M.E.O.W.T.H II was built. Alex Nørgaard, Gorm Bruun Andresen and I personally assembled and water-tested the rocket. The rocket can be seen on the frontpage and on figure \ref{fig:rocketpic}, and each section contains at least four possible points measurements for various instruments. 
+
+
+The purpose of these simulations are ultimately to improve the rocket and rid it of large pressure variations. To see improvements, it is necessary to measure how the rocket behaves under different conditions. Therefore, setup and calibration of various measurement equipment is essential in order to retrieve excellent data. This is also covered in this report, as the experimental part is of equal importance. Measuring the rocket chamber's temperature is of great inconvenience, as the several thousands of kelvin are too much for even the strongest of thermocouples.\cite{thermocoup} This issue and it's solution is discussed thoroughly in the sections below.
+
+
+
+All measurements and tests could not have been carried out if not for the test facilities provided by Peter Madsen of Raketmadsen's spacelaboratory. M.E.O.W.T.H II's tests were carried out on the 3rd to the 4th of May, 2016 in Copenhagen.
+
+The entire project is publicly available on \url{https://github.com/carlegroen/bachelors_degree}, where all work files, data and various notes can be found.

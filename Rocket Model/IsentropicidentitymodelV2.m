@@ -117,7 +117,7 @@ n_3 = [n_dot_H2O_3; n_dot_O2_3; n_dot_CO2_3]/dx;
 
 m_tot1   = n_dot_H2O2_1/dx*M_H2O2 + n_1(1)* M_H2O + n_1(2) * M_O2 + n_1(3)*M_CO2 ;
 m_tot2   = n_2(1)* M_H2O + n_2(2) * M_O2 + n_2(3)*M_CO2 ;
-m_tot3   = n_3(1)* M_H2O + n_3(2) * M_O2 + n_3(3)*M_CO2 + m_dot_PLA_3/dx;
+m_tot3   = n_3(1)* M_H2O + n_3(2) * M_O2 + n_3(3)*M_CO2% + m_dot_PLA_3/dx;
 m_in     = m_tot3;
 
 %mass fractions of exhaust:
@@ -235,7 +235,7 @@ EESload  = ddeexec(tempchan3,'[Open enthalpytotemp2.EES]');
     n_tempH2O = n_3(1);
     n_tempO2  = n_3(2);
     n_tempCO2 = n_3(3);
-    n_tempAir = n_tempAir*0.8
+    n_tempAir = n_tempAir*n_air_frac
 
 save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempAir -ascii;
 EESload = ddeexec(tempchan3,'[Solve]');
@@ -249,17 +249,17 @@ P(k) = n_tot(k)*R*T(k)/V_chamber;
 H(k) = H_temp;
 
 T_e(k)   = (P_amb./P(k))^(1-1/gamma) * T(k);
-rho_e(k) = P_amb./(R*T_e(k));
+rho_e(k) = P_amb./(R*T_e(k))*100;
 v_e(k)   = sqrt(2*(P(k)-P_amb)./rho_e(k));
 m_out(k) = A_exit*v_e(k)*rho_e(k)/dx;
+
+m_tot3   = n_3(1)* M_H2O + n_3(2) * M_O2 + n_3(3)*M_CO2;
 
 delta_m(k) = m_tot3-m_out(k);
 
 %residual air to materials:
 n_air_frac = n_tempAir/n_tot(k);
 n_mat_frac = sum(n_3)/n_tot(k);
-
-m_frac3 = [(n_3(1)* M_H2O)/m_tot3; (n_3(2)* M_O2)/m_tot3; (n_3(3)* M_CO2)/m_tot3];
 
 tempchan4 = ddeinit('EES','DDE');
 EESload  = ddeexec(tempchan4,'[Open enthalpytotemp3.EES]');
