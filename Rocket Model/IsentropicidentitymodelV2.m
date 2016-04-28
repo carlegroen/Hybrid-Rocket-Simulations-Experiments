@@ -143,10 +143,11 @@ P(1) = P_amb;
 
 %number of substance is calculated as:
 n_start = P(1)*V_chamber/(T(1)*R);
-n_tot(1)= n_start + sum(n_1);
+n_tot(1)= n_start + sum(n_1)+n_dot_H2O2_1/dx;
 
-P_tot(1) = n_tot(1)*R*T(1)/V_chamber;
 T_tot(1) = T(1);
+P_tot(1) = n_tot(1)*R*T_tot(1)/V_chamber;
+
 
 
 %--------------------- t = 1*dt -------------------------------------------
