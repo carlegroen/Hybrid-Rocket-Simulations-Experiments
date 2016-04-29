@@ -14,7 +14,7 @@
 \tikzstyle{block} = [rectangle, draw, fill=skyblue,
     text width=5em, text centered, rounded corners, minimum height=4em]
 \tikzstyle{line} = [draw, -latex']
-\tikzstyle{cloud} = [draw, ellipse,fill=yellow, text width=4em, node distance=3cm,
+\tikzstyle{cloud} = [draw, ellipse,fill=yellow, text width=5.5em, node distance=3.5cm,
     minimum height=2em]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -23,35 +23,45 @@
 \chapter{Simulation}
 
 The rocket's simulation can be explained relatively simply through a series of flowcharts. The first one describes how all constants and flows are defined, and how reference values are calculated.
-% \begin{tikzpicture}[node distance = 2cm, auto]
-%   \node [block] (constants) {Define Constants};
-%   \node [block, below of=constants] (def) {Define injection rates per second};
-%   %Draw lines
-%   \path [line] (constants) -- (def);
-% \end{tikzpicture}
+
 
 \begin{tikzpicture}[node distance = 3cm, auto]
     % Place nodes
     \node [block] (const) {Define constants};
-      \node [cloud, left of=const] (constvars) {$P_{amb}$, $T_{amb}$, chamber dim, etc.};
+      \node [cloud, left of=const] (constvars) {$T_{amb}$, chamber dim., etc.};
     \node [block, below of=const] (inj) {Define injection rates per second};
-      \node [cloud, left of=inj] (injvars) {P, T, V};
+      \node [cloud, left of=inj] (injvars) {$\dot{n}_{H_2O_2,1}$ $\dot{n}_{H_2O,1}$};
     \node [block, below of=inj] (dec) {Define decomposition rates per second};
-      \node [cloud, left of=dec] (decvars) {P, T, V};
+      \node [cloud, left of=dec] (decvars) {$\dot{n}_{H_2O_2,2}$ $\dot{n}_{H_2O,2}$ $\dot{n}_{O_2,2}$};
     \node [block, below of=dec] (com) {Define combustion rates per second};
-      \node [cloud, left of=com] (comvars) {P, T, V};
+      \node [cloud, left of=com] (comvars) {$\dot{n}_{H_2O,3}$ $\dot{n}_{O_2,3}$ $\dot{n}_{CO_2,3}$};
     \node [block, below of=com] (exha) {Define exhaustion mass flow};
-      \node [cloud, left of=exha] (exhavars) {P, T, V};
+      \node [cloud, left of=exha] (exhavars) {$\dot{m}_{pla,3}$};
+%%%% Defining more relavant stuff %%%%%
+    \node [block, below of=exha] (mflow) {Define mass flow rates $n$ per timestep $dt$ to find enthalpy};
+      \node [cloud, left of=mflow] (mflowvars) {$m_{tot,n} = \sum\limits_{\text{chem.} 1}^{\text{chem. k}} \dot{n}_j \cdot dt$};
+    \node [block, right of=mflow] (mfrac) {Calculate mass fraction in flow rates to calculate enthalpy leaving rocket later};
+    \node [block, above of=mfrac, node distance=6cm] (refent) {Calculate reference enthalpy in decomposition and combustion states};
+      \node [cloud, right of=refent] (refentvars) {$H = \sum \dot{m}_{j} \cdot H_j(P,T) + \Delta h_{dec,com} \cdot \dot{m}_\chem{H_2O_2} \cdot dt$};
+    \node [decision, right of=const, node distance=5cm] (next) {Passes static data into $P$ and $T$ calculations};
+
+
     % Draw edges
     \path [line] (const) -- (inj);
-    \path [line] (const) -- (constvars);
+    \path [draw] (const) -- (constvars);
     \path [line] (inj) -- (dec);
-    \path [line] (inj) -- (injvars);
+    \path [draw] (inj) -- (injvars);
     \path [line] (dec) -- (com);
-    \path [line] (dec) -- (decvars);
+    \path [draw] (dec) -- (decvars);
     \path [line] (com) -- (exha);
-    \path [line] (com) -- (comvars);
-    \path [line] (exha) -- (exhavars);
+    \path [draw] (com) -- (comvars);
+    \path [draw] (exha) -- (exhavars);
+    \path [line] (exha) -- (mflow);
+    \path [draw] (mflow) -- (mflowvars);
+    \path [line] (mflow) -- (mfrac);
+    \path [line] (mfrac) -- (refent);
+    \path [draw] (refent) -- (refentvars);
+    \path [line] (refent) -- (next);
 \end{tikzpicture}
 %
 % \begin{tikzpicture}[node distance = 2cm, auto]
