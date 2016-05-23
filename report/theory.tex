@@ -105,6 +105,10 @@
 
 \subsection{Heat Capacity}
 
+ \begin{align}
+	 \gamma &= \frac{C_p}{C_v}
+ \end{align}
+
 \subsection{Isentropic Flow}
 
 	In order to effectively describe the rocket's behavior, we have to assume a few things:
@@ -115,6 +119,18 @@
 		\item{The fluid velocity inside the chamber is approximately zero, allowing us to assume stagnated pressure. The velocity is \emph{not} assumed to be zero when entering the throat and nozzle, however.}
 	\end{enumerate}
 
-	The assumption of of isentropic flow stems from the idea that the process is reversible. The fluid will, after moving through the nozzle, have the same original values. The second law of thermodynamics states that reversible flow maintains entropy, and this allows us to calculate almost any value related to the rocket's flow. It is therefore an essential piece to the project.
+	The assumption of of isentropic flow stems from the idea that the process is reversible. The fluid will, after moving through the nozzle, have the same original values. The second law of thermodynamics states that reversible flow maintains entropy, and this allows us to calculate almost any value related to the rocket's flow. It is therefore an essential piece to the project. \cite{nakkanozz}
 
 	If supersonic flow is not achieved by gradual means, isentropic flow is not a valid assumption. If shock waves occur abruptly, isentropic flow is not a valid assumption. Hence, exit values are simulated before any normal or oblique shock relations occur. \cite{nasaisentrop}
+
+	The simulation is based on four valuable equations: The conservation of energy, the continuity equation, the momentum equation and equation of state.
+
+	Conservation of energy requires that for adiabatic flow, between two any points:
+	\begin{align}
+		h_1 - h_2 & = \frac{1}{2} (v_2^2 - v_1^2) = C_p (T_1 - T_2)
+		\intertext{where $h$ again is the enthalpy of the fluid, $v$ is the flow velocity and $C_p$ is the heat capacity, T is the fluid's temperature. From the continuity equation, we can find a pseudo-steady state from looking at the stagnation temperature in the chamber. Setting $v_2 = 0$ yields the stagnation temperature:}
+		T_0 &= T + \frac{v^2}{2 C_p}
+		\intertext{This yields several key relationships between stagnation properties for pressure, density and temperature:}
+		\frac{T_0}{T} & = \frac{P_0}{P}^{\frac{\gamma-1}{\gamma}} = \frac{\rho_0}{\rho}^{\gamma-1}
+		\intertext{The}
+	\end{align}
