@@ -125,12 +125,28 @@
 
 	The simulation is based on four valuable equations: The conservation of energy, the continuity equation, the momentum equation and equation of state.
 
-	Conservation of energy requires that for adiabatic flow, between two any points:
+	\begin{figure}
+		\includegraphics[width=\textwidth]{elon2}
+		\caption{Isentropic flow between two points $x_1$ and $x_2$ in the rocket.}
+		\label{fig:isentropicflow}
+	\end{figure}
+
+
+	Conservation of energy requires that for adiabatic flow, between two any points $x_1$ and $x_2$, as seen in figure \ref{fig:isentropicflow}:
 	\begin{align}
 		h_1 - h_2 & = \frac{1}{2} (v_2^2 - v_1^2) = C_p (T_1 - T_2)
 		\intertext{where $h$ again is the enthalpy of the fluid, $v$ is the flow velocity and $C_p$ is the heat capacity, T is the fluid's temperature. From the continuity equation, we can find a pseudo-steady state from looking at the stagnation temperature in the chamber. Setting $v_2 = 0$ yields the stagnation temperature:}
 		T_0 &= T + \frac{v^2}{2 C_p}
 		\intertext{This yields several key relationships between stagnation properties for pressure, density and temperature:}
 		\frac{T_0}{T} & = \frac{P_0}{P}^{\frac{\gamma-1}{\gamma}} = \frac{\rho_0}{\rho}^{\gamma-1}
-		\intertext{The}
+		\intertext{\cite[chapter 3, p.~60-63]{turbomac} Using this, we can find the temperature at the exit:}
+		T_e &= \frac{P_e}{P_0}^{1-\frac{1}{\gamma}} \cdot T_0
+		\intertext{As $P_e$ is the exit pressure, which is equivalent to the ambient pressure. The exit temperature allows us to calculate the density of the exiting fluid, and thus, find the exit velocity $v_e$:}
+		P_e &= \rho_e R T_e \Rightarrow \rho_e = \frac{P_e}{R T_e}
+		\intertext{And thus, from equation something in something book}
+		v_e &= \sqrt{2 \frac{P_0-P_e}{\rho_e}} = \sqrt{2 \frac{P_0-P_e}{\frac{P_e}{R T_e}}}\\
+		&\Rightarrow  \sqrt{2 \frac{(P_0-P_e)R T_e}{P_e}}
+		\intertext{Exit velocity and density yields the mass outflow per second:}
+		\dot{m}_\text{out} &= A_e \cdot v_e \cdot \rho_e
+		\intertext{and knowing how much matter is flowing "into" the rocket (see injection and combustion chamber sections) yields the total enthalpy contained in the rocket at all times. Therefore, we can now approximate the temperature in the rocket's chamber, knowing the different material's abundances.}
 	\end{align}
