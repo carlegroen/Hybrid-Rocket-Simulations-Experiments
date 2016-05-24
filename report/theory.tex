@@ -112,7 +112,7 @@
 \subsection{Isentropic Flow}
 
 	In order to effectively describe the rocket's behavior, we have to assume a few things:
-	\begin{enumerate}
+	\begin{enumerate}[topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
 		\item{Entropy is conserved.}
 		\item{Decomposition and combustion products obey the perfect gas law.}
 		\item{All chemical reactions are adiabatic: No heat is lost to the surroundings.}
@@ -143,7 +143,7 @@
 		T_e &= \frac{P_e}{P_0}^{1-\frac{1}{\gamma}} \cdot T_0
 		\intertext{As $P_e$ is the exit pressure, which is equivalent to the ambient pressure. The exit temperature allows us to calculate the density of the exiting fluid, and thus, find the exit velocity $v_e$:}
 		P_e &= \rho_e R T_e \Rightarrow \rho_e = \frac{P_e}{R T_e}
-		\intertext{And thus, from equation something in something book}
+		\intertext{And thus, Bernoulli's equation provides us with the exit velocity}
 		v_e &= \sqrt{2 \frac{P_0-P_e}{\rho_e}} = \sqrt{2 \frac{P_0-P_e}{\frac{P_e}{R T_e}}}\\
 		&\Rightarrow  \sqrt{2 \frac{(P_0-P_e)R T_e}{P_e}}
 		\intertext{Exit velocity and density yields the mass outflow per second:}
