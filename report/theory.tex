@@ -60,9 +60,9 @@
 
 		An alternative explanation to the pressure spike could therefore be a very fast increase in regression area. The grain's specifications from the previous tests are not mentioned, but a wagon-wheel design with several holes could allow ignition in single canals before all of them. This could allow hot pyrolytic fuel and oxygen to accumulate, causing an eventual explosion.
 
-	\subsubsection{Auto-ignition}
+	\subsubsection{Autoignition}
 
-		An effect that appears to be an important piece of the puzzle is the auto-ignition of the grain. As soon as decomposition occurs, the material begins to heat up, until it spontaneously ignites. This point can be found by reading the datasheet of the material, albeit the value is listed for atmospheric air.
+		An effect that appears to be an important piece of the puzzle is the autoignition of the grain. As soon as decomposition occurs, the material begins to heat up, until it spontaneously ignites. This point can be found by reading the datasheet of the material, albeit the value is listed for atmospheric air.
 
 	\subsubsection{Combustion}
 
@@ -141,9 +141,9 @@
 		\frac{T_0}{T} & = \frac{P_0}{P}^{\frac{\gamma-1}{\gamma}} = \frac{\rho_0}{\rho}^{\gamma-1}
 		\intertext{\cite[chapter 3, p.~60-63]{turbomac} Using this, we can find the temperature at the exit:}
 		T_e &= \frac{P_e}{P_0}^{1-\frac{1}{\gamma}} \cdot T_0
-		\intertext{As $P_e$ is the exit pressure, which is equivalent to the ambient pressure. The exit temperature allows us to calculate the density of the exiting fluid, and thus, find the exit velocity $v_e$:}
+		\intertext{As $P_e$ is the exit pressure, which is equivalent to the ambient pressure. The exit temperature allows us to calculate the density of the exiting fluid $\rho_e$:}
 		P_e &= \rho_e R T_e \Rightarrow \rho_e = \frac{P_e}{R T_e}
-		\intertext{And thus, Bernoulli's equation provides us with the exit velocity}
+		\intertext{Bernoulli's equation provides us with the exit velocity $v_e$:}
 		v_e &= \sqrt{2 \frac{P_0-P_e}{\rho_e}} = \sqrt{2 \frac{P_0-P_e}{\frac{P_e}{R T_e}}}\\
 		&\Rightarrow  \sqrt{2 \frac{(P_0-P_e)R T_e}{P_e}}
 		\intertext{Exit velocity and density yields the mass outflow per second:}
