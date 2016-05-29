@@ -19,5 +19,3 @@ x read paper 2
 x finish reading chapter 16 on hybrid rockets
 x write introduction:
 - Write: Combustion chamber theory, regression rates, over/under expansion, expansion in general. chemical composition throughout the rocket
-
-Does this work?
