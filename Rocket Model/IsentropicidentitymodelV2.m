@@ -172,7 +172,7 @@ EESload = ddeexec(tempchan,'[Solve]');
     T(2) = csvread('tempin.csv');
 ddeterm(tempchan);
 % %---------------------------KILL EES TRANSFER------------------------------
-n_tot(2) = n_start + sum(n_2);
+n_tot(2) = n_tot(1) + sum(n_2);
 P(2) = n_tot(2)*R*T(2)/V_chamber;
 H(2) = H_temp;
 
