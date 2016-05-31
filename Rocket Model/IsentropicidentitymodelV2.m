@@ -117,7 +117,7 @@ n_3 = [n_dot_H2O_3; n_dot_O2_3; n_dot_CO2_3]/dx;
 
 m_tot1   = n_dot_H2O2_1/dx*M_H2O2 + n_1(1)* M_H2O + n_1(2) * M_O2 + n_1(3)*M_CO2 ;
 m_tot2   = n_2(1)* M_H2O + n_2(2) * M_O2 + n_2(3)*M_CO2 ;
-m_tot3   = n_3(1)* M_H2O + n_3(2) * M_O2 + n_3(3)*M_CO2% + m_dot_PLA_3/dx;
+m_tot3   = n_3(1)* M_H2O + n_3(2) * M_O2 + n_3(3)*M_CO2 + m_dot_PLA_3/dx;
 m_in     = m_tot3;
 
 %mass fractions of exhaust:
@@ -199,8 +199,8 @@ EESload  = ddeexec(tempchan,'[Open enthalpytotemp3.EES]');
     m_air_s2 = delta_m(2)*n_air_frac;
 
     P_temp = P(2);
-    H_tempref = m_H2O_s2 * H_water + m_O2_s2 * H_oxygen + m_CO2_s2 * H_CO2
-    H_temp = H_tempref + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2
+    H_tempref = m_H2O_s2 * H_water + m_O2_s2 * H_oxygen + m_CO2_s2 * H_CO2;
+    H_temp = H_tempref + DELTAh_decomposition * n_dot_H2O2_1/dx * M_H2O2;
 
 save enthalpytotemp.txt P_temp H_temp m_H2O_s2 m_O2_s2 m_CO2_s2 m_air_s2 -ascii;
 EESload = ddeexec(tempchan,'[Solve]');
@@ -209,7 +209,7 @@ EESload = ddeexec(tempchan,'[Solve]');
     
 ddeterm(tempchan);
     H_tot(2) = H_ref_3;
-    m_CO2_s2 = n_3(3)*M_CO2
+    m_CO2_s2 = n_3(3)*M_CO2;
     P_tot(2) = n_tot(2)*R*T_tot(2)/V_chamber;
 
 
@@ -227,7 +227,7 @@ T_new=[];
 
 
 H_tot(2) = H_3
-for k=3:15
+for k=3:10
 tempchan3 = ddeinit('EES','DDE');
 %Opens EES work-file
 EESload  = ddeexec(tempchan3,'[Open enthalpytotemp2.EES]');
@@ -236,7 +236,7 @@ EESload  = ddeexec(tempchan3,'[Open enthalpytotemp2.EES]');
     n_tempH2O = n_3(1);
     n_tempO2  = n_3(2);
     n_tempCO2 = n_3(3);
-    n_tempAir = n_tempAir*n_air_frac
+    n_tempAir = n_tempAir*n_air_frac*2
 
 save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempAir -ascii;
 EESload = ddeexec(tempchan3,'[Solve]');
@@ -250,9 +250,9 @@ P(k) = n_tot(k)*R*T(k)/V_chamber;
 H(k) = H_temp;
 
 T_e(k)   = (P_amb./P(k))^(1-1/gamma) * T(k);
-rho_e(k) = P_amb./(R*T_e(k))*100;
+rho_e(k) = P_amb./(R*T_e(k))*10;
 v_e(k)   = sqrt(2*(P(k)-P_amb)./rho_e(k));
-m_out(k) = A_exit*v_e(k)*rho_e(k)/dx;
+m_out(k) = A_exit*v_e(k)*rho_e(k)/dx * 0.5;
 
 m_tot3   = n_3(1)* M_H2O + n_3(2) * M_O2 + n_3(3)*M_CO2;
 
@@ -288,6 +288,7 @@ ddeterm(tempchan4);
     n_3(2)  = m_O2_s2/M_O2;
     n_3(3) = m_CO2_s2/M_CO2;
     n_tempAir = m_air_s2/M_air;
+    n_3
 end
 
 
@@ -367,16 +368,16 @@ end
 %--------------------- Figure Plotting ------------------------------------
 
 m_dot_H2O_3 = n_dot_H2O_3 * M_H2O;
-m_dot_O2_3  = n_dot_O2_3 * M_O2
-m_dot_CO2_3 = n_dot_O2_3 * M_CO2
-M_dot_3     = (m_dot_H2O_3 + m_dot_O2_3 + m_dot_CO2_3)/sum(n_3)
+m_dot_O2_3  = n_dot_O2_3 * M_O2;
+m_dot_CO2_3 = n_dot_O2_3 * M_CO2;
+M_dot_3     = (m_dot_H2O_3 + m_dot_O2_3 + m_dot_CO2_3)/sum(n_3);
 
 
-gamma = 1.2
+gamma = 1.2;
 T_end = 2225+273;
 T_sim = linspace(T_amb,T_end,length(P_tot));
 v_ = sqrt(gamma*R*T_sim/M_dot_3);
-P_sim = sum(n_3)*R.*T_sim./V_chamber 
+P_sim = sum(n_3)*R.*T_sim./V_chamber;
 
 tspan = linspace(1*dt,length(P_tot)*dt,length(P_tot));
 
