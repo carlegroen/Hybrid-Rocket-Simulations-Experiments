@@ -300,7 +300,7 @@ H_ref_3 = n_dot_H2O_3 * M_H2O * H_water * dt + n_dot_O2_3 * M_O2 * H_oxygen * dt
 H_3 = H_ref_3 + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt + DELTAh_combustion * m_dot_PLA_3 * dt;
 
 H_tot(k) = H_tot(k) + H_3
-for k = j:120
+for k = j:60
     k = k + 1
     %---------------------------INITIATE EES TRANSFER----------------------
     tempchan = ddeinit('EES','DDE');
