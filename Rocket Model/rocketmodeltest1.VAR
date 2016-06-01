@@ -1,0 +1,12 @@
+//ENTHALPYTOTEMP2.EES
+H_TEMP	1.000000E+00	-infinity	infinity	A0	1		0
+M_AIR	1.000000E+00	-infinity	infinity	A3	1		0
+M_CO2	1.000000E+00	-infinity	infinity	A3	1		0
+M_H2O	1.000000E+00	-infinity	infinity	A3	1		0
+M_O2	1.000000E+00	-infinity	infinity	A3	1		0
+N_TEMPAIR	1.000000E+00	-infinity	infinity	A3	1		0
+N_TEMPCO2	1.000000E+00	-infinity	infinity	A3	1		0
+N_TEMPH2O	1.000000E+00	-infinity	infinity	A3	1		0
+N_TEMPO2	1.000000E+00	-infinity	infinity	A3	1		0
+P_TEMP	1.000000E+00	-infinity	infinity	A0	1		0
+T_TEMP	3.500000E+02	2.700000E+02	infinity	A1	1		0
