@@ -22,7 +22,7 @@ R           = 8.3145;           %[kJ/(mol*K)]
 A_chamber   = (0.094)^2;        %[m]^2
 A_throat    = (0.0213)^2;       %[m]^2
 A_exit      = (0.0337)^2;       %[m]^2
-dt          = 0.0005;             %[s]
+dt          = 0.001;             %[s]
 k           = 2;                %[s]
 H_water     = 83.93;            %[kJ/kg]
 H_oxygen    = -4.887;           %[kJ/kg]
@@ -31,6 +31,7 @@ kB          = 1.38065E-23;      %[J/K]
 NA          = 6.02214086E23;    %[mol]^-1
 time_state1 = (mass_H2O2+mass_H2O)/m_dot_oxidizer; %[s]
 gamma       = 1.2;
+T_auto_MDF  = 273.15 + 220;     %[K]
 
 %Defining: H2O2, H2O, O2, Plastic grain, CO2 Molar masses:
 M_H2O2 = 0.0340147; %[kg/mol]
@@ -147,7 +148,7 @@ EESload  = ddeexec(tempchan,'[Open enthalpytotemp2.EES]');
 save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempNit -ascii;
 EESload = ddeexec(tempchan,'[Solve]');
 
-    T(3) = csvread('tempin.csv')
+    T(3) = csvread('tempin.csv');
 ddeterm(tempchan);
 
 %Calculating new amount of substance
@@ -181,12 +182,13 @@ EESload  = ddeexec(tempchan,'[Open enthalpytotemp2.EES]');
 %Loads in temporary values to save to EES with air abundances reducing per.
 %timestep.
     P_temp = P(3);
-    H_temp = H(3);
     n_tempH2O = n_dot_H2O_2 * dt;
-    n_tempO2  = n_dot_O2_2 * dt + 0.79 * n_air;
+    n_tempO2  = n_dot_O2_2 * dt + 0.79 * n_air
     n_tempCO2 = n_dot_CO2_2 * dt;
     n_tempNit = 0.21 * n_air;
 
+    H_tempref = n_tempH2O * M_H2O * H_water + n_tempO2 * M_H2O * H_oxygen + n_tempCO2 * H_CO2; %+ n_tempNit * H_water
+    H_temp    = H_tempref + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt;
 %Saves variables in file enthalpytotemp.txt in ascii format. 
 save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempNit -ascii;
 
@@ -194,11 +196,184 @@ save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempNit -as
 EESload = ddeexec(tempchan,'[Solve]');
 %EES loads the data, reads vars, calculates T based on enthalpy, saves
 %temperature in tempin.csv which is loaded into T_tot var below.
-    T_tot(3) = csvread('tempin.csv')
+    T_tot(3) = csvread('tempin.csv');
 %Terminates data exchange
 ddeterm(tempchan);
 
+H_tot(3) = H_temp
 P_tot(3) = n_tot(3)*R*T_tot(3)/V_chamber;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------Initiate for-loop until T=T_auto:-------------------------
+k = 3;
+while max(T_tot)<T_auto_MDF
+    k = k + 1
+    %---------------------------INITIATE EES TRANSFER--------------------------
+    tempchan = ddeinit('EES','DDE');
+%Opens EES work-file
+    EESload  = ddeexec(tempchan,'[Open enthalpytotemp2.EES]');
+
+        P_temp = P_tot(k-1);
+        H_temp = H_tot(k-1);
+        n_tempH2O = n_tempH2O + n_dot_H2O_2 * dt;
+        n_tempO2  = n_tempO2 + n_dot_O2_2 * dt;
+        n_tempCO2 = n_tempCO2 + n_dot_CO2_2 * dt;
+        n_tempNit = n_tempNit;
+
+    save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempNit -ascii;
+    EESload = ddeexec(tempchan,'[Solve]');
+
+    	T(k) = csvread('tempin.csv');
+    ddeterm(tempchan);
+
+    %Calculating new amount of substance
+    n_tot(k) = n_tempH2O + n_tempO2 + n_tempCO2 + n_tempNit;
+    P(k) = n_tot(k)*R*T(k)/V_chamber;
+    
+    T_e(k)   = (P_amb./P(k))^(1-1/gamma) * T(k);
+    rho_e(k) = P_amb./(R*T_e(k));
+    v_e(k)   = sqrt(2*(P(k)-P_amb)./rho_e(k));
+    m_out(k) = A_exit*v_e(k)*rho_e(k);
+    
+    %calculating mass of matter inside rocket
+    m_inside(k) = n_tempH2O * M_H2O + n_tempO2 * M_O2 + n_tempCO2 * M_CO2 + n_tempNit * M_Nit;
+
+    %finding change in mass from matter flowing out. m_out has units [kg/s],
+    %thus multiplying by dt is required
+    delta_m(k)    = m_inside(k) - m_out(k)*dt;
+
+    %Air leaves the rocket first, as it is closest to the nozzle
+    n_air = n_air - m_out(k)/M_air * dt;
+    
+    %---------------------------INITIATE EES TRANSFER--------------------------
+    tempchan = ddeinit('EES','DDE');
+    %Opens EES work-file
+    EESload  = ddeexec(tempchan,'[Open enthalpytotemp2.EES]');
+
+    %Loads in temporary values to save to EES with air abundances reducing per.
+    %timestep.
+        P_temp = P(k);
+        n_tempH2O = n_tempH2O;
+        n_tempO2  = n_tempO2  - 0.79 * m_out(k)/M_air * dt;
+        n_tempCO2 = n_tempCO2;
+        n_tempNit = n_tempNit - 0.21 * m_out(k)/M_air * dt;
+
+        %H_tempref = n_tempH2O * M_H2O * H_water + n_tempO2 * M_H2O * H_oxygen + n_tempCO2 * H_CO2 %+ n_tempNit * H_water
+        H_temp    = H_tot(k-1) + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt;
+    %Saves variables in file enthalpytotemp.txt in ascii format. 
+    save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempNit -ascii;
+
+    %Loads data into EES and performs the function [solve]
+    EESload = ddeexec(tempchan,'[Solve]');
+    %EES loads the data, reads vars, calculates T based on enthalpy, saves
+    %temperature in tempin.csv which is loaded into T_tot var below.
+        T_tot(k) = csvread('tempin.csv');
+    %Terminates data exchange
+    ddeterm(tempchan);
+    H_tot(k) = H_temp;
+    P_tot(k) = n_tot(k)*R*T_tot(k)/V_chamber;
+    
+end
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%HERTIL VIRKER KODEN
+
+max(H_tot)
+max(P_tot)
+max(T_tot)
+max(n_tot)
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------Initiate combustion sequence:-----------------------------
+j = k
+
+H_ref_3 = n_dot_H2O_3 * M_H2O * H_water * dt + n_dot_O2_3 * M_O2 * H_oxygen * dt + n_dot_CO2_3 * M_CO2 * H_CO2;
+H_3 = H_ref_3 + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt + DELTAh_combustion * m_dot_PLA_3 * dt;
+
+H_tot(k) = H_tot(k) + H_3
+for k = j:50
+    k = k + 1
+    %---------------------------INITIATE EES TRANSFER----------------------
+    tempchan = ddeinit('EES','DDE');
+%Opens EES work-file
+    EESload  = ddeexec(tempchan,'[Open enthalpytotemp2.EES]');
+
+        P_temp = P_tot(k-1);
+        H_temp = H_tot(k-1);
+        n_tempH2O = n_tempH2O + n_dot_H2O_3 * dt;
+        n_tempO2  = n_tempO2 + n_dot_O2_3 * dt;
+        n_tempCO2 = n_tempCO2 + n_dot_CO2_3 * dt;
+        n_tempNit = n_tempNit;
+
+    save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempNit -ascii;
+    EESload = ddeexec(tempchan,'[Solve]');
+
+    	T(k) = csvread('tempin.csv');
+    ddeterm(tempchan);
+
+    %Calculating new amount of substance
+    n_tot(k) = n_tempH2O + n_tempO2 + n_tempCO2 + n_tempNit;
+    P(k) = n_tot(k)*R*T(k)/V_chamber;
+    
+    T_e(k)   = (P_amb./P(k))^(1-1/gamma) * T(k);
+    rho_e(k) = P_amb./(R*T_e(k));
+    v_e(k)   = sqrt(2*(P(k)-P_amb)./rho_e(k));
+    m_out(k) = A_exit*v_e(k)*rho_e(k);
+    
+    %calculating mass of matter inside rocket
+    m_inside(k) = n_tempH2O * M_H2O + n_tempO2 * M_O2 + n_tempCO2 * M_CO2 + n_tempNit * M_Nit;
+
+    %finding change in mass from matter flowing out. m_out has units [kg/s],
+    %thus multiplying by dt is required
+    delta_m(k)    = m_inside(k) - m_out(k)*dt;
+
+    %Air leaves the rocket first, as it is closest to the nozzle
+    n_air = n_air - m_out(k)/M_air * dt;
+    
+    %---------------------------INITIATE EES TRANSFER--------------------------
+    tempchan = ddeinit('EES','DDE');
+    %Opens EES work-file
+    EESload  = ddeexec(tempchan,'[Open enthalpytotemp2.EES]');
+
+    %Loads in temporary values to save to EES with air abundances reducing per.
+    %timestep.
+        P_temp = P(k);
+        n_tempH2O = n_tempH2O;
+        n_tempO2  = n_tempO2  - 0.79 * m_out(k)/M_air * dt;
+        n_tempCO2 = n_tempCO2;
+        n_tempNit = n_tempNit - 0.21 * m_out(k)/M_air * dt;
+
+        %H_ref_3 = n_tempH2O * M_H2O * H_water * dt + n_tempO2 * M_O2 * H_oxygen * dt + n_tempCO2 * M_CO2 * H_CO2;
+        H_temp = H_ref_3 + H_tot(k-1) + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt + DELTAh_combustion * m_dot_PLA_3 * dt;
+
+    %Saves variables in file enthalpytotemp.txt in ascii format. 
+    save enthalpytotemp.txt P_temp H_temp n_tempH2O n_tempO2 n_tempCO2 n_tempNit -ascii;
+
+    %Loads data into EES and performs the function [solve]
+    EESload = ddeexec(tempchan,'[Solve]');
+    %EES loads the data, reads vars, calculates T based on enthalpy, saves
+    %temperature in tempin.csv which is loaded into T_tot var below.
+        T_tot(k) = csvread('tempin.csv');
+    %Terminates data exchange
+    ddeterm(tempchan);
+    n_tot(k) = n_tempH2O + n_tempO2 + n_tempCO2 + n_tempNit;
+    H_tot(k) = H_temp;
+    P_tot(k) = n_tot(k)*R*T_tot(k)/V_chamber;
+    
+end
+
+
+
+
+
 
 
 %--------------------- Figure Plotting ------------------------------------
