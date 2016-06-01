@@ -195,7 +195,7 @@ EESload = ddeexec(tempchan,'[Solve]');
 %EES loads the data, reads vars, calculates T based on enthalpy, saves
 %temperature in tempin.csv which is loaded into T_tot var below.
     T_tot(3) = csvread('tempin.csv')
-%Terminates data exchange
+%Terminates tem
 ddeterm(tempchan);
 
 P_tot(3) = n_tot(3)*R*T_tot(3)/V_chamber;
