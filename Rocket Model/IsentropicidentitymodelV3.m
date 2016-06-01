@@ -294,12 +294,13 @@ max(n_tot)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %----------------Initiate combustion sequence:-----------------------------
 j = k
+%% 
 
 H_ref_3 = n_dot_H2O_3 * M_H2O * H_water * dt + n_dot_O2_3 * M_O2 * H_oxygen * dt + n_dot_CO2_3 * M_CO2 * H_CO2;
 H_3 = H_ref_3 + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt + DELTAh_combustion * m_dot_PLA_3 * dt;
 
 H_tot(k) = H_tot(k) + H_3
-for k = j:50
+for k = j:120
     k = k + 1
     %---------------------------INITIATE EES TRANSFER----------------------
     tempchan = ddeinit('EES','DDE');
@@ -326,7 +327,7 @@ for k = j:50
     T_e(k)   = (P_amb./P(k))^(1-1/gamma) * T(k);
     rho_e(k) = P_amb./(R*T_e(k));
     v_e(k)   = sqrt(2*(P(k)-P_amb)./rho_e(k));
-    m_out(k) = A_exit*v_e(k)*rho_e(k);
+    m_out(k) = A_exit*v_e(k)*rho_e(k)*100;
     
     %calculating mass of matter inside rocket
     m_inside(k) = n_tempH2O * M_H2O + n_tempO2 * M_O2 + n_tempCO2 * M_CO2 + n_tempNit * M_Nit;
