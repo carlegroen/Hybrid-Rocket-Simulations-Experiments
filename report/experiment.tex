@@ -72,4 +72,21 @@ Removing additional noise from measurements can easily be done avoiding ground-l
 
 \section{Results}
 
-A total of ten measurements were collected at every test.
+A total of ten measurements were collected at every test. The most essential is the Piezoelectric pressure sensors located at the front. The simulation calculates the pressure after the combustion chamber, and at the nozzle's exit.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{peakBurn2wsim}
+	\caption{The second burn's front chamber peak, as found by the Piezoelectric pressure sensor. Plotted on top is the simulation created in this bachelor's thesis.}
+	\label{fig:peakBurn2wsim}
+\end{figure}
+
+The experimental and simulation results are seen in figure \ref{fig:peakBurn2wsim}, where the blue line is the experimental results, and the red is the simulated pressure. The simulation assumes no combustion until a temperature of $\si{220}{celcius}$, at which all of the oxygen inside the combustion chamber is instantly consumed, followed by a steady burning phase. The instantaneous combustion looks like an explosion, as more oxygen is available at this point than at any other. The experimental front pressure dips shortly after initial combustion, which may be due to a shockwave moving through the rocket, forcing new oxygen from flowing to the grain's surface for a short period of time. The pressure then drops rapidly to a steady state, at which the simulation ends. Take note of the simlation's timescale, as the duration of the peak is very small, almost only two tenths of a second.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{PperTsimonly}
+	\caption{Pressure per temperature plotted over the simulated timespan in figure \ref{fig:peakBurn2wsim}. As the temperature rises, the pressure falls.}
+	\label{fig:pressurepertemp}
+\end{figure}
