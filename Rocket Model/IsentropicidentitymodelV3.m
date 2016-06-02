@@ -254,11 +254,17 @@ while max(T_tot)<T_auto_MDF
     %Loads in temporary values to save to EES with air abundances reducing per.
     %timestep.
         P_temp = P(k);
-        n_tempH2O = n_tempH2O;
-        n_tempO2  = n_tempO2  - 0.79 * m_out(k)/M_air * dt;
-        n_tempCO2 = n_tempCO2;
-        n_tempNit = n_tempNit - 0.21 * m_out(k)/M_air * dt;
-
+        if n_air < 0.05
+            n_tempH2O = n_tempH2O;
+            n_tempO2  = n_tempO2  - 0.79 * m_out(k)/M_air * dt;
+            n_tempCO2 = n_tempCO2;
+            n_tempNit = n_tempNit - 0.21 * m_out(k)/M_air * dt;
+        else
+            n_tempH2O = n_tempH2O - 0.2 * m_out(k)/M_air * dt;
+            n_tempO2  = n_tempO2  - 0.2 * m_out(k)/M_air * dt;
+            n_tempCO2 = n_tempCO2 - 0.2 * m_out(k)/M_air * dt;
+            n_tempNit = n_tempNit - 0.2 * m_out(k)/M_air * dt;
+        end
         %H_tempref = n_tempH2O * M_H2O * H_water + n_tempO2 * M_H2O * H_oxygen + n_tempCO2 * H_CO2 %+ n_tempNit * H_water
         H_temp    = H_tot(k-1) + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt;
     %Saves variables in file enthalpytotemp.txt in ascii format. 
@@ -276,18 +282,12 @@ while max(T_tot)<T_auto_MDF
     
 end
 
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%HERTIL VIRKER KODEN
-
 max(H_tot)
 max(P_tot)
 max(T_tot)
 max(n_tot)
-
+n_tempNit
+n_tempO2
 
 
 
@@ -297,8 +297,9 @@ j = k
 %% 
 
 H_ref_3 = n_dot_H2O_3 * M_H2O * H_water * dt + n_dot_O2_3 * M_O2 * H_oxygen * dt + n_dot_CO2_3 * M_CO2 * H_CO2;
-H_3 = H_ref_3 + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt + DELTAh_combustion * m_dot_PLA_3 * dt;
+H_3 = H_ref_3 + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt + DELTAh_combustion * m_dot_PLA_3 * dt * 15;
 
+%n_tempO2 = 5*n_tempO2
 H_tot(k) = H_tot(k) + H_3
 for k = j:60
     k = k + 1
@@ -346,12 +347,22 @@ for k = j:60
 
     %Loads in temporary values to save to EES with air abundances reducing per.
     %timestep.
-        P_temp = P(k);
-        n_tempH2O = n_tempH2O;
-        n_tempO2  = n_tempO2  - 0.79 * m_out(k)/M_air * dt;
-        n_tempCO2 = n_tempCO2;
-        n_tempNit = n_tempNit - 0.21 * m_out(k)/M_air * dt;
-
+%         P_temp = P(k);
+%         n_tempH2O = n_tempH2O;
+%         n_tempO2  = n_tempO2  - 0.79 * m_out(k)/M_air * dt;
+%         n_tempCO2 = n_tempCO2;
+%         n_tempNit = n_tempNit - 0.21 * m_out(k)/M_air * dt;
+        if n_air < 0.05
+            n_tempH2O = n_tempH2O;
+            n_tempO2  = n_tempO2  - 0.79 * m_out(k)/M_air * dt;
+            n_tempCO2 = n_tempCO2;
+            n_tempNit = n_tempNit - 0.21 * m_out(k)/M_air * dt;
+        else
+            n_tempH2O = n_tempH2O - 0.2 * m_out(k)/M_air * dt;
+            n_tempO2  = n_tempO2  - 0.2 * m_out(k)/M_air * dt;
+            n_tempCO2 = n_tempCO2 - 0.2 * m_out(k)/M_air * dt;
+            n_tempNit = n_tempNit - 0.2 * m_out(k)/M_air * dt;
+        end
         %H_ref_3 = n_tempH2O * M_H2O * H_water * dt + n_tempO2 * M_O2 * H_oxygen * dt + n_tempCO2 * M_CO2 * H_CO2;
         H_temp = H_ref_3 + H_tot(k-1) + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt + DELTAh_combustion * m_dot_PLA_3 * dt;
 
@@ -371,12 +382,6 @@ for k = j:60
     
 end
 
-
-
-
-
-
-
 %--------------------- Figure Plotting ------------------------------------
 total_time = length(P_tot)*dt;
 tspan = linspace(0,total_time,length(P_tot));
@@ -395,5 +400,6 @@ figure(1)
 
     xlabel('time [s]')
 
-
+save('P_totsim.txt', 'P_tot','-ASCII','-append')
+save('T_totsim.txt', 'T_tot','-ASCII','-append')
 

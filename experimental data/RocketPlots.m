@@ -15,7 +15,7 @@ Burn1 = load('Burn1_crop.mat');
 
     B1Valve = UntitledValvecontrol.Data;
 %%
-Burn2 = load('Burn2_crop.mat');
+Burn2 = load('Burn2_crop.mat','UntitledForceLink');
 
     B2FL = UntitledForceLink.Data;
 
