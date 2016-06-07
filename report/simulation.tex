@@ -26,6 +26,9 @@ The rocket's simulation can be explained relatively simply through a series of f
 
 
 \section{Stage one: Injection}
+
+
+
 \section{Stage two: Decomposition}
 \section{Stage three: Combustion}
 \section{Stage four: Thrust}
@@ -72,6 +75,12 @@ The rocket's simulation can be explained relatively simply through a series of f
 
 INSERT FLOWCHART OF SECONDARY PART WHEN POWERPOINT WORKS
 
+
+\section{Implementation}
+
+  The rocket engine's ignition algorithm is based on the previous assumptions. The constructed algorithm is divided into three parts, which determine the rocket's performance at various stages. There are four stages, the first being the rocket's pre-launch conditions, eg. amount of substance $n$, pressure $P$ and temperature $T$. The second stage is injection of oxidizer into the precombustion (or decomposition) chamber. The amount of injected oxidizer is equivalent to the injection nozzle's flow per timestep $dt$ in every iteration. This is followed by recalculating the rocket's conditions.
+
+  After the initial matter has been injected, decomposition starts. This is the third stage of the algorithm. After matter has been decomposed, the temperature, pressure, exit velocity $v_e$ and hence exit mass can be found.
 
 
 
