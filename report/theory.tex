@@ -39,9 +39,9 @@
 		\end{align}
 	in accordance to data collected at the recent launch \fxnote{Hvordan angiver jeg kilde/skal jeg ændre dette til at være tidsafhængig?}.
 
-	The oxidizing agent is injected into the first chamber where decomposition into \chem{O_2} is aided by potassium permanganate. The hydrogen-peroxide (\chem{H_2O_2}) decomposes into dioxygen (\chem{O_2}) as it reacts with the potassium permanganate (\chem{K Mn O_4}), which is encased in a flame retardant foam. The unbalanced chemical reaction is as follows:
+	The oxidizing agent is injected into the first chamber where decomposition into \chem{O_2} is aided by potassium permanganate. The hydrogen-peroxide (\chem{H_2O_2}) decomposes into dioxygen (\chem{O_2}) as it reacts with the potassium permanganate (\chem{K Mn O_4}), which is encased in a flame retardant foam. The balanced chemical redox reaction is as follows:
 		\begin{align}
-			\chem{KMnO_4 + H_2O_2} &\rightarrow \chem{K_2O_2 + MnO_2 + H_2O + O_2}
+			\chem{6 KMnO_4 + H_2O_2} &\rightarrow \chem{3 K_2O_2 + 6 MnO_2 + H_2O + 3 O_2}
 		\intertext{The specific enthalpy released during decomposition is:}
 			\Delta h_\text{decomposition} &= \frac{\Delta H_\chem{H_2O_2}}{\text{M}_\chem{H_2O_2}}
 		\intertext{Where $\Delta H$ is the change in enthalpy. The energy released heats the grain's surface to autoignition temperatures of approximately $\SI{260}{^\circ C}$ in this extremely oxygen-rich environment. The increased temperature increases the pressure, in accordance to the ideal-gas law:}
@@ -62,9 +62,19 @@
 
 	\subsubsection{Autoignition}
 
+		There are two types of ignition: Autoignition and piloted ignition. \cite[chapter 4, pp.~66]{principlesoffire} Piloted ignition is the process of flame propagation in a premixed fuel system, such as lighting a candle or starting a petrol engine. This is the usual way of igniting every day systems, however, MEOWTH uses the other type: Autoignition.
+
+		Autoignition occurs without a spark of flame present. The fuel must have a certain concentration and temperature, before spontaneously igniting. This temperature is lowered by rising oxygen concentration and pressure, which complicates setting a specific point of time of ignition. \cite{ASTMautoign} According the the MDF's datasheet \cite{mdfAIT}, autoignition occurs around \SIrange{220}{250}{\celsius}. This minimum temperature tells us when spontaneous combustion takes place, the question is then how quickly after reaching this temperature does the material ignite?
+
+		Autoignition time $t_\text{auto}$ is given by:
+		\begin{align*}
+			t_\text{auto} &= C (k \rho c) \left[\frac{T_\text{auto} - T_\text{initial}}{\phi} \right]^2
+		\end{align*}
+		where $k$ is the thermal conductivity of the material, $C$ is a constant depending on the heat flux, but roughly equivalent to $0.785$ assuming no heat loss. \cite[chapter 4, pp.~71]{principlesoffire} $T_\text{auto}$ is the autoignition temperature and $T_\text{initial}$ is the starting temperature, and $\phi$ is the heat flux.
+
+		Back--of--the--envelope calculations shows that the autoignition time is on the order of magnitude $10^{-5}$, which is way faster than anything we should be able to measure. It is thus assumed to be far too small to have any real influence, compared to the autoignition temperature.
 
 
-		An effect that appears to be an important piece of the puzzle is the autoignition of the grain. As soon as decomposition occurs, the material begins to heat up, until it spontaneously ignites. This point can be found by reading the datasheet of the material, albeit the value is listed for atmospheric air. \cite{principlesoffire}
 
 	\subsubsection{Combustion}
 
