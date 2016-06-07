@@ -23,64 +23,72 @@
 \chapter{Simulation}
 
 The rocket's simulation can be explained relatively simply through a series of flowcharts. The first one describes how all constants and flows are defined, and how reference values are calculated.
-
-
-\section{Stage one: Injection}
-
-
-
-\section{Stage two: Decomposition}
-\section{Stage three: Combustion}
-\section{Stage four: Thrust}
-
-
-\begin{tikzpicture}[node distance = 3cm, auto]
-    % Place nodes
-    \node [block] (const) {Define constants};
-      \node [cloud, left of=const] (constvars) {$T_{amb}$, chamber dim., etc.};
-    \node [block, below of=const] (inj) {Define injection rates per second};
-      \node [cloud, left of=inj] (injvars) {$\dot{n}_{H_2O_2,1}$ $\dot{n}_{H_2O,1}$};
-    \node [block, below of=inj] (dec) {Define decomposition rates per second};
-      \node [cloud, left of=dec] (decvars) {$\dot{n}_{H_2O_2,2}$ $\dot{n}_{H_2O,2}$ $\dot{n}_{O_2,2}$};
-    \node [block, below of=dec] (com) {Define combustion rates per second};
-      \node [cloud, left of=com] (comvars) {$\dot{n}_{H_2O,3}$ $\dot{n}_{O_2,3}$ $\dot{n}_{CO_2,3}$};
-    \node [block, below of=com] (exha) {Define exhaustion mass flow};
-      \node [cloud, left of=exha] (exhavars) {$\dot{m}_{pla,3}$};
-%%%% Defining more relavant stuff %%%%%
-    \node [block, below of=exha] (mflow) {Define mass flow rates $n$ per timestep $dt$ to find enthalpy};
-      \node [cloud, left of=mflow] (mflowvars) {$m_{tot,n} = \sum\limits_{\text{chem.} 1}^{\text{chem. k}} \dot{n}_j \cdot dt$};
-    \node [block, right of=mflow] (mfrac) {Calculate mass fraction in flow rates to calculate enthalpy leaving rocket later};
-    \node [block, above of=mfrac, node distance=6cm] (refent) {Calculate reference enthalpy in decomposition and combustion states};
-      \node [cloud, right of=refent] (refentvars) {$H = \sum \dot{m}_{j} \cdot H_j(P,T) + \Delta h_{dec,com} \cdot \dot{m}_\chem{H_2O_2} \cdot dt$};
-    \node [decision, right of=const, node distance=5cm] (next) {Passes static data into $P$ and $T$ calculations};
-
-
-    % Draw edges
-    \path [line] (const) -- (inj);
-    \path [draw] (const) -- (constvars);
-    \path [line] (inj) -- (dec);
-    \path [draw] (inj) -- (injvars);
-    \path [line] (dec) -- (com);
-    \path [draw] (dec) -- (decvars);
-    \path [line] (com) -- (exha);
-    \path [draw] (com) -- (comvars);
-    \path [draw] (exha) -- (exhavars);
-    \path [line] (exha) -- (mflow);
-    \path [draw] (mflow) -- (mflowvars);
-    \path [line] (mflow) -- (mfrac);
-    \path [line] (mfrac) -- (refent);
-    \path [draw] (refent) -- (refentvars);
-    \path [line] (refent) -- (next);
-\end{tikzpicture}
-
-INSERT FLOWCHART OF SECONDARY PART WHEN POWERPOINT WORKS
+%
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{rocketflowchart.pdf}
+	\caption{Scheme showing the implementation of the rocket's ignition algorithm.}
+	\label{fig:flowchart}
+\end{figure}
 
 
 \section{Implementation}
 
-  The rocket engine's ignition algorithm is based on the previous assumptions. The constructed algorithm is divided into three parts, which determine the rocket's performance at various stages. There are four stages, the first being the rocket's pre-launch conditions, eg. amount of substance $n$, pressure $P$ and temperature $T$. The second stage is injection of oxidizer into the precombustion (or decomposition) chamber. The amount of injected oxidizer is equivalent to the injection nozzle's flow per timestep $dt$ in every iteration. This is followed by recalculating the rocket's conditions.
+  The rocket engine's ignition algorithm is based on the previous assumptions. Figure \ref{fig:flowchart} show a flowchart of the ignition alogrithm. The implemented algorithm is divided into four parts, which determine the rocket's performance at various stages. The first stage is the rocket's pre-launch conditions, eg. amount of substance $n$, pressure $P$ and temperature $T$. The second stage is injection of oxidizer into the pre--combustion (or decomposition) chamber. The amount of injected oxidizer is equivalent to the injection nozzle's flow per time step $\Delta t$ in every iteration. This is followed by recalculating the rocket's conditions. After the initial matter has been injected, decomposition starts. This is the third stage of the algorithm. Post decomposition, the temperature, pressure, exit velocity $v_e$ and exit mass can be found. The temperature is compared to the autoignition temperature $T_\text{auto}$: If higher, combustion of material still contained inside the rocket starts. Otherwise, more oxidizer is injected and decomposed until the energy released during decomposition heats the interior to autoignition temperatures. The final stage occurs when temperatures are large enough to allow combustion. Combustion takes place using \emph{all} the available oxygen inside the rocket during every iteration. This means, that if $T_\text{auto} \approx T_\text{amb}$, combustion occurs instantaneously, using only the oxygen released by the first time step's oxidizer. If, however, $T_\text{auto} > T_\text{amb}$ (as it is in our case), combustion occurs a certain time later, allowing oxygen to accumulate inside the chamber.
 
-  After the initial matter has been injected, decomposition starts. This is the third stage of the algorithm. After matter has been decomposed, the temperature, pressure, exit velocity $v_e$ and hence exit mass can be found.
+
+
+
+  %
+  % \section{Stage one: Injection}
+  %
+  %
+  %
+  % \section{Stage two: Decomposition}
+  % \section{Stage three: Combustion}
+  % \section{Stage four: Thrust}
+  %
+  %
+  % \begin{tikzpicture}[node distance = 3cm, auto]
+  %     % Place nodes
+  %     \node [block] (const) {Define constants};
+  %       \node [cloud, left of=const] (constvars) {$T_{amb}$, chamber dim., etc.};
+  %     \node [block, below of=const] (inj) {Define injection rates per second};
+  %       \node [cloud, left of=inj] (injvars) {$\dot{n}_{H_2O_2,1}$ $\dot{n}_{H_2O,1}$};
+  %     \node [block, below of=inj] (dec) {Define decomposition rates per second};
+  %       \node [cloud, left of=dec] (decvars) {$\dot{n}_{H_2O_2,2}$ $\dot{n}_{H_2O,2}$ $\dot{n}_{O_2,2}$};
+  %     \node [block, below of=dec] (com) {Define combustion rates per second};
+  %       \node [cloud, left of=com] (comvars) {$\dot{n}_{H_2O,3}$ $\dot{n}_{O_2,3}$ $\dot{n}_{CO_2,3}$};
+  %     \node [block, below of=com] (exha) {Define exhaustion mass flow};
+  %       \node [cloud, left of=exha] (exhavars) {$\dot{m}_{pla,3}$};
+  % %%%% Defining more relavant stuff %%%%%
+  %     \node [block, below of=exha] (mflow) {Define mass flow rates $n$ per time step $dt$ to find enthalpy};
+  %       \node [cloud, left of=mflow] (mflowvars) {$m_{tot,n} = \sum\limits_{\text{chem.} 1}^{\text{chem. k}} \dot{n}_j \cdot dt$};
+  %     \node [block, right of=mflow] (mfrac) {Calculate mass fraction in flow rates to calculate enthalpy leaving rocket later};
+  %     \node [block, above of=mfrac, node distance=6cm] (refent) {Calculate reference enthalpy in decomposition and combustion states};
+  %       \node [cloud, right of=refent] (refentvars) {$H = \sum \dot{m}_{j} \cdot H_j(P,T) + \Delta h_{dec,com} \cdot \dot{m}_\chem{H_2O_2} \cdot dt$};
+  %     \node [decision, right of=const, node distance=5cm] (next) {Passes static data into $P$ and $T$ calculations};
+  %
+  %
+  %     % Draw edges
+  %     \path [line] (const) -- (inj);
+  %     \path [draw] (const) -- (constvars);
+  %     \path [line] (inj) -- (dec);
+  %     \path [draw] (inj) -- (injvars);
+  %     \path [line] (dec) -- (com);
+  %     \path [draw] (dec) -- (decvars);
+  %     \path [line] (com) -- (exha);
+  %     \path [draw] (com) -- (comvars);
+  %     \path [draw] (exha) -- (exhavars);
+  %     \path [line] (exha) -- (mflow);
+  %     \path [draw] (mflow) -- (mflowvars);
+  %     \path [line] (mflow) -- (mfrac);
+  %     \path [line] (mfrac) -- (refent);
+  %     \path [draw] (refent) -- (refentvars);
+  %     \path [line] (refent) -- (next);
+  % \end{tikzpicture}
+  %
+  % INSERT FLOWCHART OF SECONDARY PART WHEN POWERPOINT WORKS
 
 
 
