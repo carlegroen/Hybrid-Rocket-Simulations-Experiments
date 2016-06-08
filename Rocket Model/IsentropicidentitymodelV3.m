@@ -15,7 +15,7 @@ P_amb       = 101.3;            %[kPa]
 T_amb       = 273.15 + 20;      %[K]
 x_oxidizer  = 0.8;              %fraction
 f           = 0.59;             %fraction
-m_dot_oxidizer = 0.25;         %[kg/s]
+m_dot_oxidizer = 0.246;         %[kg/s]
 mass_H2O2   = 1.3 * x_oxidizer; %[kg]
 mass_H2O    = 1.3 - mass_H2O2;  %[kg]
 R           = 8.3145;           %[kJ/(mol*K)]
@@ -400,6 +400,6 @@ figure(1)
 
     xlabel('time [s]')
 
-save('P_totsimmdot0.5.txt', 'P_tot','-ASCII','-append')
-save('T_totsimmdot0.5.txt', 'T_tot','-ASCII','-append')
+save('P_totsim.txt', 'P_tot','-ASCII','-append')
+save('T_totsim.txt', 'T_tot','-ASCII','-append')
 
