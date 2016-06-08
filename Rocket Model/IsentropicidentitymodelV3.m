@@ -15,7 +15,7 @@ P_amb       = 101.3;            %[kPa]
 T_amb       = 273.15 + 20;      %[K]
 x_oxidizer  = 0.8;              %fraction
 f           = 0.59;             %fraction
-m_dot_oxidizer = 0.246;         %[kg/s]
+m_dot_oxidizer = 0.25;         %[kg/s]
 mass_H2O2   = 1.3 * x_oxidizer; %[kg]
 mass_H2O    = 1.3 - mass_H2O2;  %[kg]
 R           = 8.3145;           %[kJ/(mol*K)]
@@ -297,7 +297,7 @@ j = k
 %% 
 
 H_ref_3 = n_dot_H2O_3 * M_H2O * H_water * dt + n_dot_O2_3 * M_O2 * H_oxygen * dt + n_dot_CO2_3 * M_CO2 * H_CO2;
-H_3 = H_ref_3 + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt + DELTAh_combustion * m_dot_PLA_3 * dt * 15;
+H_3 = H_ref_3 + DELTAh_decomposition * n_dot_H2O2_1 * M_H2O2 * dt + DELTAh_combustion * m_dot_PLA_3 * dt * k;
 
 %n_tempO2 = 5*n_tempO2
 H_tot(k) = H_tot(k) + H_3
@@ -400,6 +400,6 @@ figure(1)
 
     xlabel('time [s]')
 
-save('P_totsim.txt', 'P_tot','-ASCII','-append')
-save('T_totsim.txt', 'T_tot','-ASCII','-append')
+save('P_totsimmdot0.5.txt', 'P_tot','-ASCII','-append')
+save('T_totsimmdot0.5.txt', 'T_tot','-ASCII','-append')
 
