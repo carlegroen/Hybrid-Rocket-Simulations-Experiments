@@ -5,7 +5,14 @@
 
 \section{Basic Rocket Science}
 
-	A rocket engine consists of a few fundamental elements. A rocket engine is a type of jet engine that, in contrast to duct jets, carry their own rocket propellant. Jet engines as seen in aeroplanes are usually situated with a duct, confining the air flow. Rocket engines on the other hand carry a supply of oxygen and rocket propellant, which allows them to function even in vacuum.
+	A rocket engine consists of a few fundamental elements. There exists two types of rocket engines, as seen in figure \ref{fig:rocketvsduct}. A rocket engine is a type of jet engine that, in contrast to duct jets, carry their own rocket propellant. Jet engines as seen in aeroplanes are usually situated with a duct, confining the air flow. Rocket engines on the other hand carry a supply of oxygen and rocket propellant, which allows them to function even in vacuum.
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{rocketvsduct}
+		\caption{Schematic difference of the two types of jet engines: Rocket engines and air duct engines.}
+		\label{fig:rocketvsduct}
+	\end{figure}
 
 	Rocket engines work by obtaining thrust in accordance with Newton's third law. The internal combustion chamber accelerates fluids through a propelling nozzle to high speeds. The fluid is most often a gas created from mixing fuel and oxidizing components in a the combustion chamber. The exhaust is accelerated to supersonic speeds by expansion in the nozzle, which forces the engine in the opposite direction.
 
@@ -26,7 +33,15 @@
 
 	The hybrid rocket engine consists of three parts: The combustion chamber, the converging into a throat, and diverging section after called the nozzle. A rocket's effectivity is highly dependent on the shape, size and ratios between these three segments. Accordingly, it is imperative to study these parts of the rocket's design.
 
-	The rocket in question is seen in figure \ref{fig:rocketpic} which is divided into a tank, three chambers and a nozzle. From the left: The tall tank contains the oxidizing agent, which is injected into the first part of the rocket. The oxidizing agent used is hydrogen peroxide in an $80\%$ concentration. The longest part of the rocket, as seen on figure \ref{fig:rocketpic}, contains potassium permanganate engulfed in a flame retardant foam. The mixing of potassium permanganate and hydrogen peroxide rapidly creates large amounts of oxygen, which is forced through the rocket's second part: the grain chamber. The rocket's main fuel is plain Medium-Density Fiberboard (MDF), which resides here. The energy released during decomposition heats the wooden MDF grain, until temperatures reach MDF's autoignition point of 492K at atmospheric oxygen levels \cite{mdfAIT}. Around this point the fuel combusts, and the exhaust exits through the nozzle after it has passed the mixing chamber.
+	The rocket in question is seen in figure \ref{fig:rocketpic} which is divided into a tank, three chambers and a nozzle. A schematic setup can be seen in figure \ref{fig:crosssect}.
+
+	\begin{figure}
+		\includegraphics[width=\textwidth]{crosssect}
+		\caption{Cross section of the rocket.}
+		\label{fig:crosssect}
+	\end{figure}
+
+	From the left: The tall tank marked with a $1.$ contains the oxidizing agent, which is injected into the first part of the rocket. The oxidizing agent used is hydrogen peroxide in an $80\%$ concentration. Point $2.$ marks the place where the injecting nozzle is placed, which determines the rocket's mass flow rate. The longest part of the rocket, as seen on figure \ref{fig:crosssect} marked with $3.$, contains potassium permanganate engulfed in a flame retardant foam. The mixing of potassium permanganate and hydrogen peroxide rapidly creates large amounts of oxygen, which is forced through the rocket's second part: the grain chamber, marked with numer $4.$ The rocket's main fuel is plain Medium-Density Fiberboard (MDF), which resides here. The energy released during decomposition heats the wooden MDF grain, until temperatures reach MDF's autoignition point of 492K at atmospheric oxygen levels \cite{mdfAIT}. Around this point the fuel combusts, and the exhaust exits through the nozzle $6.$ after it has passed the mixing chamber $5.$.
 
 	All calculations and considerations made in the report is in regard to this particular rocket. The following subsections each elaborate individual segment of the rocket, with the purpose of providing the necessary background knowledge to understand the ignition simulations and results. The explanation is given step by step, starting with injection and ending with exhaustion.
 
@@ -104,12 +119,6 @@
 
 \subsection{Throat}
 
-	\begin{figure}
-		\includegraphics[width=\textwidth]{elon3}
-		\caption{Cross section of the throat area.}
-		\label{fig:crossthroat}
-	\end{figure}
-
 	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage called the throat, followed by a diverging section: The nozzle. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the flow of matter. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_t$ must be proportional to the density of the material, the velocity and the throat's area according to \cite{nasacompflow}:
 		\begin{align}
 			\dot{m}_t &= \rho \cdot v_t \cdot A_t
@@ -136,10 +145,10 @@
 		\label{fig:delaval}
 	\end{figure}
 
-	The rocket nozzle's primary function is to channel the combusted propellant out of the rocket and accelerate it. The optimal nozzle maximizes the velocity of the exhaust, preferably to supersonic values. The most well-known nozzle is a convergent-divergent nozzle called a deLaval Nozzle, which performs all of these things through simple geometry. Such a nozzle can be seen on figure \ref{fig:delaval}, where the combustion chamber is to the left, and the exhaust is to the right. An important part of maximizing the nozzle's performance is ensuring that the flow stays isentropic. At optimal ratios, the flow is frictionless and adiabatic, which ensures entropy is conserved. Isentropic flow is considered to \emph{only} be dependent on the cross-sectional area of the nozzle that the fluid moves through \cite{nakkanozz}.
+	The rocket nozzle's primary function is to channel the combusted propellant out of the rocket and accelerate it. The optimal nozzle maximizes the velocity of the exhaust, preferably to supersonic values. The most well-known nozzle is a convergent-divergent nozzle called a deLaval Nozzle, which performs all of these things through simple geometry. Such a nozzle can be seen on figure \ref{fig:delaval}, where the combustion chamber is to the left, and the exhaust is to the right. An important part of maximizing the nozzle's performance is ensuring that the flow stays isentropic. Isentropic flow requires that the flow is frictionless and adiabatic, which ensures entropy is conserved. Isentropic flow is considered to \emph{only} be dependent on the cross-sectional area of the nozzle that the fluid moves through \cite{nakkanozz}. This allows calculation of any variable in any place, given some initial conditions.
 
-	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which acts as a reservoir of low-pressure gas between atmospheric pressure ($\SI{101.3}{kPa}$).
-	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over- and underexpanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket \cite{robertnozzle}.
+	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which acts as a reservoir of low-pressure gas between atmospheric pressure ($\SI{101.3}{kPa}$)
+	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over-- and under--expanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket \cite{robertnozzle}.
 
 \section{Heat Capacity}
 
@@ -175,15 +184,15 @@
 		h_1 - h_2 & = \frac{1}{2} (v_2^2 - v_1^2) = C_p (T_1 - T_2)
 		\intertext{where $h$ again is the enthalpy of the fluid, $v$ is the flow velocity and $C_p$ is the heat capacity, T is the fluid's temperature. From the continuity equation, we can find a pseudo-steady state from looking at the stagnation temperature in the chamber. Setting $v_2 = 0$ yields the stagnation temperature:}
 		T_0 &= T + \frac{v^2}{2 C_p}
-		\intertext{This yields several key relationships between stagnation properties for pressure, density and temperature:}
+		\intertext{This yields several key relationships between stagnation properties for pressure, density and temperature according to \cite[chapter 3, p.~60-63]{turbomac}:}
 		\frac{T_0}{T} & = \frac{P_0}{P}^{\frac{\gamma-1}{\gamma}} = \frac{\rho_0}{\rho}^{\gamma-1}
-		\intertext{\cite[chapter 3, p.~60-63]{turbomac} Using this, we can find the temperature at the exit:}
-		T_e &= \frac{P_e}{P_0}^{1-\frac{1}{\gamma}} \cdot T_0
+		\intertext{Using this, we can find the temperature at the exit:}
+		T_e &= T_0 \frac{P_e}{P_0}^{1-\frac{1}{\gamma}}
 		\intertext{As $P_e$ is the exit pressure, which is equivalent to the ambient pressure. The exit temperature allows us to calculate the density of the exiting fluid $\rho_e$:}
 		P_e &= \rho_e R T_e \Rightarrow \rho_e = \frac{P_e}{R T_e}
 		\intertext{Bernoulli's equation provides us with the exit velocity $v_e$:}
 		v_e &= \sqrt{2 \frac{P_0-P_e}{\rho_e}} = \sqrt{2 \frac{P_0-P_e}{\frac{P_e}{R T_e}}}\\
-		&\Rightarrow  \sqrt{2 \frac{(P_0-P_e)R T_e}{P_e}}
+		&=  \sqrt{2 \frac{(P_0-P_e)R T_e}{P_e}}
 		\intertext{Exit velocity and density yields the mass outflow per second:}
 		\dot{m}_\text{out} &= A_e \cdot v_e \cdot \rho_e
 		\intertext{and knowing how much matter is flowing "into" the rocket (see injection and combustion chamber sections) yields the total enthalpy contained in the rocket at all times. Therefore, we can now approximate the temperature in the rocket's chamber, knowing the different material's abundances.}
