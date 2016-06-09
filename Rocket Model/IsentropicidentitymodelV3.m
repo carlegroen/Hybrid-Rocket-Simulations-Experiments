@@ -400,6 +400,9 @@ figure(1)
 
     xlabel('time [s]')
 
-save('P_totsim.txt', 'P_tot','-ASCII','-append')
-save('T_totsim.txt', 'T_tot','-ASCII','-append')
+save('P_totsimstd.txt', 'P_tot','-ASCII','-append')
+save('T_totsimstd.txt', 'T_tot','-ASCII','-append')
 
+save('mdotstd.txt', 'm_inside','-ASCII','-append')
+save('ntotstd.txt', 'n_tot','-ASCII','-append')
+save('vexitstd.txt', 'v_e','-ASCII','-append')
