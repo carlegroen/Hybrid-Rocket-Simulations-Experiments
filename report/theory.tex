@@ -16,7 +16,7 @@
 
 	Rocket engines work by obtaining thrust in accordance with Newton's third law. The internal combustion chamber accelerates fluids through a propelling nozzle to high speeds. The fluid is most often a gas created from mixing fuel and oxidizing components in a the combustion chamber. The exhaust is accelerated to supersonic speeds by expansion in the nozzle, which forces the engine in the opposite direction.
 
-	Most rockets used today are liquid rockets which store their propellant and oxidizing component in separate tanks. The liquid fuel is then forced into the combustion chamber for consumption. Solid-fuel rockets contain propellant prepared with a fixed fuel and oxidizing component. The fuel is called 'grain', and the storage compartment for the grain is the combustion chamber. A hybrid rocket is the mixture between the two. Most often, hybrid rockets contain a solid fuel, or 'grain' and liquid or gaseous oxygen, thus earning the name hybrid engine. Variations of this engine type do exist, but this configuration is the most often used \cite[chapter 16, p.~605]{rockProp}. Solid oxidizers are uncommon as they are problematic and have worse performance than liquid oxidizers.
+	Most rockets used today are liquid rockets which store their propellant and oxidizing component in separate tanks. The liquid fuel is then forced into the combustion chamber for consumption. Solid-fuel rockets contain propellant prepared with a fixed fuel and oxidizing component. The fuel is called 'grain', and the storage compartment for the grain is the combustion chamber. A hybrid rocket is the mixture between the two. Most often, hybrid rockets contain a solid fuel, or 'grain' and liquid or gaseous oxygen, thus earning the name hybrid engine. Variations of this engine type do exist, but this configuration is the most often used \cite{rockProp}. Solid oxidizers are uncommon as they are problematic and have worse performance than liquid oxidizers.
 
 	Liquid and hybrid engines both use injectors to disperse oxygen and propellant into the combustion chamber. For a hybrid engines, this means spreading oxygen to the grains surface to allow combustion.
 
@@ -75,7 +75,7 @@
 
 	\subsubsection{Propellant Grain}
 
-		The combustion chamber consists of an approximate 3 liter cavity which is filled with the grain. The actual volume in a hybrid rocket depends strongly on the initial condition of the grain and the fuel's combustion rate. Holes have to be carved in the grain to allow oxygen to reach the grain's surface, and transport exhaust towards the throat. The combustion rate is largely determined by the exposed surface area of the grain, and the flux of the oxidizer. The surface gradually expands as the outer regions are burned away, thus changing the rocket's effective thrust over time \cite[chapter 12, p.~174]{ignition}. The propellant's increase in burning area during ignition is assumed to be negligible, compared to the rapid increases in pressure and temperature.
+		The combustion chamber consists of an approximate 3 liter cavity which is filled with the grain. The actual volume in a hybrid rocket depends strongly on the initial condition of the grain and the fuel's combustion rate. Holes have to be carved in the grain to allow oxygen to reach the grain's surface, and transport exhaust towards the throat. The combustion rate is largely determined by the exposed surface area of the grain, and the flux of the oxidizer. The surface gradually expands as the outer regions are burned away, thus changing the rocket's effective thrust over time \cite{ignition}. The propellant's increase in burning area during ignition is assumed to be negligible, compared to the rapid increases in pressure and temperature.
 
 				\begin{figure}
 					\centering
@@ -97,7 +97,7 @@
 
 	\subsubsection{Autoignition}
 
-		There are two types of ignition: Autoignition and piloted ignition \cite[chapter 4, pp.~66]{principlesoffire}. Piloted ignition is the process of flame propagation in a premixed fuel system, such as lighting a candle or starting a petrol engine. This is the usual way of igniting every day systems, however, MEOWTH uses the other type: Autoignition.
+		There are two types of ignition: Autoignition and piloted ignition \cite{principlesoffire}. Piloted ignition is the process of flame propagation in a premixed fuel system, such as lighting a candle or starting a petrol engine. This is the usual way of igniting every day systems, however, MEOWTH uses the other type: Autoignition.
 
 		Autoignition occurs without a spark of flame present. The fuel must have a certain concentration and temperature, before spontaneously igniting. This temperature is lowered by rising oxygen concentration and pressure, which complicates setting a specific point of time of ignition \cite{ASTMautoign}. According the the MDF's datasheet \cite{mdfAIT}, autoignition occurs around \SIrange{220}{250}{\celsius}. This minimum temperature tells us when spontaneous combustion takes place, the question is then how quickly after reaching this temperature does the material ignite?
 
@@ -105,7 +105,7 @@
 		\begin{align*}
 			t_\text{auto} &= C (k \rho c) \left[\frac{T_\text{auto} - T_\text{initial}}{\phi} \right]^2
 		\end{align*}
-		where $k$ is the thermal conductivity of the material, $C$ is a constant depending on the heat flux, but roughly equivalent to $0.785$ assuming no heat loss \cite[chapter 4, pp.~71]{principlesoffire}. $T_\text{auto}$ is the autoignition temperature and $T_\text{initial}$ is the starting temperature, and $\phi$ is the heat flux.
+		where $k$ is the thermal conductivity of the material, $C$ is a constant depending on the heat flux, but roughly equivalent to $0.785$ assuming no heat loss \cite{principlesoffire}. $T_\text{auto}$ is the autoignition temperature and $T_\text{initial}$ is the starting temperature, and $\phi$ is the heat flux.
 
 		Back--of--the--envelope calculations shows that the autoignition time is on the order of magnitude $10^{-5}$, which is way faster than anything we should be able to measure. The temperature and pressure rise far too quickly for this to have an obvious effect on the ignition. It is thus assumed to be far too small to have any real influence, compared to the autoignition temperature.
 
@@ -141,11 +141,11 @@
 
 	\begin{figure}
 		\includegraphics[width=\textwidth]{delaval}
-		\caption{Schematic of a de Laval nozzle, where the green area is equivalent to the mixing chamber, and the red area is the nozzle's exit.}
+		\caption{Schematic of a de Laval nozzle, where the green area is equivalent to the mixing chamber, and the red area is the nozzle's exit. Picture taken from \cite{wikidelaval}.}
 		\label{fig:delaval}
 	\end{figure}
 
-	The rocket nozzle's primary function is to channel the combusted propellant out of the rocket and accelerate it. The optimal nozzle maximizes the velocity of the exhaust, preferably to supersonic values. The most well-known nozzle is a convergent-divergent nozzle called a deLaval Nozzle, which performs all of these things through simple geometry. Such a nozzle can be seen on figure \ref{fig:delaval}, where the combustion chamber is to the left, and the exhaust is to the right. An important part of maximizing the nozzle's performance is ensuring that the flow stays isentropic. Isentropic flow requires that the flow is frictionless and adiabatic, which ensures entropy is conserved. Isentropic flow is considered to \emph{only} be dependent on the cross-sectional area of the nozzle that the fluid moves through \cite{nakkanozz}. This allows calculation of any variable in any place, given some initial conditions.
+	The rocket nozzle's primary function is to channel the combusted propellant out of the rocket and accelerate it. The optimal nozzle maximizes the velocity of the exhaust, preferably to supersonic values. The most well-known nozzle is a convergent-divergent nozzle called a de Laval Nozzle, which performs all of these things through simple geometry. Such a nozzle can be seen on figure \ref{fig:delaval}, where the combustion chamber is to the left, and the exhaust is to the right. The flow's velocity increases from green to red in the direction of the flow. An important part of maximizing the nozzle's performance is ensuring that the flow stays isentropic. Isentropic flow requires that the flow is frictionless and adiabatic, which ensures entropy is conserved. Isentropic flow is considered to \emph{only} be dependent on the cross-sectional area of the nozzle that the fluid moves through \cite{nakkanozz}. This allows calculation of any variable in any place, given some initial conditions.
 
 	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which acts as a reservoir of low-pressure gas between atmospheric pressure ($\SI{101.3}{kPa}$)
 	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over-- and under--expanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket \cite{robertnozzle}.
@@ -184,7 +184,7 @@
 		h_1 - h_2 & = \frac{1}{2} (v_2^2 - v_1^2) = C_p (T_1 - T_2)
 		\intertext{where $h$ again is the enthalpy of the fluid, $v$ is the flow velocity and $C_p$ is the heat capacity, T is the fluid's temperature. From the continuity equation, we can find a pseudo-steady state from looking at the stagnation temperature in the chamber. Setting $v_2 = 0$ yields the stagnation temperature:}
 		T_0 &= T + \frac{v^2}{2 C_p}
-		\intertext{This yields several key relationships between stagnation properties for pressure, density and temperature according to \cite[chapter 3, p.~60-63]{turbomac}:}
+		\intertext{This yields several key relationships between stagnation properties for pressure, density and temperature according to \cite{turbomac}:}
 		\frac{T_0}{T} & = \frac{P_0}{P}^{\frac{\gamma-1}{\gamma}} = \frac{\rho_0}{\rho}^{\gamma-1}
 		\intertext{Using this, we can find the temperature at the exit:}
 		T_e &= T_0 \frac{P_e}{P_0}^{1-\frac{1}{\gamma}}
