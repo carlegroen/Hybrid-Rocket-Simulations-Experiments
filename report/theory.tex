@@ -1,7 +1,7 @@
 % !TEX root = main.tex
 \chapter{Theory}
 
-	Understanding the theory behind the rocket's flow requires a basic knowledge on rockets. Therefore, the first theoretical segment concerns basic rocketry, followed by a more advanced segment of nozzle theory.
+	Understanding the theory behind the rocket's flow requires a basic knowledge of rockets. Therefore, the first theoretical segment concerns basic rocketry, followed by a more advanced segment of nozzle theory.
 
 \section{Basic Rocket Science}
 
@@ -13,40 +13,45 @@
 
 	Liquid and hybrid engines both use injectors to disperse oxygen and propellant into the combustion chamber. For a hybrid engines, this means spreading oxygen to the grains surface to allow combustion.
 
-	Hybrid rockets are inherently safer than its two counterparts, and accidents are less volatile as accidental fuel mixing is a non-issue. The oxidizer and fuel are almost always contained in separate chambers, which also reduces the mechanical complexity of the rocket in comparison to liquid rockets.
+	Hybrid rockets are inherently safer than its two counterparts, and accidents are less volatile as accidental fuel mixing is a non-issue.\footnote{Assuming you can control the oxidizer inlet valve.} The oxidizer and fuel are almost always contained in separate chambers, which also reduces the mechanical complexity of the rocket in comparison to liquid rockets.
 
-\section{Theoretics of the Hybrid Rocket Engine}
+\section{Hybrid Rocket Engine}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{rocketsideview}
-	\caption{The hybrid rocket build at Navitas in Aarhus for educational purposes.}
+	\caption{The hybrid rocket built at Navitas in Aarhus for educational purposes.}
 	\label{fig:rocketpic}
 \end{figure}
 
 	The hybrid rocket engine consists of three parts: The combustion chamber, the converging into a throat, and diverging section after called the nozzle. A rocket's effectivity is highly dependent on the shape, size and ratios between these three segments. Accordingly, it is imperative to study these parts of the rocket's design.
 
-	The rocket in question is seen in figure \ref{fig:rocketpic} which is divided into a tank, three chambers and a nozzle. From the left: The tall tank contains the oxidizing agent, which is injected into the first part of the rocket. The longest part of the rocket, as seen on figure \ref{fig:rocketpic}, contains potassium permanganate engulfed in a flame retardant foam. This creates oxygen, which is forced through the rocket's second part: the grain chamber. The heat from decomposition heats the inside material to roughly 485K, which is close to MDF's autoignition point of 492K at atmospheric oxygen levels. \cite{mdfAIT} With almost pure oxygen being created in the decomposition, the autoignition temperature drops and combustion takes place. The exhaust exits through the nozzle after it has passed the mixing chamber.
+	The rocket in question is seen in figure \ref{fig:rocketpic} which is divided into a tank, three chambers and a nozzle. From the left: The tall tank contains the oxidizing agent, which is injected into the first part of the rocket. The oxidizing agent used is hydrogen peroxide in an $80\%$ concentration. The longest part of the rocket, as seen on figure \ref{fig:rocketpic}, contains potassium permanganate engulfed in a flame retardant foam. The mixing of potassium permanganate and hydrogen peroxide rapidly creates large amounts of oxygen, which is forced through the rocket's second part: the grain chamber. The rocket's main fuel is plain Medium-Density Fiberboard (MDF), which resides here. The energy released during decomposition heats the wooden MDF grain, until temperatures reach MDF's autoignition point of 492K at atmospheric oxygen levels \cite{mdfAIT}. Around this point the fuel combusts, and the exhaust exits through the nozzle after it has passed the mixing chamber.
 
-	All calculations and considerations made in the report is in regard to this particular rocket. The following subsections elaborates each individual segment of the rocket, with the purpose of providing the necessary background knowledge to understand the simulations and results. The explanation is given step by step, starting with injection and ending with exhaustion.
+	All calculations and considerations made in the report is in regard to this particular rocket. The following subsections each elaborate individual segment of the rocket, with the purpose of providing the necessary background knowledge to understand the ignition simulations and results. The explanation is given step by step, starting with injection and ending with exhaustion.
 
 
 \subsection{Injection}
 
 	To initiate combustion in the hybrid engine, an oxidizer is injected into the combustion chamber. The rocket in question creates its oxydizer by mixing an oxidizing agent with potassium permanganate. The agent is contained in a pressurized tank containing an $80 \%$ \chem{H_2O_2} rich mixture with the remainder being \chem{H_2O}. The oxidizing agent is assumed to be injected at a constant rate of:
 		\begin{align}
-			\dot{m}_\text{injection} = \SI{0.273}{kg/s}.
+			\dot{m}_\text{injection} = \SI{0.246}{\kg\per\s}.
 		\end{align}
-	in accordance to data collected at the recent launch \fxnote{Hvordan angiver jeg kilde/skal jeg ændre dette til at være tidsafhængig?}.
+	in accordance to data collected at the recent launch \cite{Alex2015rapport}.
 
 	The oxidizing agent is injected into the first chamber where decomposition into \chem{O_2} is aided by potassium permanganate. The hydrogen-peroxide (\chem{H_2O_2}) decomposes into dioxygen (\chem{O_2}) as it reacts with the potassium permanganate (\chem{K Mn O_4}), which is encased in a flame retardant foam. The balanced chemical redox reaction is as follows:
 		\begin{align}
 			\chem{6 KMnO_4 + H_2O_2} &\rightarrow \chem{3 K_2O_2 + 6 MnO_2 + H_2O + 3 O_2}
-		\intertext{The specific enthalpy released during decomposition is:}
+		\end{align}
+	The specific enthalpy released during decomposition is:
+		\begin{align}
 			\Delta h_\text{decomposition} &= \frac{\Delta H_\chem{H_2O_2}}{\text{M}_\chem{H_2O_2}}
-		\intertext{Where $\Delta H$ is the change in enthalpy. The energy released heats the grain's surface to autoignition temperatures of approximately $\SI{260}{^\circ C}$ in this extremely oxygen-rich environment. The increased temperature increases the pressure, in accordance to the ideal-gas law:}
+		\end{align}
+	Where $\Delta H$ is the change in enthalpy. The energy released heats the grain's surface to autoignition temperatures of approximately $\SI{220}{\celsius}$ in this extremely oxygen-rich environment. The increased temperature increases the pressure, in accordance to the ideal-gas law:
+		\begin{align}
 			P V &= n R T
 		\end{align}
+	Which is assumed to be valid as the gas is approximately stagnant in the mixing chamber \cite{atkins}.
 	The ideal gas law is crucial in our description of the rocket. Describing the rocket's upstart phase requires coupling the changes in temperature $T$, pressure $P$ and amount of substance $n$. During injection and decomposition, combustion occurs simultaneously.
 
 	\subsection{Combustion Chamber}
@@ -55,27 +60,39 @@
 
 	\subsubsection{Propellant Grain}
 
-		The combustion chamber consists of an approximate 3 liter cavity which is filled with the grain. The actual volume in a hybrid rocket depends strongly on the initial condition of the grain and the fuel's combustion rate. Holes have to be carved in the grain to allow oxygen to reach the grain's surface, and transport exhaust towards the throat. The combustion rate is largely determined by the exposed surface area of the grain, and the flux of the oxidizer. The surface gradually expands as the outer regions are burned away, thus changing the rocket's effective thrust over time \cite[chapter 12, p.~174]{ignition}. \emph{The propellant's increase in burning area during the first second is assumed to be negligible, compared to the rapid increases in pressure and temperature.}\fxnote{Er det her en god antagelse?}
+		The combustion chamber consists of an approximate 3 liter cavity which is filled with the grain. The actual volume in a hybrid rocket depends strongly on the initial condition of the grain and the fuel's combustion rate. Holes have to be carved in the grain to allow oxygen to reach the grain's surface, and transport exhaust towards the throat. The combustion rate is largely determined by the exposed surface area of the grain, and the flux of the oxidizer. The surface gradually expands as the outer regions are burned away, thus changing the rocket's effective thrust over time \cite[chapter 12, p.~174]{ignition}. The propellant's increase in burning area during ignition is assumed to be negligible, compared to the rapid increases in pressure and temperature.
 
-		The shapes and sizes of the holes in the grain has a large impact on the initial ignition and thrust ratios. \cite{nakka} Therefore, several different grain geometries are being tested \fxnote{SKRIV OM DE FORSKELLIGE, HVILKE HAR VI VALGT? HVORFOR?}. Depending on the surface areas, the different grain's regression rate varies greatly over time. Unless oxygen is the limiting factor, the regression rate will be proportional to the thrust. The generated thrust is directly proportional to the instantaneous burning area, and as this area increases, so does the thrust.
+				\begin{figure}
+					\centering
+					\includegraphics[width=\textwidth]{singlehole}
+					\caption{Example of MDF grain with a single combustion--hole. This will have a uniformly increasing regression-rate, as the burning area increases evenly.}
+					\label{fig:singlehole}
+				\end{figure}
 
-		An alternative explanation to the pressure spike could therefore be a very fast increase in regression area. The grain's specifications from the previous tests are not mentioned, but a wagon-wheel design with several holes could allow ignition in single canals before all of them. This could allow hot pyrolytic fuel and oxygen to accumulate, causing an eventual explosion.
+		The shapes and sizes of the holes in the grain has a large impact on the initial ignition and thrust ratios \cite{nakka}. An example of a single hole configuration can be seen in figure \ref{fig:singlehole}, and more examples can be found on \url{http://www.nakka-rocketry.net/th_grain.html}, along with a general performance description. Depending on the surface areas and designs, the different grain's regression rate varies greatly over time. The regression rate will be proportional to the thrust, unless oxygen is the limiting factor. The generated thrust is directly proportional to the instantaneous burning area, and as this area increases, so does the thrust.
+
+			\begin{figure}
+				\centering
+				\includegraphics[width=\textwidth]{wagonwheel}
+				\caption{The wagon-wheel design used in all rocket tests concluded in this report. The large surface area allows combustion on a larger surface, which gives more effective combustion.}
+				\label{fig:wagonwheel}
+			\end{figure}
+
+		An alternative explanation to the pressure spike could therefore be a very fast increase in regression area. The grain's specifications from the previous tests are not mentioned, but a wagon--wheel design as seen in figure \ref{fig:wagonwheel} with several holes could allow ignition in single canals before all of them. This could allow hot pyrolytic fuel and oxygen to accumulate, causing an eventual explosion. The large surface area of the wagon--wheel design is allows for cleaner, more efficient combustion, and it is therefore the preferred setup for our experiments \cite{nakka}.
 
 	\subsubsection{Autoignition}
 
-		There are two types of ignition: Autoignition and piloted ignition. \cite[chapter 4, pp.~66]{principlesoffire} Piloted ignition is the process of flame propagation in a premixed fuel system, such as lighting a candle or starting a petrol engine. This is the usual way of igniting every day systems, however, MEOWTH uses the other type: Autoignition.
+		There are two types of ignition: Autoignition and piloted ignition \cite[chapter 4, pp.~66]{principlesoffire}. Piloted ignition is the process of flame propagation in a premixed fuel system, such as lighting a candle or starting a petrol engine. This is the usual way of igniting every day systems, however, MEOWTH uses the other type: Autoignition.
 
-		Autoignition occurs without a spark of flame present. The fuel must have a certain concentration and temperature, before spontaneously igniting. This temperature is lowered by rising oxygen concentration and pressure, which complicates setting a specific point of time of ignition. \cite{ASTMautoign} According the the MDF's datasheet \cite{mdfAIT}, autoignition occurs around \SIrange{220}{250}{\celsius}. This minimum temperature tells us when spontaneous combustion takes place, the question is then how quickly after reaching this temperature does the material ignite?
+		Autoignition occurs without a spark of flame present. The fuel must have a certain concentration and temperature, before spontaneously igniting. This temperature is lowered by rising oxygen concentration and pressure, which complicates setting a specific point of time of ignition \cite{ASTMautoign}. According the the MDF's datasheet \cite{mdfAIT}, autoignition occurs around \SIrange{220}{250}{\celsius}. This minimum temperature tells us when spontaneous combustion takes place, the question is then how quickly after reaching this temperature does the material ignite?
 
 		Autoignition time $t_\text{auto}$ for thick materials (thicker than $\SI{2}{mm}$) is given by:
 		\begin{align*}
 			t_\text{auto} &= C (k \rho c) \left[\frac{T_\text{auto} - T_\text{initial}}{\phi} \right]^2
 		\end{align*}
-		where $k$ is the thermal conductivity of the material, $C$ is a constant depending on the heat flux, but roughly equivalent to $0.785$ assuming no heat loss. \cite[chapter 4, pp.~71]{principlesoffire} $T_\text{auto}$ is the autoignition temperature and $T_\text{initial}$ is the starting temperature, and $\phi$ is the heat flux.
+		where $k$ is the thermal conductivity of the material, $C$ is a constant depending on the heat flux, but roughly equivalent to $0.785$ assuming no heat loss \cite[chapter 4, pp.~71]{principlesoffire}. $T_\text{auto}$ is the autoignition temperature and $T_\text{initial}$ is the starting temperature, and $\phi$ is the heat flux.
 
-		Back--of--the--envelope calculations shows that the autoignition time is on the order of magnitude $10^{-5}$, which is way faster than anything we should be able to measure. It is thus assumed to be far too small to have any real influence, compared to the autoignition temperature.
-
-
+		Back--of--the--envelope calculations shows that the autoignition time is on the order of magnitude $10^{-5}$, which is way faster than anything we should be able to measure. The temperature and pressure rise far too quickly for this to have an obvious effect on the ignition. It is thus assumed to be far too small to have any real influence, compared to the autoignition temperature.
 
 	\subsubsection{Combustion}
 
@@ -83,7 +100,7 @@
 			\begin{align}
 				\chem{C_3 H_4 O_2 + 3 O_2} &\rightarrow \chem{3 CO_2 + 2H_2O}
 			\end{align}
-		Energy released in this reaction heats up the chamber's fluids towards a design temperature of $\SI{2498}{K}$. Assuming a \emph{closed} chamber, the rise in temperature and amount of substance yields an exponential increase in pressure over time. This is not a desired property, as that would eventually lead to engine destruction. The accumulated decomposed and combusted material leaves through the rocket's throat, which allows the rocket to reach pressure-equilibrium. The throat's area is essential to the rocket's pressure and thus stability, hence the advance to the throat.
+		Energy released in this reaction heats up the chamber's fluids towards a design temperature of $\SI{2498}{K}$. Assuming a \emph{closed} chamber, the rise in temperature and amount of substance yields a rapid increase in pressure over time. This is not a desired property, as that would eventually lead to engine destruction. The accumulated decomposed and combusted material leaves through the rocket's throat, which allows the rocket to reach pressure-equilibrium. The throat's area is essential to the rocket's pressure and thus stability, hence the advance to the throat.
 
 \subsection{Throat}
 
@@ -93,13 +110,15 @@
 		\label{fig:crossthroat}
 	\end{figure}
 
-	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage called the throat, followed by a diverging section: The nozzle. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the flow of matter. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_t$ must be proportional to the density of the material, the velocity and the throat's area:
+	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage called the throat, followed by a diverging section: The nozzle. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the flow of matter. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_t$ must be proportional to the density of the material, the velocity and the throat's area according to \cite{nasacompflow}:
 		\begin{align}
 			\dot{m}_t &= \rho \cdot v_t \cdot A_t
-		\intertext{\cite{nasacompflow} The velocity $v_t$ is thus roughly proportional to the mass flow as the area and density are approximately constant in this case. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. This condition is satisfied when the mach number $M=1$. For an ideal compressible gas, this becomes:}
+		\end{align}
+		The velocity $v_t$ is thus roughly proportional to the mass flow as the area and density are approximately constant in this case. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. This condition is satisfied when the mach number $M=1$. For an ideal compressible gas, this becomes:
+		\begin{align}
 			\dot{m}_t &= \frac{A_t P_c}{\sqrt{T_t}} \sqrt{\frac{\gamma}{\text{R}}} \left(\frac{\gamma+1}{2}\right)^{-\frac{\gamma+1}{2(\gamma-1})}
 		\end{align}
-	Where $P_c$ is the pressure in the combustion chamber, $T_t$ is the temperature in the throat, $\gamma$ is the specific heat ratio and R is the gas constant. \cite{nasacompflow} Three outcomes are possible:
+	Where $P_c$ is the pressure in the combustion chamber, $T_t$ is the temperature in the throat, $\gamma$ is the specific heat ratio and R is the gas constant \cite{nasacompflow}. Three outcomes are possible:
 	\begin{align*}
 		\dot{m}_t < \dot{m}_{in} & ~,~ \text{less mass is coming out than is flowing "into" the rocket.} \\
 		\dot{m}_t = \dot{m}_{in} & ~,~ \text{mass outflow equilibrium.} \\
@@ -107,14 +126,14 @@
 	\end{align*}
 	The first outcome would yield increasing pressure until the rocket has burned all of it's fuel, or it explodes. The second option is what we know as a safe and steady rocket, assuming the designed mass flow equilibrium is within the rocket's boundaries. The final outcome will yield a slow decrease in pressure over time, until the rocket has been exhausted for material inside and combustion ceases. \fxnote{Passer det med masse?}
 
-	In order to describe the initial pressure spike it is necessary to not assume any of these conditions. The abrupt change from the first to the second condition is what is hypothesized to cause the spike in pressure. Therefore, simulating the mass flow out of the rocket is essential to our understanding of the phenomenon. This does however require knowledge of several key parameters within the rocket, which are difficult to calculate, unless some things are assumed, such as conservation of entropy. However, in order to combine this knowledge, we first have to look at the final piece:
+	In order to describe the initial pressure spike it is necessary to not assume any of these conditions. The abrupt change from the first to the second condition was initially hypothesized to cause the spike in pressure. Therefore, simulating the mass flow out of the rocket is essential to our understanding of the phenomenon. This does however require knowledge of several key parameters within the rocket, which are difficult to calculate, unless some things are assumed, such as conservation of entropy. However, in order to combine this knowledge, we first have to look at the final piece.
 
 \subsection{Nozzle}
 
-	The rocket nozzle's primary function is to channel the combusted propellant out of the rocket and accelerate it. The optimal nozzle maximizes the velocity of the exhaust, preferably to supersonic values. The most well-known nozzle is a convergent-divergent nozzle called a deLaval Nozzle, which performs all of these things through simple geometry. An important part of maximizing the nozzle's performance is ensuring that the flow stays isentropic. At optimal ratios, the flow is frictionless and adiabatic, which ensures entropy is conserved. Isentropic flow is considered to \emph{only} be dependent on the cross-sectional area of the nozzle that the fluid moves through. \cite{nakkanozz}
+	The rocket nozzle's primary function is to channel the combusted propellant out of the rocket and accelerate it. The optimal nozzle maximizes the velocity of the exhaust, preferably to supersonic values. The most well-known nozzle is a convergent-divergent nozzle called a deLaval Nozzle, which performs all of these things through simple geometry. An important part of maximizing the nozzle's performance is ensuring that the flow stays isentropic. At optimal ratios, the flow is frictionless and adiabatic, which ensures entropy is conserved. Isentropic flow is considered to \emph{only} be dependent on the cross-sectional area of the nozzle that the fluid moves through \cite{nakkanozz}.
 
 	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which acts as a reservoir of low-pressure gas between atmospheric pressure ($\SI{101.3}{kPa}$).
-	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over- and underexpanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket. \cite{robertnozzle}
+	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over- and underexpanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket \cite{robertnozzle}.
 
 \section{Heat Capacity}
 
@@ -132,9 +151,9 @@
 		\item{The fluid velocity inside the chamber is approximately zero, allowing us to assume stagnated pressure. The velocity is \emph{not} assumed to be zero when entering the throat and nozzle, however.}
 	\end{enumerate}
 
-	The assumption of isentropic flow stems from the idea that the process is reversible. The fluid will, after moving through the nozzle, have the same original values. The second law of thermodynamics states that reversible flow maintains entropy, and this allows us to calculate almost any value related to the rocket's flow. It is therefore an essential piece to the project. \cite{nakkanozz}
+	The assumption of isentropic flow stems from the idea that the process is reversible. The fluid will, after moving through the nozzle, have the same original values. The second law of thermodynamics states that reversible flow maintains entropy, and this allows us to calculate almost any value related to the rocket's flow. It is therefore an essential piece to the project \cite{nakkanozz}.
 
-	If supersonic flow is not achieved by gradual means, isentropic flow is not a valid assumption. If shock waves occur abruptly, isentropic flow is not a valid assumption. Hence, exit values are simulated before any normal or oblique shock relations occur. \cite{nasaisentrop}
+	If supersonic flow is not achieved by gradual means, isentropic flow is not a valid assumption. If shock waves occur abruptly, isentropic flow is not a valid assumption. Hence, exit values are simulated before any normal or oblique shock relations occur \cite{nasaisentrop}.
 
 	The simulation is based on four valuable equations: The conservation of energy, the continuity equation, the momentum equation and equation of state.
 

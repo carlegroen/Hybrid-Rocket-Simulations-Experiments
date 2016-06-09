@@ -58,3 +58,67 @@ figure(3)
     xlabel('Temperature [K]')
     ylabel('Pressure [bar]')
     legend('Pressure per temperature')
+    
+T_tot20 = importdata('T_totsim20.txt');
+T_tot60 = importdata('T_totsim60.txt');
+T_tot100 = importdata('T_totsim100.txt');
+T_tot140 = importdata('T_totsim140.txt');
+T_tot180 = importdata('T_totsim180.txt');
+T_tot220 = importdata('T_totsim220.txt');
+T_tot260 = importdata('T_totsim260.txt');
+T_tot300 = importdata('T_totsim300.txt');
+
+
+P_tot20 = importdata('P_totsim20.txt')/100;
+P_tot60 = importdata('P_totsim60.txt')/100;
+P_tot100 = importdata('P_totsim100.txt')/100;
+P_tot140 = importdata('P_totsim140.txt')/100;
+P_tot180 = importdata('P_totsim180.txt')/100;
+P_tot220 = importdata('P_totsim220.txt')/100;
+P_tot260 = importdata('P_totsim260.txt')/100;
+P_tot300 = importdata('P_totsim300.txt')/100;
+
+figure(4)
+    plot(tspan,B3PEPF*3)
+    hold on
+    plot(tspan2,P_tot20,'LineWidth',5)
+    hold on
+    plot(tspan2,P_tot60,'LineWidth',5)
+    hold on
+    plot(tspan2,P_tot100,'LineWidth',5)
+    hold on
+    plot(tspan2,P_tot140,'LineWidth',5)
+    hold on
+    plot(tspan2,P_tot180,'LineWidth',5)
+    hold on
+    plot(tspan2,P_tot220,'LineWidth',5)
+    hold on
+    plot(tspan2,P_tot260,'LineWidth',5)
+    hold on
+    plot(tspan2,P_tot300,'LineWidth',5)
+    hold on
+    axis([2.25 3 0 20])
+    xlabel('Time [s]')
+    ylabel('Pressure [bar]')
+    legend('Piezoelectric Pressure measurement of front chamber','Simulation with T_auto = 20C','Simulation with T_auto = 60C','Simulation with T_auto = 100C','Simulation with T_auto = 140C','Simulation with T_auto = 180C','Simulation with T_auto = 220C','Simulation with T_{auto} = 260C','Simulation with T_auto = 300C')
+    
+ figure(5)
+    plot(T_tot20,P_tot20)
+    hold on
+    plot(T_tot60,P_tot60)
+    hold on
+    plot(T_tot100,P_tot100)
+    hold on
+    plot(T_tot140,P_tot140)
+    hold on
+    plot(T_tot180,P_tot180)
+    hold on
+    plot(T_tot220,P_tot220)
+    hold on
+    plot(T_tot260,P_tot260)
+    hold on
+    plot(T_tot300,P_tot300)
+    hold on
+    xlabel('Temperature [K]')
+    ylabel('Pressure [bar]')
+    legend('Pressure per temperature with T_{auto} = 20^o C','Pressure per temperature with T_{auto} = 60^o C','Pressure per temperature with T_{auto} = 100^o C','Pressure per temperature with T_{auto} = 140^o C','Pressure per temperature with T_{auto} = 180^o C','Pressure per temperature with T_{auto} = 220^o C','Pressure per temperature with T_{auto} = 260^o C','Pressure per temperature with T_{auto} = 300^o C')   
