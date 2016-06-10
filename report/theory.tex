@@ -120,10 +120,16 @@
 \subsection{Throat}
 
 	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage called the throat, followed by a diverging section: The nozzle. The throat can be seen schematically on figure \ref{fig:delaval}. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the flow of matter. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_t$ must be proportional to the density of the material, the velocity and the throat's area according to \cite{nasacompflow}:
-		\begin{align}
+		\begin{align}\label{eq:mflow1}
 			\dot{m}_t &= \rho_t \cdot v_t \cdot A_t
+		\end{align}\fixme{A_t eller A_e?!?!?}
+		The velocity $v_t$ is thus roughly proportional to the mass flow as the area and density are approximately constant in this case. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. This condition is satisfied when the mach number $M=1$, or given by the pressure relationship from \cite{mechanicsoffluids}:
+		\begin{align}
+			\frac{P_e}{P_0} \leq \left(\frac{2}{\gamma+1}\right)^\frac{\gamma}{\gamma-1} \approx 0.56
 		\end{align}
-		The velocity $v_t$ is thus roughly proportional to the mass flow as the area and density are approximately constant in this case. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. This condition is satisfied when the mach number $M=1$. For an ideal compressible gas, this becomes:
+		where $\gamma$ is the isentropic expansion factor. As long as this relationship is not fulfilled, the mass--flow obeys equation \ref{eq:mflow1}
+
+		For an ideal compressible gas, this becomes:
 		\begin{align}
 			\dot{m}_t &= \frac{A_t P_c}{\sqrt{T_t}} \sqrt{\frac{\gamma}{\text{R}}} \left(\frac{\gamma+1}{2}\right)^{-\frac{\gamma+1}{2(\gamma-1})}
 		\end{align}
@@ -140,8 +146,8 @@
 \subsection{Nozzle}
 
 	\begin{figure}
-		\includegraphics[width=\textwidth]{delaval}
-		\caption{Schematic of a de Laval nozzle, where the green area is equivalent to the mixing chamber, and the red area is the nozzle's exit. Picture taken from \cite{wikidelaval}.}
+		\includegraphics[width=\textwidth]{delaval2}
+		\caption{Schematic of a de Laval nozzle, where the green area is equivalent to the mixing chamber, and the red area is the nozzle's exit. $x_1$ and $x_2$ are points where one could use isentropic relations to decide the rocket's conditions. Picture taken from \cite{wikidelaval}.}
 		\label{fig:delaval}
 	\end{figure}
 
@@ -176,14 +182,7 @@
 
 	The simulation is based on four valuable equations: The conservation of energy, the continuity equation, the momentum equation and equation of state.
 
-	\begin{figure}
-		\includegraphics[width=\textwidth]{elon2}
-		\caption{Isentropic flow between two points $x_1$ and $x_2$ in the rocket.}
-		\label{fig:isentropicflow}
-	\end{figure}
-
-
-	Conservation of energy requires that for adiabatic flow, between two any points $x_1$ and $x_2$, as seen in figure \ref{fig:isentropicflow}:
+	Conservation of energy requires that for adiabatic flow, between two any points $x_1$ and $x_2$, as seen in figure \ref{fig:delaval}:
 	\begin{align}
 		h_1 - h_2 & = \frac{1}{2} \left(v_2^2 - v_1^2 \right) = C_p (T_1 - T_2)
 		\intertext{where $h$ again is the enthalpy of the fluid, $v$ is the flow velocity and $C_p$ is the heat capacity, T is the fluid's temperature. From the continuity equation, we can find a pseudo-steady state from looking at the stagnation temperature in the chamber. Setting $v_2 = 0$ yields the stagnation temperature:}
@@ -213,4 +212,4 @@
 	\begin{align}
 		T &= \frac{H-PV}{C_{V,1} + C_{V,\dots} + C_{V_n}}
 	\end{align}
-	where $C_{V,1} \rightarrow C_{V_n}$ is the specific heat capacity for all molecules. A full description can be found in \cite{EESman}.
+	where $C_{V,1} \rightarrow C_{V_n}$ is the specific heat capacity for all molecules in the mixture. A full description can be found in \cite{EESman}.
