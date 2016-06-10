@@ -41,7 +41,7 @@
 		\label{fig:crosssect}
 	\end{figure}
 
-	From the left: The tall tank marked with a $1.$ contains the oxidizing agent, which is injected into the first part of the rocket. The oxidizing agent used is hydrogen peroxide in an $80\%$ concentration. Point $2.$ marks the place where the injecting nozzle is placed, which determines the rocket's mass flow rate. The longest part of the rocket, as seen on figure \ref{fig:crosssect} marked with $3.$, contains potassium permanganate engulfed in a flame retardant foam. The mixing of potassium permanganate and hydrogen peroxide rapidly creates large amounts of oxygen, which is forced through the rocket's second part: the grain chamber, marked with numer $4.$ The rocket's main fuel is plain Medium-Density Fiberboard (MDF), which resides here. The energy released during decomposition heats the wooden MDF grain, until temperatures reach MDF's autoignition point of 492K at atmospheric oxygen levels \cite{mdfAIT}. Around this point the fuel combusts, and the exhaust exits through the nozzle $6.$ after it has passed the mixing chamber $5.$.
+	From the left: The tall tank marked with a $1.$ contains the oxidizing agent, which is injected into the first part of the rocket. The oxidizing agent used is hydrogen peroxide in an $80\%$ concentration. Point $2.$ marks the place where the injecting nozzle is placed, which determines the rocket's mass flow rate. The longest part of the rocket, as seen on figure \ref{fig:crosssect} marked with $3.$, contains potassium permanganate engulfed in a flame retardant foam. The mixing of potassium permanganate and hydrogen peroxide rapidly creates large amounts of oxygen, which is forced through the rocket's second part: the grain chamber, marked with numer $4.$ The rocket's main fuel is plain Medium-Density Fiberboard (MDF), which resides here. The energy released during decomposition heats the wooden MDF grain, until temperatures reach MDF's autoignition point of 492K at atmospheric oxygen levels \cite{mdfAIT}. Around this point the fuel combusts, and the exhaust exits through the nozzle $6.$ after it has passed the mixing chamber $5$.
 
 	All calculations and considerations made in the report is in regard to this particular rocket. The following subsections each elaborate individual segment of the rocket, with the purpose of providing the necessary background knowledge to understand the ignition simulations and results. The explanation is given step by step, starting with injection and ending with exhaustion.
 
@@ -66,7 +66,7 @@
 		\begin{align}
 			P V &= n R T
 		\end{align}
-	Which is assumed to be valid as the gas is approximately stagnant in the mixing chamber \cite{atkins}.
+	Which is assumed to be valid as the gas is approximately stagnant in the mixing chamber \cite{atkins}. 
 	The ideal gas law is crucial in our description of the rocket. Describing the rocket's upstart phase requires coupling the changes in temperature $T$, pressure $P$ and amount of substance $n$. During injection and decomposition, combustion occurs simultaneously.
 
 	\subsection{Combustion Chamber}
@@ -107,7 +107,7 @@
 		\end{align*}
 		where $k$ is the thermal conductivity of the material, $C$ is a constant depending on the heat flux, but roughly equivalent to $0.785$ assuming no heat loss \cite{principlesoffire}. $T_\text{auto}$ is the autoignition temperature and $T_\text{initial}$ is the starting temperature, and $\phi$ is the heat flux.
 
-		Back--of--the--envelope calculations shows that the autoignition time is on the order of magnitude $10^{-5}$, which is way faster than anything we should be able to measure. The temperature and pressure rise far too quickly for this to have an obvious effect on the ignition. It is thus assumed to be far too small to have any real influence, compared to the autoignition temperature.
+		Back--of--the--envelope calculations shows that the autoignition time is on the order of magnitude $\SI{10^{-5}}{\s}$, which is way faster than anything we should be able to measure. The temperature and pressure rise far too quickly for this to have an obvious effect on the ignition. It is thus assumed to be far too small to have any real influence, compared to the autoignition temperature.
 
 	\subsubsection{Combustion}
 
@@ -119,7 +119,7 @@
 
 \subsection{Throat}
 
-	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage called the throat, followed by a diverging section: The nozzle. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the flow of matter. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_t$ must be proportional to the density of the material, the velocity and the throat's area according to \cite{nasacompflow}:
+	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage called the throat, followed by a diverging section: The nozzle. The throat can be seen schematically on figure \ref{fig:delaval}. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the flow of matter. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_t$ must be proportional to the density of the material, the velocity and the throat's area according to \cite{nasacompflow}:
 		\begin{align}
 			\dot{m}_t &= \rho \cdot v_t \cdot A_t
 		\end{align}
@@ -135,7 +135,7 @@
 	\end{align*}
 	The first outcome would yield increasing pressure until the rocket has burned all of it's fuel, or it explodes. The second option is what we know as a safe and steady rocket, assuming the designed mass flow equilibrium is within the rocket's boundaries. The final outcome will yield a slow decrease in pressure over time, until the rocket has been exhausted for material inside and combustion ceases. \fxnote{Passer det med masse?}
 
-	In order to describe the initial pressure spike it is necessary to not assume any of these conditions. The abrupt change from the first to the second condition was initially hypothesized to cause the spike in pressure. Therefore, simulating the mass flow out of the rocket is essential to our understanding of the phenomenon. This does however require knowledge of several key parameters within the rocket, which are difficult to calculate, unless some things are assumed, such as conservation of entropy. However, in order to combine this knowledge, we first have to look at the final piece.
+	In order to describe the initial pressure spike it is necessary to not assume any of these conditions. The abrupt change from the first to the second condition was initially hypothesized to cause the spike in pressure. Therefore, simulating the mass flow out of the rocket is essential to our understanding of the phenomenon. This does however require knowledge of several key parameters within the rocket, which are difficult to calculate, unless some things are assumed, such as conservation of entropy. However, in order to combine this knowledge, we first have to look at the final piece of theory.
 
 \subsection{Nozzle}
 
@@ -151,10 +151,14 @@
 	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over-- and under--expanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket \cite{robertnozzle}.
 
 \section{Heat Capacity}
-
- \begin{align}
-	 \gamma &= \frac{C_p}{C_v}
- \end{align}
+	
+	The rocket's internal energy can be approximated as a closed system, which changes by adding heat through combustion or decomposition. Heat capacity is a measurable physical quantity, which is proportional to the ratio of heat added to the system, to the resulting change in temperature. The heat capacity ratio is denoted by $\gamma$ (or $\kappa$ by mechanical engineers), and it is given by the equation:
+	 \begin{align}
+		 \gamma &= \frac{C_p}{C_v}
+	 \end{align}
+	$\gamma$ being the ratio between $C_p$, which is the heat capacity at constant pressure, and $C_v$ which is the heat capacity at constant volume. $\gamma$ is also known as the isentropic expansion factor, which is essential in the next section \cite{IntroFluidRobert}. 
+	
+	The heat capacity for various gases changes with temperature, albeit very little. 
 
 \section{Isentropic Flow}
 
