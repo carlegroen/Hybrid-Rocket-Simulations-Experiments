@@ -200,4 +200,17 @@
 		\intertext{Exit velocity and density yields the mass outflow per second:}
 		\dot{m}_\text{out} &= A_e \cdot v_e \cdot \rho_e
 	\end{align}
-	and knowing how much matter is flowing "into" the rocket (see injection and combustion chamber sections) yields the total enthalpy contained in the rocket at all times. Therefore, we can now approximate the temperature in the rocket's chamber, knowing the different material's abundances. Finding the temperature of the materials
+	and knowing how much matter is flowing "into" the rocket (see injection and combustion chamber sections) yields the total enthalpy contained in the rocket at all times. Therefore, we can now approximate the temperature in the rocket's chamber, knowing the different material's abundances. In general, the internal energy and temperature for a reversible process at constant volume is given from \cite{atkins}:
+	\begin{align}
+		dU &= C_V  dT
+	\end{align}
+	where $dU$ is the change internal energy, $C_V$ is the specific heat capacity at constant volume and $\Delta T$ is the change in temperature. Enthalpy in a homogenous system is given by $H = U + PV$ \cite{thermochemist}, where $P$ is the pressure and $V$ is the volume, thus yielding the temperature:
+	\begin{align}
+		U &= H - PV = C_V T\\
+		T &= \frac{H-PV}{C_V}
+	\end{align}
+	As the temperature rises for several different molecules at once, this becomes more complicated. To calculate this, a commercial software called \emph{EES} is used. The general gist of the solution is that
+	\begin{align}
+		T &= \frac{H-PV}{C_{V,1} + C_{V,\dots} + C_{V_n}}
+	\end{align}
+	where $C_{V,1} \rightarrow C_{V_n}$ is the specific heat capacity for all molecules. A full description can be found in \cite{EESman}.
