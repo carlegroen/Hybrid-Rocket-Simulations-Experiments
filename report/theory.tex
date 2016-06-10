@@ -66,7 +66,7 @@
 		\begin{align}
 			P V &= n R T
 		\end{align}
-	Which is assumed to be valid as the gas is approximately stagnant in the mixing chamber \cite{atkins}. 
+	Which is assumed to be valid as the gas is approximately stagnant in the mixing chamber \cite{atkins}.
 	The ideal gas law is crucial in our description of the rocket. Describing the rocket's upstart phase requires coupling the changes in temperature $T$, pressure $P$ and amount of substance $n$. During injection and decomposition, combustion occurs simultaneously.
 
 	\subsection{Combustion Chamber}
@@ -151,14 +151,14 @@
 	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over-- and under--expanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket \cite{robertnozzle}.
 
 \section{Heat Capacity}
-	
+
 	The rocket's internal energy can be approximated as a closed system, which changes by adding heat through combustion or decomposition. Heat capacity is a measurable physical quantity, which is proportional to the ratio of heat added to the system, to the resulting change in temperature. The heat capacity ratio is denoted by $\gamma$ (or $\kappa$ by mechanical engineers), and it is given by the equation:
 	 \begin{align}
 		 \gamma &= \frac{C_p}{C_v}
 	 \end{align}
-	$\gamma$ being the ratio between $C_p$, which is the heat capacity at constant pressure, and $C_v$ which is the heat capacity at constant volume. $\gamma$ is also known as the isentropic expansion factor, which is essential in the next section \cite{IntroFluidRobert}. 
-	
-	The heat capacity for various gases changes with temperature, albeit very little. 
+	$\gamma$ being the ratio between $C_p$, which is the heat capacity at constant pressure, and $C_v$ which is the heat capacity at constant volume. $\gamma$ is also known as the isentropic expansion factor, which is essential in the next section \cite{IntroFluidRobert}.
+
+	The heat capacity ratio for various gases changes with temperature, albeit very little \cite{FluidFrank}. In order to simplify the calculations, the heat capacity ratio for the rocket's fluids is assumed to be constant at $\gamma = 1.2$. This is a rather crude simplification, as the heat capacity ratio can change with upwards $\pm 0.1$ in the temperature and pressure ranges we are working. Complications with the simulation software EES did not allow a continuous recalculation in every iteration, however. 
 
 \section{Isentropic Flow}
 
