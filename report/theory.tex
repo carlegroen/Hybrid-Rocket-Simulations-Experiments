@@ -122,12 +122,12 @@
 	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage called the throat, followed by a diverging section: The nozzle. The throat can be seen schematically on figure \ref{fig:delaval}. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the flow of matter. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_t$ must be proportional to the density of the material, the velocity and the throat's area according to \cite{nasacompflow}:
 		\begin{align}\label{eq:mflow1}
 			\dot{m}_t &= \rho_t \cdot v_t \cdot A_t
-		\end{align}\fixme{A_t eller A_e?!?!?}
+		\end{align}\fixme{$A_t$ eller $A_e$?!?!?}
 		The velocity $v_t$ is thus roughly proportional to the mass flow as the area and density are approximately constant in this case. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. This condition is satisfied when the mach number $M=1$, or given by the pressure relationship from \cite{mechanicsoffluids}:
 		\begin{align}
 			\frac{P_e}{P_0} \leq \left(\frac{2}{\gamma+1}\right)^\frac{\gamma}{\gamma-1} \approx 0.56
 		\end{align}
-		where $\gamma$ is the isentropic expansion factor. As long as this relationship is not fulfilled, the mass--flow obeys equation \ref{eq:mflow1}
+		where $P_e$ is the exit pressure (equal to ambient), $P_0$ is the chamber's pressure and $\gamma$ is the isentropic expansion factor. As long as this relationship is not fulfilled, the mass--flow obeys equation \ref{eq:mflow1}
 
 		For an ideal compressible gas, this becomes:
 		\begin{align}
