@@ -1,71 +1,22 @@
 % !TEX root = main.tex
 \chapter{Rocket Tests}
 
-	MEOWTH II was tested at Peter Madsen's space laboratory in Copenhagen, on the 3rd to the 4th of May 2016 by Team Rocket of Navitas. The whole ordeal has spawned several articles, which the interested reader can find in appendix \ref{App:B}.
+	MEOWTH II was tested at Peter Madsen's space laboratory in Copenhagen, on the 3rd to the 4th of May 2016 by Team Rocket of Navitas. The whole ordeal has spawned several articles, which the interested reader can find in appendix \ref{App:A}. A  complete logbook along with a firing procedure can be found in appendix \ref{App:B}.
 
-	
+	The test setup can be seen in figure \ref{fig:rocketpic}, and the first burn can be seen on the front page. The test stand consists of a metal fixture that holds the rocket in a vertical position, with the hydrogen--peroxide tank upright. The metal fixture keeps the rocket from moving under tests. Sandbags are placed on top in order to stop fast--moving shrapnel, in case of a complete engine destruction. Further safety instructions can also be found in appendix \ref{App:B}.
+
+	The purpose of the experiments was to measure the variations in pressure throughout the rocket. The following will be an analysis of the data collected, along with a brief description of the sensors involved. A group consisting of three students also took video footage of the tests in order to analyze the rocket's shock diamonds, this will not be treated here, however.
+
+	\section{Equipment}
+
+	Eight pressure sensors were mounted on the rocket, ranging over three measurement frequencies: $\SI{250}{\Hz}$, $\SI{2000}{\Hz}$ and $\SI{10000}{\Hz}$. \fxnote{20khz??} One of each sensor was placed in both the rocket's mixing chamber and decomposition chamber. The two remaining sensors, a slow and a fast, were mounted by the hydrogen--peroxide tank. All sensors are connected to the data--logging software LabVIEW on a local computer, which was controlled by an external computer placed inside the safety--submarine.
+
+	Two manometers were placed before and after the pressurization valve, in order to manually check the tank's pressure before ignition.
 
 
 % Testing of the rocket engine ensued at "Raketmadsens Rumlaboratorium" in Copenhagen on the 3rd to the 4th of may 2016. The tests were carried out by me in company by my advisor Gorm Bruun Andresen, and seven other students from Navitas.
 %
-% \section{Logbook}
-%
-% 	\subsection{Day 1}
-%
-% 		The test setup consists of the rocket engine with several piezoelectric and piezoresistive pressure sensors, as well as a force sensor at the back. The pressure sensors sit at various sites on the rocket, allowing us to detect any pressure waves travelling through the chamber, and measuring the rocket's pressure throughout the firing. The force sensor (henceforth mentioned as ForceLink) measures the rocket's thrust.
-%
-% 		The equipment is set up with LabVIEW, which Gorm spent most of the first day configuring. The rocket setup was tested on day 1, otherwise, the day consisted mostly of setting up the tent and establishing a remote connection to a new computer and installing the necessary programs.
-%
-% 	\subsection{Day 2}
-%
-% 		\begin{figure}
-% 			\centering
-% 			\includegraphics[width=\textwidth]{decompchamber}
-% 			\caption{Foam permeated with \chem{KMnO_4} dust inserted into the decomposition chamber, inside a tube of MDF, in order to avoid accumulation of liquid \chem{H_2 O_2}}
-% 			\label{fig:kmno4foam}
-% 		\end{figure}
-%
-% 		Day 2 started early with preliminary water tests at 12:13, 12:33, 12:57 and 13:21. Two injectors, a low-flow and a high-flow, were brought along and tests of both ensued. Following the preliminary water tests, the rocket chambers were assembled and foam permeated with \chem{KMnO_4} was prepared and inserted into the decomposition chamber, as seen in figure \ref{fig:kmno4foam}. Initial rocket test started almost two hours after the final water test at 15:20 with $\SI{1.5}{\liter}$ of \chem{H_2 O_2} at $\SI{24}{\bar}$ pressure. After the test, the stand was quite smokey as the rocket flanges were \emph{not} tightened correctly and an O-ring was missing. A leak between the grain's chamber and the after-burn chamber seared the underside of the protective casing, thankfully without harming any of the measurement equipment. After the small upset, three additional tests were carried out. \fxnote{EVT. Lav tabel over tests i stedet for at skrive det}
-%
-% 		The three first tests were all done with the low-flow nozzle with a total radius of $\SI{1.5}{\milli \metre}$ per injector hole, of which there were three. The final tests were carried out with the large injector with hole radii of $\SI{2}{\milli \metre}$. The second test happened at 17:22 with a \chem{H_2 O_2} pressure of $\SI{24}{\bar}$, the next at 18:32 with $\SI{31}{bar}$. The final test was done at 20:19, with a \chem{H_2 O_2} pressure of $\si{31}{bar}$, with the high-flow nozzle.
-%
-% 		All tests were done with the same hexagonal patterned grain, with masses pre- and postburn noted.
-%
-% 		The day concluded with Peter Madsen using our test rig to test his own rocket based on a catalytic pack, with no combustion present.
-%
-% 		The firing procedure was meticulously planned out, in order to avoid any eventual dangers. Thus, including a such list is essential for future rocketeers:
-%
-% \section{Firing Procedure}
-% 	Launching the rocket requires several crucial steps in order to safely ignite the engine. Safety is the number one priority, thus, a stepwise checklist is necessary.
-%
-% PRELAUNCH
-% \begin{enumerate}
-%   \itemsep0em
-%   \item Insert grain
-%   \item Insert foam permeated with \chem{KMnO_4}
-%   \item Assemble rocket chambers
-%   \item Establish remote access to control computer
-%   \item Ensure measurement options are correct
-%   \item Check signal and restart ManuWare
-%   \item Create new data-log file
-% \end{enumerate}
-% ALL CLEAR AREA EXCEPT FUEL RESPONSIBLE PERSON
-% \begin{enumerate}
-%   \itemsep0em
-%   \item Equip \chem{H_2 O_2} safety equipment
-%   \item Fill tank with \chem{H_2 O_2}
-%   \item Pressurize tank
-%   \item CLEAR THE AREA
-%   \item Start data-collection and cameras
-%   \item Arm the rocket
-%   \item Fire the rocket
-%   \item Stop data-collection and cameras
-%   \item Remove external pressure compressor
-%   \item Depressurize tank
-%   \item Area is safe
-% \end{enumerate}
-%
-% 	Peter Madsen and his assistant Stefan Eisenknappl are the only two people present when loading the rocket with \chem{H_2 O_2}. The procedure is executed from start to end at each launch, and has several areas where it can be improved if time permits.
+
 %
 % 	The control computer should be replaced by a microcontroller, such as an arduino or raspberry pi. As of this project, the data bandwidth is too low in either alternative, but it is a viable solution in the near future.
 %
