@@ -43,7 +43,22 @@ figure(1)
  T_tot = importdata('T_totsim.txt');
  P_tot = importdata('P_totsim.txt');
  tspan2 = linspace(2.29,2.49,length(P_tot));
-     
+  
+ 
+n_3 =          0.1517830457071962
+V_chamber = 3;
+R           = 8.3145;           %[kJ/(mol*K)]
+T_amb = 273.15+20;    
+gamma = 1.2;
+T_end = 2225+273;
+T_sim = linspace(T_amb,T_end,200);
+%v_max = sqrt(gamma*R*T_sim/M_dot_3);
+T_end = 3500;
+T_sim = linspace(T_amb,T_end,1000);
+P_sim = n_3*R*T_sim/V_chamber;
+ 
+ 
+ 
  figure(2)
     plot(tspan,B3PEPF*3)
     hold on
@@ -100,7 +115,7 @@ figure(4)
     axis([2.25 3 0 20])
     xlabel('Time [s]')
     ylabel('Pressure [bar]')
-    legend('Piezoelectric Pressure measurement of front chamber','Simulation with T_auto = 20C','Simulation with T_auto = 60C','Simulation with T_auto = 100C','Simulation with T_auto = 140C','Simulation with T_auto = 180C','Simulation with T_auto = 220C','Simulation with T_{auto} = 260C','Simulation with T_auto = 300C')
+    legend('Piezoelectric Pressure measurement of front chamber','Simulation with T_{auto} = 20C','Simulation with T_{auto} = 60C','Simulation with T_{auto} = 100C','Simulation with T_{auto} = 140C','Simulation with T_{auto} = 180C','Simulation with T_{auto} = 220C','Simulation with T_{auto} = 260C','Simulation with T_{auto} = 300C')
     
  figure(5)
     plot(T_tot20,P_tot20)
@@ -119,6 +134,9 @@ figure(4)
     hold on
     plot(T_tot300,P_tot300)
     hold on
+    plot(T_sim,P_sim/100)
     xlabel('Temperature [K]')
     ylabel('Pressure [bar]')
     legend('Pressure per temperature with T_{auto} = 20^o C','Pressure per temperature with T_{auto} = 60^o C','Pressure per temperature with T_{auto} = 100^o C','Pressure per temperature with T_{auto} = 140^o C','Pressure per temperature with T_{auto} = 180^o C','Pressure per temperature with T_{auto} = 220^o C','Pressure per temperature with T_{auto} = 260^o C','Pressure per temperature with T_{auto} = 300^o C')   
+
+
