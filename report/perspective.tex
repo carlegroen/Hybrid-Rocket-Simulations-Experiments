@@ -1,6 +1,16 @@
 % !TEX root = main.tex
-\chapter{Future Prospects}
+\chapter{Future Prospects}\label{cha:perspective}
 
 After intitial combustion, the resulting shockwave may move faster than the flame velocity, thus quickly extinguishing the flame before resuming a steady state. This may be an explanation for the small dip in observed pressure around the initial spike seen in the test. Thus, this is someone worthwhile calculating if moving on further with the project. The solution is probably contained in the book \emph{The Principles of Fire Behaviour}, as found in the bibliography \cite{principlesoffire}.
 
 Simulating the change in heat capacity is also essential in order to get a more precise result. Therefore, this is an obvious place to expand on the already established code.
+
+The control computer should be replaced by a microcontroller, such as an arduino or raspberry pi. As of this project, the data bandwidth is too low in either alternative, but it is a viable solution in the near future.
+
+In order to reduce reload time, adding more piping to the christmas tree is necessary, as air leaving the \chem{H_2 O_2} tank flows back, spilling the \chem{H_2 O_2} concentration out of the funnel. When a suitable final design is done, welding the pieces together is a superior alternative to using bolts and nuts. Welding removes any chance hydrogenperoxide leaking, damaging the rocket and measurement equipment.
+
+The rocket's arming and controlpad needs to be set up in a smarter, more convenient way. The ideal setup is to have a single controlbox, that when starts data-collection as soon as the rocket is armed, and notes when it is fired. This would allow everything to be controlled from a single box, with measurements being saved to a raspberry pi situated at the base of the rocket. Data can then instantaneously be read from a secondary computer through cable or wireless connection. As the rocket's final destination is space, continuously improving data-transfer and making the rocket an individual unit is paramount.
+
+Removing additional noise from measurements can easily be done avoiding ground-loops. The ignition controlpad was grounded differently than the other equipment, which introduced another way for electricity to run to ground.
+
+The propellant MDF--grain proved to work very well. However, the glue holding the many pieces together showed to retard the flame--spreading greatly, perhaps impairing the rocket's burn--rate. Every test showed searing of the outside of the grain, except where the glue had penetrated the wood. In future optimizations, this may be cause for concern.

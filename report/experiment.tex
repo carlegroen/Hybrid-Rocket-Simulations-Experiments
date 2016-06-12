@@ -9,22 +9,43 @@
 
 	\section{Equipment}
 
-	Eight pressure sensors were mounted on the rocket, ranging over three measurement frequencies: $\SI{250}{\Hz}$, $\SI{2000}{\Hz}$ and $\SI{10000}{\Hz}$. \fxnote{20khz??} One of each sensor was placed in both the rocket's mixing chamber and decomposition chamber. The two remaining sensors, a slow and a fast, were mounted by the hydrogen--peroxide tank. All sensors are connected to the data--logging software LabVIEW on a local computer, which was controlled by an external computer placed inside the safety--submarine.
+	Eight pressure sensors were mounted on the rocket, ranging over three measurement frequencies: $\SI{250}{\Hz}$, $\SI{2000}{\Hz}$ and $\SI{10000}{\Hz}$. \fxnote{20khz??} One of each sensor was placed in both the rocket's mixing chamber and decomposition chamber. The two remaining sensors, a slow and a fast, were mounted by the hydrogen--peroxide tank. The measurement equipment was connected to a DAta Acquisition (DAQ) system from National Instruments, which in turn was connected to the data--logging software LabVIEW on a nearby slave unit. The slave unit was remotely controlled by a computer inside the safety--submarine, which allowed ignition and data--logging nearby the test site without being in danger.
 
 	Two manometers were placed before and after the pressurization valve, in order to manually check the tank's pressure before ignition.
+
+	A more thorough discussion of project improvements can be found in chapter \ref{cha:perspective}.
+
+	\section{Experimental Procedure}
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{decompchamber}
+		\caption{Foam permeated with \chem{KMnO_4} dust inserted into the decomposition chamber, inside a tube of MDF, in order to avoid accumulation of liquid \chem{H_2 O_2}}
+		\label{fig:kmno4foam2}
+	\end{figure}
+
+	MEOWTH II was built specifically with the intent of being fast to rearm. The large flanges allows quick unbolting, and the hydrogen--peroxide tank has a quick-fill valve. The only swappable objects which changes the combustion rate is the decomposition nozzle and the fuel--grain. The tank's pressurization changed throughout the experiments, which greatly influences the flow--rate of hydrogen--peroxide. An analysis of the tank's pressure's influence on flow--rate has not been executed, however, that could be a subject for a future project. The wagon--wheel fuel grain design (see figure \ref{fig:wagonwheel}) was kept throughout the experiments, which makes the decomposition nozzle the only variable in the experiments.
+
+	Apart from changing larger parts of the experimental setup, reloading proceduce requires swapping the rocket's interior. In figure \ref{fig:kmno4foam2}, the decomposition chamber is visible with its inner MDF--shell casing, filled with \chem{KMnO_4}--permeated foam. The inner casing prevents liquid puddles from not building up and causing trouble, in the form of instant vapourization into large quantities of gas.
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{wagonwheelburnt}
+		\caption{Wagon-wheel shaped grain as seen in figure \ref{fig:wagonwheel} after a test. Notice the wagon-wheel pattern has been burnt through, and instead a "flower"--pattern is present. Experimentally this can be seen as a small drop in pressure as seen in the results.}
+		\label{fig:burntgrain}
+	\end{figure}
+
+	Swapping the wagon-wheel grain with an identical copy after every test is essential to receive consistent results, as it is worn greatly during combustion. As seen in figure \ref{fig:burntgrain}, the grain's inner walls are burnt through about two--thirds through every test. This greatly influences the grain's regression--rate, making new-- and old--grain experiments vastly different.
+
+	Preliminary tests were done with water, as to check the newly made decomposition nozzle. 
+
 
 
 % Testing of the rocket engine ensued at "Raketmadsens Rumlaboratorium" in Copenhagen on the 3rd to the 4th of may 2016. The tests were carried out by me in company by my advisor Gorm Bruun Andresen, and seven other students from Navitas.
 %
 
 %
-% 	The control computer should be replaced by a microcontroller, such as an arduino or raspberry pi. As of this project, the data bandwidth is too low in either alternative, but it is a viable solution in the near future.
-%
-% 	In order to reduce reload time, adding more piping to the christmas tree is necessary, as air leaving the \chem{H_2 O_2} tank flows back, spilling the \chem{H_2 O_2} concentration out of the funnel. When a suitable final design is done, welding the pieces together is a superior alternative to using bolts and nuts. Welding removes any chance hydrogenperoxide leaking, damaging the rocket and measurement equipment.
-%
-% 	The rocket's arming and controlpad needs to be set up in a smarter, more convenient way. The ideal setup is to have a single controlbox, that when starts data-collection as soon as the rocket is armed, and notes when it is fired. This would allow everything to be controlled from a single box, with measurements being saved to a raspberry pi situated at the base of the rocket. Data can then instantaneously be read from a secondary computer through cable or wireless connection. As the rocket's final destination is space, continuously improving data-transfer and making the rocket an individual unit is paramount.
-%
-% Removing additional noise from measurements can easily be done avoiding ground-loops. The ignition controlpad was grounded differently than the other equipment, which introduced another way for electricity to run to ground.
+
 %
 % \section{Results}
 %
