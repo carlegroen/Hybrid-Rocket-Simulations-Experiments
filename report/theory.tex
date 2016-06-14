@@ -89,7 +89,7 @@
 			\begin{figure}
 				\centering
 				\includegraphics[width=\textwidth]{wagonwheel}
-				\caption{The wagon-wheel design used in all rocket tests concluded in this report. The large surface area allows combustion on a larger surface, which gives more effective combustion.}
+				\caption{The wagon-wheel design used in all rocket tests concluded in this report. The large surface area allows combustion to be more efficient.}
 				\label{fig:wagonwheel}
 			\end{figure}
 
@@ -122,7 +122,7 @@
 	The throat begins at the end of the combustion chamber, at the opposite side of where injection occurs. The throat is characterized by the convergence of the rocket chamber into a small passage called the throat, followed by a diverging section: The nozzle. The throat can be seen schematically on figure \ref{fig:delaval}. The throat's cross-sectional area is what determines the maximum flow rate, as the speed of sound restricts the flow of matter. In order to calculate the amount of matter contained in the chamber, it is crucial to know how much is flowing out. Due to conservation of mass, the flow rate $\dot{m}_t$ must be proportional to the density of the material, the velocity and the throat's area according to \cite{nasacompflow}:
 		\begin{align}\label{eq:mflow1}
 			\dot{m}_t &= \rho_t \cdot v_t \cdot A_t
-		\end{align}\fixme{$A_t$ eller $A_e$?!?!?}
+		\end{align}
 		The velocity $v_t$ is thus roughly proportional to the mass flow as the area and density are approximately constant in this case. Hence, as the matter approaches the speed of sound, the flow rate out of the rocket stagnates. This is called mass flow choking, which must be at a maximum when the velocity is equal to the speed of sound. This condition is satisfied when the mach number $M=1$, or given by the pressure relationship from \cite{mechanicsoffluids}:
 		\begin{align}
 			\frac{P_e}{P_0} \leq \left(\frac{2}{\gamma+1}\right)^\frac{\gamma}{\gamma-1} \approx 0.56
@@ -210,6 +210,6 @@
 	\end{align}
 	As the temperature rises for several different molecules at once, this becomes more complicated. To calculate this, a commercial software called \emph{EES} is used. The general gist of the solution is that
 	\begin{align}
-		T &= \frac{H-PV}{C_{V,1} + C_{V,\dots} + C_{V_n}}
+		T &= \frac{H-PV}{C_{V,1} + C_{V,2} + ... + C_{V_n}}
 	\end{align}
 	where $C_{V,1} \rightarrow C_{V_n}$ is the specific heat capacity for all molecules in the mixture. A full description can be found in \cite{EESman}.

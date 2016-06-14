@@ -1,5 +1,5 @@
 % !TEX root = main.tex
-\chapter{Rocket Tests}
+\chapter{Rocket Tests}\label{cha:experimental}
 
 	MEOWTH II was tested at Peter Madsen's space laboratory in Copenhagen, on the 3rd to the 4th of May 2016 by Team Rocket of Navitas. The whole ordeal has spawned several articles, which the interested reader can find in appendix \ref{App:A}. A  complete logbook along with a firing procedure can be found in appendix \ref{App:B}.
 
@@ -9,7 +9,7 @@
 
 	\section{Equipment}
 
-	Eight pressure sensors were mounted on the rocket, ranging over three measurement frequencies: $\SI{250}{\Hz}$, $\SI{2000}{\Hz}$ and $\SI{10000}{\Hz}$. \fxnote{20khz??} One of each sensor was placed in both the rocket's mixing chamber and decomposition chamber. The two remaining sensors, a slow and a fast, were mounted by the hydrogen--peroxide tank. The measurement equipment was connected to a DAta Acquisition (DAQ) system from National Instruments, which in turn was connected to the data--logging software LabVIEW on a nearby slave unit. The slave unit was remotely controlled by a computer inside the safety--submarine, which allowed ignition and data--logging nearby the test site without being in danger.
+	Eight pressure sensors were mounted on the rocket, ranging over three measurement frequencies: $\SI{250}{\Hz}$, $\SI{2000}{\Hz}$ and $\SI{20000}{\Hz}$. All were measured at $\SI{20000}{\Hz}$, which means the slower sensors are oversampled. One of each sensor was placed in both the rocket's mixing chamber and decomposition chamber. The two remaining sensors, a slow and a fast, were mounted by the hydrogen--peroxide tank. The measurement equipment was connected to a DAta Acquisition (DAQ) system from National Instruments, which in turn was connected to the data--logging software LabVIEW on a nearby slave unit. The slave unit was remotely controlled by a computer inside the safety--submarine, which allowed ignition and data--logging nearby the test site without being in danger.
 
 	Two manometers were placed before and after the pressurization valve, in order to manually check the tank's pressure before ignition.
 
@@ -40,7 +40,20 @@
 	Preliminary tests were done with water, as to check the newly made decomposition nozzle. Testing with water also showed leaks, making it easier to tighten and seal the piping before loading the toxic high--concentration hydrogen--peroxide. After preliminary tests, four tests were concluded and will be discussed below.
 
 	\section{Results}
+	
+	All tests used $\SI{1.3}{\liter}$ of hydrogen--peroxide, making the injection rate easy to calculate assuming linear flow.	In figure \ref{fig:burnresults} the resulting pressure over time graphs are seen. As seen in the figure, higher tank pressure appears to influence the spike's height. It is questionable whether or not the spike in test three and four are representative, as data on the top appears "flattened", as if the pressure went further than the set measurement range for a brief amount of time. After the spike, the graphs flatten out and slowly decrease until they all drop slightly in pressure. This drop is most likely due to the grain's design. The wagon-wheel design seen in figure \ref{fig:wagonwheel} has a large surface area for combustion. After burning for some time the grain's wall regress far enough to create a larger cavity, but drop in overall surface area as the walls collapses to a flower--pattern as seen in figure \ref{fig:burntgrain}. As the walls are burnt through, the surface area decreases and in turn, so does the regression--rate and combustion rate. This reduces the chamber pressure by approximately $20\%$. 
+	
+	As the rocket is ignited noise starts to arise. This gives a clear indicator of when rocket ignition happens, but at the cost of accuracy. The noise was an unwanted feature, which stems from an accidental ground-loop in the test--setup. The rocket burns are all zeroed around the noise which shows when ignition starts after opening the ball--valve. 
+	
+	The first test shows a significantly slower ignition than the three others, which is most likely due to the flanges not being tightened correctly, leaking gas out the sides. Test 2 and 3 have almost identical ignition timing, although their tank--pressures differ by $\SI{7}{\bar}$. Their injectors are identical, which makes the change in spike size and timing dependent on the mass flow. It also appears that test 2 and 3 have a duration difference of almost 1 second, which is given only by the change in pressure. 
+	The final test have identical tank--pressure to test 3, but with an injector with higher flow--rate. The size of the spikes are seemingly identical, however, upon further inspection it appears that the peaks are flattened due to a too low sample--range. Thus, the peak heights are not exactly representative. Interestingly, the time before ignition happens is shorter with the higher flow--rate injector. It is also quite visible that test 4 concludes much faster than the rest, after only approximately 4 seconds from initial injection, compared to the usual 6 to 8 seconds.
 
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{burnresults}
+		\caption{Results from the four tests. Test one through four was done with pressures of $\SI{24}{\bar}, \SI{24}{\bar}, \SI{31}{\bar}$ and $\SI{31}{\bar}$ respectively. The last test was done with a larger injector.}
+	\label{fig:burnresults}
+	\end{figure}
 
 
 % Testing of the rocket engine ensued at "Raketmadsens Rumlaboratorium" in Copenhagen on the 3rd to the 4th of may 2016. The tests were carried out by me in company by my advisor Gorm Bruun Andresen, and seven other students from Navitas.

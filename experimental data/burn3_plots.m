@@ -96,26 +96,32 @@ P_tot300 = importdata('P_totsim300.txt')/100;
 figure(4)
     plot(tspan,B3PEPF*3)
     hold on
-    plot(tspan2,P_tot20,'LineWidth',5)
+        plot(tspan2,P_tot300,'LineWidth',2)
     hold on
-    plot(tspan2,P_tot60,'LineWidth',5)
+        plot(tspan2,P_tot260,'LineWidth',2)
     hold on
-    plot(tspan2,P_tot100,'LineWidth',5)
+        plot(tspan2,P_tot220,'LineWidth',2)
     hold on
-    plot(tspan2,P_tot140,'LineWidth',5)
+        plot(tspan2,P_tot180,'LineWidth',2)
     hold on
-    plot(tspan2,P_tot180,'LineWidth',5)
+        plot(tspan2,P_tot140,'LineWidth',2)
     hold on
-    plot(tspan2,P_tot220,'LineWidth',5)
+        plot(tspan2,P_tot100,'LineWidth',2)
     hold on
-    plot(tspan2,P_tot260,'LineWidth',5)
+         plot(tspan2,P_tot60,'LineWidth',2)
     hold on
-    plot(tspan2,P_tot300,'LineWidth',5)
+        plot(tspan2,P_tot20,'LineWidth',2)
     hold on
+
+
+
+
+
+
     axis([2.25 3 0 20])
     xlabel('Time [s]')
     ylabel('Pressure [bar]')
-    legend('Piezoelectric Pressure measurement of front chamber','Simulation with T_{auto} = 20C','Simulation with T_{auto} = 60C','Simulation with T_{auto} = 100C','Simulation with T_{auto} = 140C','Simulation with T_{auto} = 180C','Simulation with T_{auto} = 220C','Simulation with T_{auto} = 260C','Simulation with T_{auto} = 300C')
+    legend('Measured Pressure','T_{auto} = 300^o C','T_{auto} = 260^o C','T_{auto} = 220^o C','T_{auto} = 180^o C','T_{auto} = 140^o C','T_{auto} = 100^o C','T_{auto} = 60^o C','T_{auto} = 20^o C')
     
  figure(5)
     plot(T_tot20,P_tot20)
@@ -137,6 +143,41 @@ figure(4)
     plot(T_sim,P_sim/100)
     xlabel('Temperature [K]')
     ylabel('Pressure [bar]')
-    legend('Pressure per temperature with T_{auto} = 20^o C','Pressure per temperature with T_{auto} = 60^o C','Pressure per temperature with T_{auto} = 100^o C','Pressure per temperature with T_{auto} = 140^o C','Pressure per temperature with T_{auto} = 180^o C','Pressure per temperature with T_{auto} = 220^o C','Pressure per temperature with T_{auto} = 260^o C','Pressure per temperature with T_{auto} = 300^o C')   
+    legend('T_{auto} = 20^o C','T_{auto} = 60^o C','T_{auto} = 100^o C','T_{auto} = 140^o C','T_{auto} = 180^o C','T_{auto} = 220^o C','T_{auto} = 260^o C','T_{auto} = 300^o C')   
 
+P_dot01 = importdata('P_totsimmdot0.1.txt')/100;
+P_dot02 = importdata('P_totsimmdot0.2.txt')/100;
+P_dot03 = importdata('P_totsimmdot0.3.txt')/100;
+P_dot04 = importdata('P_totsimmdot0.4.txt')/100;
+P_dot05 = importdata('P_totsimmdot0.5.txt')/100;
+P_dot015 = importdata('P_totsimmdot0.15.txt')/100;
+P_dot025 = importdata('P_totsimmdot0.25.txt')/100;
+P_dot035 = importdata('P_totsimmdot0.35.txt')/100;
+P_dot045 = importdata('P_totsimmdot0.45.txt')/100;
 
+figure(6)
+    plot(tspan,B3PEPF*3)
+    hold on
+    plot(tspan2,P_dot01,'LineWidth',2)
+    hold on
+    plot(tspan2,P_dot015,'LineWidth',2)
+    hold on
+    plot(tspan2,P_dot02,'LineWidth',2)
+    hold on
+    plot(tspan2,P_dot025,'LineWidth',2)
+    hold on
+    plot(tspan2,P_dot03,'LineWidth',2)
+    hold on
+    plot(tspan2,P_dot035,'LineWidth',2)
+    hold on
+    plot(tspan2,P_dot04,'LineWidth',2)
+    hold on
+    plot(tspan2,P_dot045,'LineWidth',2)
+    hold on
+    plot(tspan2,P_dot05,'LineWidth',2)
+    hold on
+    axis([2.25 3 0 20])
+    
+    xlabel('Time [s]')
+    ylabel('Pressure [bar]')
+    legend('Measured P/t','mass flow = 0.1 kg s^{-1}','mass flow = 0.15 kg s^{-1}','mass flow = 0.2 kg s^{-1}','mass flow = 0.25 kg s^{-1}','mass flow = 0.3 kg s^{-1}','mass flow = 0.35 kg s^{-1}','mass flow = 0.4 kg s^{-1}','mass flow = 0.45 kg s^{-1}','mass flow = 0.5 kg s^{-1}')
