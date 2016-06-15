@@ -93,6 +93,8 @@ P_tot220 = importdata('P_totsim220.txt')/100;
 P_tot260 = importdata('P_totsim260.txt')/100;
 P_tot300 = importdata('P_totsim300.txt')/100;
 
+vexitstd = importdata('vexitstd.txt')
+
 figure(4)
     plot(tspan,B3PEPF*3)
     hold on
@@ -112,6 +114,7 @@ figure(4)
     hold on
         plot(tspan2,P_tot20,'LineWidth',2)
     hold on
+        plot(tspan2,5*vexitstd/350,'LineWidth',2)
 
 
 
