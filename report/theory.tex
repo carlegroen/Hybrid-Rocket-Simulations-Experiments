@@ -1,7 +1,7 @@
 % !TEX root = main.tex
 \chapter{Theory}
 
-	Understanding the theory behind the rocket's flow requires a basic knowledge of rockets. Therefore, the first theoretical segment concerns basic rocketry, followed by a more advanced segment of nozzle theory.
+	Understanding the theory behind the rocket's flow and ignition requires a basic knowledge of rockets. Therefore, the first theoretical segment concerns basic rocketry, followed by more advanced theory on every part of the rocket.
 
 \section{Basic Rocket Science}
 
@@ -16,7 +16,7 @@
 
 	Rocket engines work by obtaining thrust in accordance with Newton's third law. The internal combustion chamber accelerates fluids through a propelling nozzle to high speeds. The fluid is most often a gas created from mixing fuel and oxidizing components in a the combustion chamber. The exhaust is accelerated to supersonic speeds by expansion in the nozzle, which forces the engine in the opposite direction.
 
-	Most rockets used today are liquid rockets which store their propellant and oxidizing component in separate tanks. The liquid fuel is then forced into the combustion chamber for consumption. Solid-fuel rockets contain propellant prepared with a fixed fuel and oxidizing component. The fuel is called 'grain', and the storage compartment for the grain is the combustion chamber. A hybrid rocket is the mixture between the two. Most often, hybrid rockets contain a solid fuel, or 'grain' and liquid or gaseous oxygen, thus earning the name hybrid engine. Variations of this engine type do exist, but this configuration is the most often used \cite{rockProp}. Solid oxidizers are uncommon as they are problematic and have worse performance than liquid oxidizers.
+	Most rockets used today are liquid rockets which store their propellant and oxidizing component in separate tanks. The liquid fuel is then forced into the combustion chamber for consumption. Solid-fuel rockets contain propellant prepared with a fixed fuel and oxidizing component. The fuel is called "grain", and the storage compartment for the grain is the combustion chamber. A hybrid rocket is the mixture between the two. Most often, hybrid rockets contain a solid fuel, or grain and liquid or gaseous oxygen, thus earning the name hybrid engine. Variations of this engine type do exist, but this configuration is the most often used \cite{rockProp}. Solid oxidizers are uncommon as they are problematic and have worse performance than liquid oxidizers.
 
 	Liquid and hybrid engines both use injectors to disperse oxygen and/or propellant into the combustion chamber. For a hybrid engines, this means spreading oxygen to the grains surface to allow combustion.
 
@@ -41,7 +41,7 @@
 		\label{fig:crosssect}
 	\end{figure}
 
-	From the left: The tall tank marked with a $"1"$ contains the oxidizing agent, which is injected into the first part of the rocket, marked with $"3"$. The oxidizing agent used is hydrogen peroxide in an $80\%$ concentration. Point $"2"$ marks the place where the injecting nozzle is placed, which determines the rocket's mass flow rate. The longest part of the rocket, as seen on figure \ref{fig:crosssect} marked with $"3"$, contains potassium permanganate engulfed in a flame retardant foam. The mixing of potassium permanganate and hydrogen peroxide rapidly creates large amounts of oxygen, which is forced through the rocket's second part: the grain chamber, marked with number $"4"$. The rocket's main fuel is plain Medium-Density Fiberboard (MDF), which resides here. The energy released during decomposition heats the wooden MDF grain, until temperatures reach MDF's autoignition point of 492K at atmospheric oxygen levels \cite{mdfAIT}. Around this point the fuel combusts, and the exhaust exits through the nozzle $"6"$ after it has passed the mixing chamber $"5"$.
+	From the left: The tall tank marked with a $"1"$ contains the oxidizing agent, which is injected into the first part of the rocket, marked with $"3"$. The oxidizing agent used is hydrogen peroxide in an $80\%$ concentration. $"2"$ marks the place where the injecting nozzle is placed, which determines the rocket's oxidizer mass flow rate. The longest part of the rocket, as seen on figure \ref{fig:crosssect} marked with $"3"$, contains potassium permanganate engulfed in a flame retardant foam. The mixing of potassium permanganate and hydrogen peroxide rapidly creates large amounts of oxygen, which is forced through the rocket's second part: the grain chamber, marked with number $"4"$. The rocket's main fuel is plain Medium-Density Fiberboard (MDF), which resides here. The energy released during decomposition heats the wooden MDF grain, until temperatures reach MDF's autoignition point of 492K at atmospheric oxygen levels \cite{mdfAIT}. Around this point the fuel combusts, and the exhaust exits through the nozzle $"6"$ after it has passed the mixing chamber $"5"$.
 
 	All calculations and considerations made in the report is in regard to this particular rocket. The following subsections each elaborate individual segments of the rocket, with the purpose of providing the necessary background knowledge to understand the ignition simulations and results. The explanation is given step by step, starting with injection and ending with exhaustion.
 
@@ -52,7 +52,7 @@
 		\begin{align}
 			\dot{m}_\text{injection} = \SI{0.246}{\kg\per\s}.
 		\end{align}
-	in accordance to data collected at the recent launch \cite{Alex2015rapport}.
+	in accordance to data collected at the recent launch and previous year's: \cite{Alex2015rapport}. The mass--flow rate will be changed in later simulations, however.
 
 	The oxidizing agent is injected into the first chamber where decomposition into \chem{O_2} is aided by potassium permanganate. The hydrogen-peroxide (\chem{H_2O_2}) decomposes into dioxygen (\chem{O_2}) as it reacts with the potassium permanganate (\chem{K Mn O_4}), which is encased in a flame retardant foam. The balanced chemical redox reaction is as follows:
 		\begin{align}
@@ -60,7 +60,7 @@
 		\end{align}
 	The specific enthalpy released during decomposition is:
 		\begin{align}
-			\Delta h_\text{decomposition} &= \frac{\Delta H_\chem{H_2O_2}}{\text{M}_\chem{H_2O_2}}
+			\Delta h_\text{decomposition} &= \frac{\Delta H_\chem{H_2O_2}}{\text{M}_\chem{H_2O_2}} = \SI{2886}{\kJ\per\kg}
 		\end{align}
 	Where $\Delta H$ is the change in enthalpy. The energy released heats the grain's surface to autoignition temperatures of approximately $\SI{220}{\celsius}$ in this extremely oxygen-rich environment. The increased temperature increases the pressure, in accordance to the ideal-gas law:
 		\begin{align}
@@ -100,7 +100,7 @@
 
 		Autoignition occurs without a spark of flame present. The fuel must have a certain concentration and temperature, before spontaneously igniting. This temperature is lowered by rising oxygen concentration and pressure, which complicates setting a specific point of time of ignition \cite{ASTMautoign}. According the the MDF's datasheet \cite{mdfAIT}, autoignition occurs around \SIrange{220}{250}{\celsius}. This minimum temperature tells us when spontaneous combustion takes place, the question is then how quickly after reaching this temperature does the material ignite?
 
-		Autoignition time $t_\text{auto}$ for thick materials (thicker than $\SI{2}{mm}$) is given by:
+		Autoignition time $t_\text{auto}$ is the time it takes our grain to ignite after reaching auto--ignition temperatures. For thick materials (thicker than $\SI{2}{mm}$), the auto--ignition time is given by:
 		\begin{align*}
 			t_\text{auto} &= C (k \rho c) \left[\frac{T_\text{auto} - T_\text{initial}}{\phi} \right]^2
 		\end{align*}
@@ -114,6 +114,10 @@
 			\begin{align}
 				\chem{C_3 H_4 O_2 + 3 O_2} &\rightarrow \chem{3 CO_2 + 2H_2O}
 			\end{align}
+		The specific enthalpy released during combustion is given from \cite{enthalpymdf}:
+		\begin{align}
+		\Delta h_\text{combustion} &= \SI{18000}{\kJ\per\kg}
+		\end{align}
 		Energy released in this reaction heats up the chamber's fluids towards a design temperature of $\SI{2498}{K}$. Assuming a \emph{closed} chamber, the rise in temperature and amount of substance yields a rapid increase in pressure over time. This is not a desired property, as that would eventually lead to engine destruction. The accumulated decomposed and combusted material leaves through the rocket's throat, which allows the rocket to reach pressure-equilibrium. The throat's area is essential to the rocket's pressure and thus stability, hence the advance to the throat.
 
 \subsection{Throat}
@@ -126,21 +130,19 @@
 		\begin{align}
 			\frac{P_e}{P_0} \leq \left(\frac{2}{\gamma+1}\right)^\frac{\gamma}{\gamma-1} \approx 0.56
 		\end{align}
-		where $P_e$ is the exit pressure (equal to ambient), $P_0$ is the chamber's pressure and $\gamma$ is the isentropic expansion factor. As long as this relationship is not fulfilled, the mass--flow obeys equation \ref{eq:mflow1}
-
-		For an ideal compressible gas, this becomes:
+		where $P_e$ is the exit pressure (equal to ambient), $P_0$ is the chamber's pressure and $\gamma$ is the isentropic expansion factor. As long as this relationship is not fulfilled, the mass--flow obeys equation \ref{eq:mflow1}. When the condition \emph{is} fulfilled, it starts obeying another equation, and for an ideal compressible gas this becomes:
 		\begin{align}
 			\dot{m}_t &= \frac{A_t P_c}{\sqrt{T_t}} \sqrt{\frac{\gamma}{\text{R}}} \left(\frac{\gamma+1}{2}\right)^{-\frac{\gamma+1}{2(\gamma-1})}
 		\end{align}
-	Where $P_c$ is the pressure in the combustion chamber, $T_t$ is the temperature in the throat, $\gamma$ is the specific heat ratio and R is the gas constant \cite{nasacompflow}. Three outcomes are possible:
+	Where $P_c$ is the pressure in the combustion chamber, $T_t$ is the temperature in the throat, $\gamma$ is the specific heat ratio and R is the gas constant \cite{nasacompflow}. For an isentropically flowing fluid, there are three possible outcomes:
 	\begin{align*}
 		\dot{m}_t < \dot{m}_{in} & ~,~ \text{less mass is coming out than is flowing "into" the rocket.} \\
 		\dot{m}_t = \dot{m}_{in} & ~,~ \text{mass outflow equilibrium.} \\
 		\dot{m}_t > \dot{m}_{in} & ~,~ \text{more mass is flowing out than is being created.}
 	\end{align*}
-	The first outcome would yield increasing pressure until the rocket has burned all of it's fuel, or it explodes. The second option is what we know as a safe and steady rocket, assuming the designed mass flow equilibrium is within the rocket's boundaries. The final outcome will yield a slow decrease in pressure over time, until the rocket has been exhausted for material inside and combustion ceases. \fxnote{Passer det med masse?}
+	The first outcome would yield increasing pressure until the rocket has burned all of it's fuel, or it explodes. The second option is what we know as a safe and steady rocket, assuming the designed mass flow equilibrium is within the rocket's boundaries. The final outcome will yield a slow decrease in pressure over time, until the rocket has been exhausted for material inside and combustion ceases.
 
-	In order to describe the initial pressure spike it is necessary to not assume any of these conditions. The abrupt change from the first to the second condition was initially hypothesized to cause the spike in pressure. Therefore, simulating the mass flow out of the rocket is essential to our understanding of the phenomenon. This does however require knowledge of several key parameters within the rocket, which are difficult to calculate, unless some things are assumed, such as conservation of entropy. However, in order to combine this knowledge, we first have to look at the final piece of theory.
+	In order to describe the initial pressure spike it is necessary to not assume any of these conditions. The abrupt change from the first to the second condition was initially hypothesized to cause the spike in pressure. Therefore, simulating the mass flow out of the rocket is essential to our understanding of the phenomenon. This does however require knowledge of several key parameters within the rocket, which are difficult to calculate, unless some things are assumed, such as conservation of entropy (isentropic flow) as mentioned briefly. This will be discussed further below in section \ref{sec:isentropicflow}.
 
 \subsection{Nozzle}
 
@@ -150,22 +152,21 @@
 		\label{fig:delaval}
 	\end{figure}
 
-	The rocket nozzle's primary function is to channel the combusted propellant out of the rocket and accelerate it. The optimal nozzle maximizes the velocity of the exhaust, preferably to supersonic values. The most well-known nozzle is a convergent-divergent nozzle called a de Laval Nozzle, which performs all of these things through simple geometry. Such a nozzle can be seen on figure \ref{fig:delaval}, where the combustion chamber is to the left, and the exhaust is to the right. The flow's velocity increases from green to red in the direction of the flow. An important part of maximizing the nozzle's performance is ensuring that the flow stays isentropic. Isentropic flow requires that the flow is frictionless and adiabatic, which ensures entropy is conserved. Isentropic flow is considered to \emph{only} be dependent on the cross-sectional area of the nozzle that the fluid moves through \cite{nakkanozz}. This allows calculation of any variable in any place, given some initial conditions.
+	The rocket nozzle's primary function is to channel the combusted propellant out of the rocket and accelerate it. The optimal nozzle maximizes the velocity of the exhaust, preferably to supersonic speeds. The most well-known nozzle is a convergent-divergent nozzle called a de Laval Nozzle, which performs all of these things through simple geometry. Such a nozzle can be seen on figure \ref{fig:delaval}, where the combustion chamber is to the left, and the exhaust is to the right. The flow's velocity increases from green to red in the direction of the flow. An important part of maximizing the nozzle's performance is ensuring that the flow stays isentropic. Isentropic flow requires that the flow is frictionless and adiabatic, which ensures entropy is conserved. Isentropic flow is considered to \emph{only} be dependent on the cross-sectional area of the nozzle that the fluid moves through \cite{nakkanozz}. This allows calculation of any variable in any place, given some initial conditions.
 
-	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which act as a reservoir of low-pressure gas between atmospheric pressure ($\SI{101.3}{kPa}$)
-	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the plume can be over-- and under--expanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket \cite{robertnozzle}.
+	As the fluid is pushed through the throat it is highly pressurized. The nozzle is in contact with the surroundings, which act as a reservoir of low-pressure gas between atmospheric pressure ($\SI{101.3}{kPa}$)	and no pressure (in space!), depending on the rocket's whereabouts. The expansion of course depends on the surrounding pressure, but in general, the fiery jet--plume can be over-- and under--expanded and ambient. Ambient is the preferred expansion of the plume, where the exhaust gas is in pressure equilibrium with the surrounding air. If the exhaust has the same pressure as the surroundings, the gas is optimally expanded, and provides the maximum amount of thrust to the rocket \cite{robertnozzle}. As thrust is not of great importance during ignition, further discussion is beyond the scope of this report.
 
 \section{Heat Capacity}
 
-	The rocket's internal energy can be approximated as a closed system, which changes by adding heat through combustion or decomposition. Heat capacity is a measurable physical quantity, which is proportional to the ratio of heat added to the system, to the resulting change in temperature. The heat capacity ratio is denoted by $\gamma$ (or $\kappa$ by mechanical engineers), and it is given by the equation:
+	The rocket's internal energy can be approximated as a closed system, which changes by adding heat through combustion or decomposition. Heat capacity is a measurable physical quantity, which is proportional to the ratio of heat added to the system, to the resulting change in temperature. The heat capacity \emph{ratio} is denoted by $\gamma$ (or $\kappa$ by mechanical engineers), and it is given by the equation:
 	 \begin{align}
 		 \gamma &= \frac{C_P}{C_V}
 	 \end{align}
 	$\gamma$ being the ratio between $C_P$, which is the heat capacity at constant pressure, and $C_V$ which is the heat capacity at constant volume. $\gamma$ is also known as the isentropic expansion factor, which is essential in the next section \cite{IntroFluidRobert}.
 
-	The heat capacity ratio for various gases changes with temperature, albeit very little \cite{FluidFrank}. In order to simplify the calculations, the heat capacity ratio for the rocket's fluids is assumed to be constant at $\gamma = 1.2$. This is a rather crude simplification, as the heat capacity ratio can change with upwards $\pm 0.1$ in the temperature and pressure ranges we are working. Complications with the simulation software EES did not allow a continuous recalculation in every iteration, however.
+	The heat capacity ratio for various gases changes with temperature, by about ten percent in the rocket's range \cite{FluidFrank}. In order to simplify the calculations, the heat capacity ratio for the rocket's fluids is assumed to be constant at $\gamma = 1.2$. This is a rather crude simplification, as the heat capacity ratio can change with upwards $\pm 0.1$ in the temperature and pressure ranges we are working. Complications with the simulation software EES did not allow a continuous recalculations without causing a lot troubles with the script. Fluctuating heat capacity is thus not a part of the simulation, but it would be an obvious improvement to the simulation.
 
-\section{Isentropic Flow}
+\section{Isentropic Flow}\label{sec:isentropicflow}
 
 	In order to effectively describe the rocket's behavior, we have to assume a few things:
 	\begin{enumerate}[topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
@@ -175,7 +176,7 @@
 		\item{The fluid velocity inside the chamber is approximately zero, allowing us to assume stagnated pressure. The velocity is \emph{not} assumed to be zero when entering the throat and nozzle, however.}
 	\end{enumerate}
 
-	The assumption of isentropic flow stems from the idea that the process is reversible. The fluid will after moving through the nozzle and returning to initial conditions have the same original values. The second law of thermodynamics states that reversible flow maintains entropy, and this allows us to calculate almost any value related to the rocket's flow. It is therefore an essential piece to the project \cite{nakkanozz}.
+	The assumption of isentropic flow stems from the idea that the process is reversible. The fluid will after moving through the nozzle, and returning to initial conditions, have the same original values. The second law of thermodynamics states that reversible flow maintains entropy, and this allows us to calculate almost any value related to the rocket's flow. It is therefore an essential piece to the project \cite{nakkanozz}.
 
 	If supersonic flow is not achieved by gradual means, isentropic flow is not a valid assumption. If shock waves occur abruptly, isentropic flow is not a valid assumption. Hence, exit values are simulated before any normal or oblique shock relations occur \cite{nasaisentrop}.
 
@@ -184,7 +185,7 @@
 	Conservation of energy requires that for adiabatic flow, between two any points $x_1$ and $x_2$, as seen in figure \ref{fig:delaval}:
 	\begin{align}
 		h_1 - h_2 & = \frac{1}{2} \left(v_2^2 - v_1^2 \right) = C_P (T_1 - T_2)
-		\intertext{where $h$ again is the enthalpy of the fluid, $v$ is the flow velocity and $C_p$ is the heat capacity, T is the fluid's temperature. From the continuity equation, we can find a pseudo-steady state from looking at the stagnation temperature in the chamber. Setting $v_2 = 0$ yields the stagnation temperature:}
+		\intertext{where $h$ again is the enthalpy of the fluid, $v$ is the flow velocity and $C_P$ is the heat capacity, T is the fluid's temperature. From the continuity equation, we can find a pseudo-steady state from looking at the stagnation temperature in the chamber. Setting $v_2 = 0$ yields the stagnation temperature:}
 		T_0 &= T + \frac{v^2}{2 C_P}
 		\intertext{This yields several key relationships between stagnation properties for pressure, density and temperature according to \cite{turbomac}:}
 		\frac{T_0}{T} & = \left(\frac{P_0}{P}\right)^{\frac{\gamma-1}{\gamma}} = \left(\frac{\rho_0}{\rho}\right)^{\gamma-1}
@@ -211,4 +212,4 @@
 	\begin{align}
 		T &= \frac{H-PV}{C_{V,1} + C_{V,2} + ... + C_{V,n}}
 	\end{align}
-	where $C_{V,1} \rightarrow C_{V_n}$ is the specific heat capacity for all molecules in the mixture. A full description can be found in \cite{EESman}.
+	where $C_{V,1} \rightarrow C_{V_n}$ is the specific heat capacity for all molecules in the mixture. A full description of how it is computed can be found in \cite{EESman}.
