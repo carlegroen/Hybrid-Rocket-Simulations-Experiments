@@ -94,6 +94,13 @@ P_tot260 = importdata('P_totsim260.txt')/100;
 P_tot300 = importdata('P_totsim300.txt')/100;
 
 vexitstd = importdata('vexitstd.txt')
+ntotstd = importdata('ntotstd.txt')
+mdotstd = importdata('mdotstd.txt')
+
+figure(666)
+    %plot(tspan2,ntotstd)
+    %hold on
+    plot(tspan2,mdotstd)
 
 figure(4)
     plot(tspan,B3PEPF*3)
