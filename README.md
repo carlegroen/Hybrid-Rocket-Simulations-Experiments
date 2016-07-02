@@ -4,9 +4,12 @@ The following contains a bachelor's thesis with the main intent of explaining wh
 
 Several news articles were done on the project. Below are some of them attached:
 
-ing.dk/blog/katalytisk-aktivt-besoeg-183974
+[I'm an inline-style link](https://www.google.com)
 
-ingenioer.au.dk/aktuelt/nyheder/nyhed/artikel/studerende-vil-sende-raket-ud-i-rummet/
+
+[Peter Madsen's article on our visit](ing.dk/blog/katalytisk-aktivt-besoeg-183974)
+
+[Aarhus University's article on the project](ingenioer.au.dk/aktuelt/nyheder/nyhed/artikel/studerende-vil-sende-raket-ud-i-rummet/)
 
 [![TV2 Go' Morgen Danmark interview](http://img.youtube.com/vi/YS0iT8jm7lo/0.jpg)](http://www.youtube.com/watch?v=YS0iT8jm7lo)
 
