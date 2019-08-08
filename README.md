@@ -1,4 +1,4 @@
-#A Hybrid Rocket Engine Simulation: A Bachelor's Thesis
+# A Hybrid Rocket Engine Simulation: A Bachelor's Thesis
 
 The following contains a bachelor's thesis with the main intent of explaining why the often seen pressure spikes in the rocket's starting phase occur. This is done via simulations in Matlab, combined with thermodynamical solutions being carried out in Engineering Equation Solver (EES).
 
